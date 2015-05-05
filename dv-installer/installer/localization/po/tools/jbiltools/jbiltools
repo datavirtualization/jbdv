@@ -1,0 +1,646 @@
+#!/usr/bin/perl -w
+#use strict;
+
+#
+# jbitools - JBoss Installer Langpack Tools.
+#
+# Modified:        2009-08-21
+# Author:          Caius Chance <cchance@redhat.com>, Sean Flanigan <sflaniga@redhat.com>
+# Version:         0.6
+#
+# NOTE: this version uses XML::LibXML.  On RHEL, this can be installed with "yum install perl-XML-LibXML"
+# also: Tie::IxHash - "yum install perl-Tie-IxHash"
+# and XML::Simple "yum install perl-XML-Simple"
+
+
+
+# Libraries.
+#
+use XML::LibXML;
+#use Getopt::Std;
+use Getopt::Long;
+use Tie::IxHash;
+use XML::Simple;
+
+# Flag for test POT. if test_pot == 1 then msgid = msgstr.
+$test_pot = 0;
+
+my $xs = XML::Simple->new();
+
+#
+# Main flow. Redirection by arguments.
+#
+sub main() {
+	# main data structure.
+	tie my %jbi_ds, Tie::IxHash;
+	# my $type, $if, $of;
+
+	# gets command-line arguments.
+	GetOptions(
+		"type=s" => \$type,	# operation to perform (see below)
+		"if=s" => \$if,		# input file
+#		"of=s" => \$of,		# output file
+	);
+
+	# redirectors of arguments.
+	%types = (
+		#install.xml -> langpack xml (with header/footer):
+		'ii'    => sub{ins_indiv($if, \%jbi_ds)},
+		#install.xml -> langpack xml (no header/footer):
+		'im'    => sub{ins_merge($if, \%jbi_ds)},
+		#general interface xml -> langpack xml (with header/footer):
+		'li'    => sub{lng_indiv($if, \%jbi_ds)},
+		#general interface xml -> langpack xml (no header/footer):
+		'lm'    => sub{lng_merge($if, \%jbi_ds)},
+		#userInputSpecs.xml -> langpack xml (with header/footer):
+		'ui'    => sub{uis_indiv($if, \%jbi_ds)},
+		#userInputSpecs.xml -> langpack xml (no header/footer):
+		'um'    => sub{uis_merge($if, \%jbi_ds)},
+		#langpack xml -> pot:
+		'm'     => sub{jbi2pot($if, \%jbi_ds)},
+		#translated po file  -> langpack xml:
+		'p'     => sub{po_indiv($if)},
+		#outputs langpack xml header:
+		'h'     => sub{xml_head()},
+		#outputs langpack xml footer:
+		'f'     => sub{xml_foot()},
+		#help:
+		'help'  => sub{help_out()},
+	);
+	
+	# redirects as per arguments.
+	if ($types{$type}) {
+		$types{$type}->();
+	} else {
+		help_out();
+	}
+}
+
+#
+# ds_add() - adds entry into data structure.
+#
+# Params:
+#  $_[0] - location of the translatable string source. eg "../../install.xml:189"
+#  $_[1] - translatable string id within JBoss.
+#  $_[2] - key of the data structure hash (original string in English).
+#  $_[3] - reference of data structure.
+#
+# Return schema:
+#  $ds_entry {jbi_id:String, jbi_loc}
+#
+sub ds_add {
+	# allocates parameters.
+	my ($loc, $jbi_id, $ds_key, $jbi_ds) = @_;
+	
+	# concat data if entry exists.
+	if (exists($jbi_ds->{$ds_key})) {
+		$jbi_ds->{$ds_key}{jbi_loc} = $jbi_ds->{$ds_key}{jbi_loc} . ' ' .
+						$loc;
+		if (!($jbi_ds->{$ds_key}{jbi_id} =~ /$jbi_id/)) {
+			$jbi_ds->{$ds_key}{jbi_id} = $jbi_ds->{$ds_key}{jbi_id} . ' ' .
+						$jbi_id;
+		}
+	} else {
+		$jbi_ds->{$ds_key} = {jbi_loc => $loc, jbi_id => $jbi_id};
+	}
+}
+
+#
+# hash_ins() - hashes install.xml pack data.
+#
+# Params:
+#  $_[0] - input parser.
+#  $_[1] - filename of the input file source.
+#  $_[2] - data structure.
+#
+# Input sample:
+#  <pack .. id="STRING" ..>
+#  ..
+#    <description>STRING</desctiption>
+#  ..
+#  </pack>
+#
+# Return schema:
+#  $jbi_ds {key:String, value:address of $ds_entry}
+#    $ds_entry {jbi_id:String, jbi_loc}
+#
+sub hash_ins {
+	my ($pack, $ds_key);
+	my ($in_par, $in_file, $in_ds) = @_;
+	foreach $pack ($in_par->getElementsByTagName('pack')) {
+		$pack_id = $pack->getAttribute('id');
+		
+#		# parses pack name.
+#		$ds_key =~ s/ +/ /g;
+#		$ds_key =~ s/"/\\"/g;
+#		ds_add($in_file . ":" . $lineno, $pack_id, $ds_key, $in_ds);
+
+		# parses pack description.
+		my $desc = $pack->getElementsByTagName('description')->item(0);
+		$lineno = $desc->line_number();
+		$ds_key = $desc->textContent;
+		$ds_key =~ s/\n//g;
+		$ds_key =~ s/ +/ /g;
+		$ds_key =~ s/"/\\"/g;
+		ds_add($in_file . ":" . $lineno, $pack_id . '.description', $ds_key
+			, $in_ds);
+	}
+	return $in_ds;
+}
+
+#
+# hash_uis() - hashes data.
+#
+# Params:
+#  $_[0] - input parser.
+#  $_[1] - filename of the input file source.
+#  $_[2] - data structure.
+#
+# Schema:
+#  <field .. id="STRING" txt="STRING" ..>
+#  ..
+#    <description .. id="STRING" txt="STRING" ..>
+#     ..
+#    </description>
+#     ..
+#    <spec .. id="STRING" txt="STRING" ..>
+#     ..
+#       <choice .. id="STRING" txt="STRING" ..>
+#        ..
+#       </choice>
+#     ..
+#       <pwd .. id="STRING" txt="STRING" ..>
+#        ..
+#       </pwd>
+#     ..
+#    </spec>
+#     ..
+#    <validator .. id="STRING" txt="STRING" ..>
+#     ..
+#    <validator>
+#     ..
+#  </field>
+#
+# Return schema:
+#  $jbi_ds {key:String, value:address of $ds_entry}
+#    $ds_entry {jbi_id:String, jbi_lineno, jbi_file}
+#
+sub hash_uis {
+	($in_par, $in_file, $in_ds) = @_;
+	foreach $field ($in_par->getElementsByTagName('field')) {
+		# adds all field translatable strings into data structure.
+		tag_add($field, $in_file, $in_ds);
+		foreach $description ($field
+					->getElementsByTagName('description')) {
+
+			# adds all description translatable strings into data 
+			# structure.
+			tag_add($description, $in_file, $in_ds);
+		}
+		foreach $spec ($field->getElementsByTagName('spec')) {
+
+			# adds all field spec strings into data structure.
+			tag_add($spec, $in_file, $in_ds);
+			foreach $choice ($spec->getElementsByTagName('choice'))
+			 {
+
+				# adds all choice translatable strings into data
+				# structure.
+				tag_add($choice, $in_file, $in_ds);
+			}
+			foreach $pwd ($spec->getElementsByTagName('pwd')) {
+
+				# adds all field pwd strings into data
+				# structure.
+				tag_add($pwd, $in_file, $in_ds);
+			}
+		}
+		foreach $validator ($field->getElementsByTagName('validator')) {
+			
+			# adds all validator translatable strings into data
+			# structure.
+			tag_add($validator, $in_file, $in_ds);
+		}
+	}
+	return $in_ds;
+}
+
+#
+# hash_xml() - hashes xml-like langpack data.
+#
+# Params:
+#  $_[0] - input parser.
+#  $_[1] - filename of the input file source.
+#  $_[2] - data structure.
+#
+# Input sample:
+#  <langpack>
+#    ..
+#    <str .. id="Something" txt="Something"/>
+#    ..
+#  </langpack>
+#
+# Return schema:
+#  $jbi_ds {key:String, value:address of $ds_entry}
+#  $ds_entry {jbi_id:String, jbi_lineno, jbi_file}
+#
+sub hash_xml { #Loc
+	my $strs;
+	my $ds_key;
+	my $ds;
+	my ($in_par, $in_file, $in_ds) = @_;
+	foreach $strs ($in_par->getElementsByTagName('str')) {
+		($ds_key = $strs->getAttribute('txt')) =~ s/"/&quot\;/g;
+		$ds_key =~ s/\\([^n])/\/$1/g;
+		$ds_key =~ s/ +/ /g;
+		if ($ds_key) {
+			$loc = $strs->getAttribute('loc');
+			if (!$loc) {
+				$loc = $in_file . ":" . $strs->line_number();
+			}
+			ds_add($loc, $strs->getAttribute('id'), $ds_key, $in_ds);
+		}
+	}
+	return $in_ds;
+}
+
+#
+# help_out() - outputs help documenations.
+#
+sub help_out {
+	print
+		  "\n" . 'Usage: jbiltools --type=[TYPES] --if=[INPUTFILE]' . "\n"
+		. ' where TYPES are im, ii, lm, li, um, ui, m, p, h, f, help.' . "\n" . "\n"
+		. 'JBoss Installer Langpack Tools (jbiltools) is a tool for localization' . "\n"
+		. ' related files conversion.' . "\n" . "\n"
+		. 'Types:' . "\n"
+		. "\t" . 'im    -  Converts install.xml into Langpack XML.' . "\n"
+		. "\t" . '          (for merging: no "langpack" tags)' . "\n" . "\n"
+		. "\t" . 'ii    -  Converts install.xml into Langpack XML.' . "\n"
+		. "\t" . '          (with "langpack" tags)' . "\n" . "\n"
+		. "\t" . 'lm    -  Converts interface XML into Langpack XML.' . "\n"
+		. "\t" . '          (for merging: no "langpack" tags)' . "\n" . "\n"
+		. "\t" . 'li    -  Converts interface XML into Langpack XML.' . "\n"
+		. "\t" . '          (with "langpack" tags)' . "\n" . "\n"
+		. "\t" . 'um    -  Converts userInputSpecs.xml into Langpack XML.' . "\n"
+		. "\t" . '          (for merging: no "langpack" tags)' . "\n" . "\n"
+		. "\t" . 'ui    -  Converts userInputSpecs.xml into Langpack XML.' . "\n"
+		. "\t" . '          (with "langpack" tags)' . "\n" . "\n"
+		. "\t" . 'm     -  Converts integrated Langpack XML into POT.' . "\n" . "\n"
+		. "\t" . 'p     -  Converts PO into Langpack XML.' . "\n" . "\n"
+		. "\t" . 'h     -  Outputs Langpack XML header.' . "\n" . "\n"
+		. "\t" . 'f     -  Outputs Langpack XML footer.' . "\n" . "\n"
+		. "\t" . 'help  -  Outputs this help.' . "\n" . "\n"
+		;
+}
+			
+#
+# ins_indiv() - wraps ins_merge output with 'langpack' tags.
+#
+# Params:
+#  $_[0] - input file.
+#  $_[1] - data structure.
+#
+sub ins_indiv {
+	my ($in_file, $in_ds) = @_;
+	xml_head();
+	ins_merge($in_file, $in_ds);
+	xml_foot();
+}
+
+#
+# ins_merge() - wraps install.xml -> langpack xml convertion.
+#
+# Params:
+#  $_[0] - input file.
+#  $_[1] - data structure.
+#
+sub ins_merge {
+	my ($in_file, $in_ds) = @_;
+	xml_out_escaped(hash_ins(xml_in($in_file), $in_file, $in_ds));
+}
+
+#
+# jbi2pot() - wraps langpack xml -> pot format convertion.
+#
+# Params:
+#  $_[0] - input file.
+#  $_[1] - data structure.
+#
+sub jbi2pot {	
+	my ($in_file, $in_ds) = @_;
+	pot_out(hash_xml(xml_in($in_file), $in_file, $in_ds)); #Loc 
+}
+
+#
+# lng_indiv() - wraps lng_merge output with 'langpack' tags.
+#
+# Params:
+#  $_[0] - input file.
+#  $_[1] - data structure.
+#
+sub lng_indiv {
+	my ($in_file, $in_ds) = @_;
+	xml_head();
+	lng_merge($in_file, $in_ds);
+	xml_foot();
+}
+
+#
+# lng_merge() - wraps general interface xml -> langpack xml convertion.
+#
+# Params:
+#  $_[0] - input file.
+#  $_[1] - data structure.
+#
+sub lng_merge {
+	my ($in_file, $in_ds) = @_;
+	xml_out_escaped(hash_xml(xml_in($in_file), $in_file, $in_ds));  #LineNo
+}
+
+#
+# po_indiv() - wraps translated po file  -> langpack xml conversion.
+#
+# Params:
+#  $_[0] - input file.
+#
+sub po_indiv {
+	xml_head();
+	my ($in_file) = $_[0];
+	po2jbi($in_file);
+	xml_foot();
+}
+
+#
+# po2jbi() - directly converts po into xml-link langpack.
+#
+# Params:
+#  $_[0] - input parser.
+#
+# Output sample:
+#  <langpack>
+#    ..
+#    <str .. id="Something" txt="Something"/>
+#    ..
+#  </langpack>
+#
+sub po2jbi {
+	my $line;
+	my $msgid_line;
+	my $msgstr_line;
+	my $jbi_id;
+	my @jbi_id_arr;
+	my $in_file = $_[0];
+	my $fuzzy = 0;
+	open (PO, "< $in_file");
+	while (defined ($line = <PO>)) {
+		if ($line =~ /jbi_id/) {
+			($jbi_id = $line) =~ s/^\#. jbi_id=|"//g;
+			@jbi_id_arr = split(/ |\n/, $jbi_id);
+		} elsif ($line =~ /fuzzy/) {
+			$fuzzy = 1;
+		} elsif ($line =~ /msgid/) {
+			$po_status = 'msgid';
+			($msgid_line = $line) =~ s/msgid |"|\n//g;
+		} elsif ($line =~ /msgstr/) {
+			$po_status = 'msgstr';
+			($msgstr_line = $line) =~ s/msgstr |"|\n//g;
+		} elsif ($line =~ /^"/) {
+			$line =~ s/"|\n$//g;
+			if ($po_status =~ /msgid/) {
+				$msgid_line = $msgid_line . $line;
+			} elsif ($po_status =~ /msgstr/) {
+				$msgstr_line = $msgstr_line . $line;
+			}
+		} elsif ($line =~ /^\n/) {
+			if ($fuzzy) {
+				print "<!-- fuzzy string match:\n";
+			}
+			my $txt = $msgstr_line ? $msgstr_line : $msgid_line;
+			$txt =~ s/&quot;/"/g;
+			foreach (@jbi_id_arr) {
+				my $str = {
+					id => $_,
+					txt => $txt,
+				};
+				my $xml = $xs->XMLout($str, RootName => "str");
+				$xml =~ s| />|/>|;
+				print $xml;
+			}
+			if ($fuzzy) {
+				print "end fuzzy string match -->\n";
+			}
+			$fuzzy = 0;
+		}
+	}
+# adding this because po files generated by msgmerge do not end with a blank line so the last string gets ignored
+	if ($fuzzy) {
+		print "<!-- fuzzy string match:\n";
+	}
+	my $txt = $msgstr_line ? $msgstr_line : $msgid_line;
+	$txt =~ s/&quot;/"/g;
+	foreach (@jbi_id_arr) {
+		my $str = {
+			id => $_,
+			txt => $txt,
+		};
+		my $xml = $xs->XMLout($str, RootName => "str");
+		$xml =~ s| />|/>|;
+		print $xml;
+	}
+	if ($fuzzy) {
+		print "end fuzzy string match -->\n";
+	}
+}
+
+#
+# pot_head() - outputs pot header.
+#
+sub pot_head {
+	print
+		  '# translation of ab_CD.po to TargetLanguage' . "\n"
+		. '# translation of package_name to TargetLanguage' . "\n"
+		. '# This file is distributed under the same license as the '
+		. 'PACKAGE package.' . "\n"
+		. '# Copyright (C) YEAR THE PACKAGE\'S COPYRIGHT HOLDER.' . "\n"
+		. '# FirstName LastName  <email_add@redhat.com>, 1900.' . "\n"
+		. '#' . "\n" . 'msgid ""' . "\n" . 'msgstr ""' . "\n"
+		. '"Project-Id-Version: ab_CD\n"' . "\n"
+		. '"Report-Msgid-Bugs-To: \n"' . "\n"
+		. '"POT-Creation-Date: 1900-00-00 00:00-0000\n"' . "\n"
+		. '"PO-Revision-Date: 1900-00-00 00:00+0000\n"' . "\n"
+		. '"Last-Translator: FirstName LastName <email_add@redhat.com>'
+		. '\n"' . "\n"
+		. '"Language-Team: TeamName <email_add@domain.abc>\n"' . "\n"
+		. '"MIME-Version: 1.0\n"' . "\n"
+		. '"Content-Type: text/plain; charset=UTF-8\n"' . "\n"
+		. '"Content-Transfer-Encoding: 8bit\n"' . "\n" . "\n";
+}
+
+#
+# pot_out() - outputs content from data structure to pot file.
+#
+# Params:
+#  $_[0] - data structure.
+#
+# POT sample:
+#   #. [JBOSS SPECIFIC (DO NOT MODIFY) - START]
+#   #. jbi_id="PacksPanel.description"
+#   #. [JBOSS SPECIFIC (DO NOT MODIFY) - END]
+#   #: $FILENAME:0
+#   msgid "Description"
+#   msgstr ""
+#
+sub pot_out {
+	my $jbi_key;
+	my %entry;
+	pot_head();
+	foreach $jbi_key (keys %{$_[0]}) {
+		%entry = %{$_[0]{$jbi_key}};
+		print 
+			  '#. [JBOSS SPECIFIC: DO NOT MODIFY - START]' . "\n"
+			. '#. jbi_id="' . $entry{jbi_id} . '"' . "\n"
+			. '#. [JBOSS SPECIFIC: DO NOT MODIFY - END]' . "\n"
+			. '#: ' . $entry{jbi_loc} . "\n"
+			. 'msgid "' . $jbi_key . '"' . "\n";
+
+		if ($test_pot == 0) {
+			print 'msgstr ""' . "\n" . "\n";
+		} else {
+			print 'msgstr "' . $jbi_key . '"' . "\n" . "\n";
+		}
+	}
+}
+
+#
+# tag_add() - prepares data to be added into data structure.
+#
+# Params:
+#  $_[0] - input parser.
+#  $_[1] - filename of the input file source.
+#  $_[2] - data structure.
+#
+#
+# Return schema:
+#  $jbi_ds {key:String, value:address of $ds_entry}
+#  $ds_entry {jbi_id:String, jbi_lineno, jbi_file}
+#
+sub tag_add {
+	my $ds_id;
+	my $ds_key;
+	my ($in_par, $in_file, $in_ds) = @_;
+	if (($ds_id = $in_par->getAttribute('id'))) {
+		($ds_key = $in_par->getAttribute('txt')) =~ s/"/\\"/g;
+		$lineno = $in_par->line_number();
+		ds_add($in_file . ":" . $lineno, $ds_id, $ds_key, $in_ds);
+	}
+	return $in_ds;
+}
+
+#
+# uis_indiv() - wraps uis_merge output with 'langpack' tags.
+#
+# Params:
+#  $_[0] - input file.
+#  $_[1] - data structure.
+#
+sub uis_indiv {
+	my ($in_file, $in_ds) = @_;
+	xml_head();
+	uis_merge($in_file, $in_ds);
+	xml_foot();
+}
+
+#
+# uis_merge() - wraps userInputSpecs.xml -> langpack xml convertion.
+#
+# Params:
+#  $_[0] - input file.
+#  $_[1] - data structure.
+#
+sub uis_merge {
+	my ($in_file, $in_ds) = @_;
+	xml_out_escaped(
+		hash_uis(
+			xml_in($in_file), 
+			$in_file, 
+			$in_ds)
+	); 
+}
+
+#
+# xml_head() - outputs langpack xml header.
+#
+sub xml_head {
+	print '<langpack>' . "\n";
+}
+
+#
+# xml_in() - imports xml-like data.
+#
+# Params:
+# $_[0] - input file name.
+#
+# Returns:
+# parser to input file.
+#
+sub xml_in {
+	my $parser = XML::LibXML->new();
+	$parser->line_numbers(1);
+	return $parser->parse_file( $_[0] );
+}
+
+#
+# xml_out() - outputs content from data structure to xml file, adding escaping of < > & ".
+#
+# Params:
+# $_[0] - jbi data structure.
+#
+# Output sample:
+#     <str id="PacksPanel.description" txt="Description" loc="filename.xml:23"/>
+#
+sub xml_out_escaped {
+	my $jbi_key;
+	my %entry;
+	foreach $jbi_key (keys %{$_[0]}) {
+		%entry = %{$_[0]{$jbi_key}};
+		# this is a workaround for a surprise in the XML parser
+		$jbi_key =~ s/&quot;/"/g;
+		my $str = {
+			id => $entry{jbi_id},
+			txt => $jbi_key,
+			loc => $entry{jbi_loc},
+		};
+		print $xs->XMLout($str, RootName => "str");
+	}
+}
+
+#
+# xml_out_unescaped() - outputs content from data structure to xml file, without adding escaping of < > & ".
+#
+# Params:
+# $_[0] - jbi data structure.
+#
+# Output sample:
+#     <str id="PacksPanel.description" txt="Description"/>
+#
+sub xml_out_unescaped {
+	my $jbi_key;
+	my %entry;
+	foreach $jbi_key (keys %{$_[0]}) {
+		%entry = %{$_[0]{$jbi_key}};
+		print
+			'<str id="' . $entry{jbi_id} . '" txt="' . $jbi_key
+			. '" loc="' . $entry{jbi_loc} . '" />' . "\n";
+	}
+}
+
+#
+# xml_foot() - outputs langpack xml footer.
+#
+sub xml_foot {
+	print '</langpack>' . "\n";
+}
+
+main();
+

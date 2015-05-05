@@ -1,0 +1,103 @@
+<assembly>
+    <id>dist</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <dependencySets>
+        <!--Core components, which will be placed in the root folder-->
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <unpack>true</unpack>
+            <unpackOptions>
+                <excludes>
+                    <exclude>**/META-INF/**</exclude>
+                </excludes>
+            </unpackOptions>
+            <scope>compile</scope>
+            <includes>
+                <include>*:*:*:component-with-dependencies</include>
+            </includes>
+            <outputDirectory>/</outputDirectory>
+        </dependencySet>
+        <!--Additional modules-->
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <scope>compile</scope>
+            <unpack>true</unpack>
+            <unpackOptions>
+                <excludes>
+                    <exclude>**/META-INF/**</exclude>
+                </excludes>
+            </unpackOptions>
+            <outputDirectory>modules</outputDirectory>
+            <includes>
+                <include>*:*:*:module-with-dependencies</include>
+            </includes>
+        </dependencySet>
+        <!--Examples-->
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <scope>compile</scope>
+            <unpack>true</unpack>
+            <unpackOptions>
+                <excludes>
+                    <exclude>**/META-INF/**</exclude>
+                </excludes>
+            </unpackOptions>
+            <outputDirectory>examples</outputDirectory>
+            <includes>
+               <include>*:*:*:example-with-dependencies</include>
+            </includes>
+        </dependencySet>
+        <!--JDBC jar renamed to client-->
+        <dependencySet>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>false</useTransitiveDependencies>
+            <scope>compile</scope>
+            <unpack>false</unpack>
+            <includes>
+                <include>*:modeshape-client:*</include>
+            </includes>
+            <outputDirectory>/client</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+        <fileSet>
+            <!--
+               Gather into the distribution the various text files for inclusion
+             -->
+            <directory>src/main/resources</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>README*</include>
+                <include>LICENSE*</include>
+                <include>NOTICE*</include>
+                <include>AUTHORS*</include>
+                <include>COPYRIGHT*</include>
+                <include>*.txt</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <!--
+               Gather into the distribution the JavaDoc for all projects
+             -->
+            <directory>target/api</directory>
+            <outputDirectory>doc/api</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <!--
+               JCA adaptor
+             -->
+            <directory>../modeshape-jca-rar/target</directory>
+            <includes>
+                <include>*.rar</include>
+            </includes>
+            <outputDirectory>jca</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>

@@ -1,0 +1,146 @@
+<?xml version="1.0"?><xfragment>
+
+    <!--FieldNotEqualValidator-->
+    <variable name="FieldNotEqualValidator.check" value="adminUser,adminPassword"/>
+
+    <!--FinishPanel-->
+    <variable name="FinishPanel.console.show" value="dv.install"/>
+    <variable name="FinishPanel.dashboard.show" value="teiid.install"/>
+    <variable name="FinishPanel.links.list" value="console,dashboard"/>
+    <variable name="FinishPanel.links.show" value="true"/>
+
+    <!--JDKCheckPanel-->
+    <variable name="JDKCheckPanel.minVersion" value="1.6.0"/>
+
+    <!--MAVEN_SETTINGS_FULLPATH-->
+    <variable name="MAVEN_SETTINGS_FULLPATH.default" value="${USER_HOME}${SYSTEM_file_separator}.m2${SYSTEM_file_separator}settings.xml"/>
+
+    <!--Modeshape-->
+    <variable name="Modeshape.user" value="modeshapeUser"/>
+    <variable name="Modeshape.user.add" value="true"/>
+
+    <!--SharedPasswordValidator-->
+    <variable name="SharedPasswordValidator.conditions" value=",teiid.install,teiid.install,modeshape.install"/>
+    <variable name="SharedPasswordValidator.usernameIDs" value="adminUser,Dashboard.admin.username,Teiid.user.username,Modeshape.user"/>
+
+    <!--TargetPanel-->
+    <variable name="TargetPanel.dir.macosx" value="${USER_HOME}/DV-${version.dv}/jboss-eap-${release.version.short}"/>
+    <variable name="TargetPanel.dir.unix" value="${USER_HOME}/DV-${version.dv}/jboss-eap-${release.version.short}"/>
+    <variable name="TargetPanel.dir.windows" value="${USER_HOME}\DV-${version.dv}\jboss-eap-${release.version.short}"/>
+    <variable name="TargetPanel.mustExist" value="false"/>
+
+    <!--Teiid-->
+    <variable name="Dashboard.admin.username" value="dashboardAdmin"/>
+    <variable name="Teiid.user.odata" value="false"/>
+    <variable name="Teiid.user.username" value="teiidUser"/>
+
+    <!--add-->
+    <variable name="add.new.user" value="true"/>
+
+    <!--addUser-->
+    <variable name="addUser" value="true"/>
+
+    <!--colliding-->
+    <variable name="colliding.datasources" value="ModeShapeDS,DashboardDS"/>
+    <variable name="colliding.extensions" value="org.modeshape,org.jboss.teiid"/>
+    <variable name="colliding.infinispanCaches" value="modeshape,teiid-cache"/>
+    <variable name="colliding.securityDomains" value="modeshape-security,teiid-security"/>
+    <variable name="colliding.subsystems" value="urn:jboss:domain:modeshape:1.0,urn:jboss:domain:messaging:1.3"/>
+
+    <!--datasource-->
+    <variable name="datasource.install" value="off"/>
+
+    <!--dblogging-->
+    <variable name="dblogging.driver.default" value="h2"/>
+    <variable name="dblogging.driver.jdbc.default" value="installed"/>
+    <variable name="dblogging.url.default" value="jdbc:h2:file:${jboss.server.data.dir}/teiid-logging/teiid-logging-ds;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1"/>
+    <variable name="dblogging.username" value="sa"/>
+    <variable name="dblogging.password" value="sa"/>
+    <variable name="dblogging.driver" value="h2"/>
+    <variable name="dblogging.url" value="jdbc:h2:file:${jboss.server.data.dir}/teiid-logging/teiid-logging-ds;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1"/>
+    <variable name="dblogging.jdbc.username.default" value="defaultusername"/>
+    <variable name="dblogging.h2.username.default" value="sa"/>
+    <variable name="dblogging.h2.password.default" value="sa"/>
+
+    <!--default-->
+    <variable name="default.eap.version" value="${release.version.short}"/>
+
+    <!--eap-->
+    <variable name="eap.needs.install" value="true"/>
+    <variable name="eap.supported.version.designation" value="${version.designation}"/>
+    <variable name="eap.supported.version.major" value="${version.major}"/>
+    <variable name="eap.supported.version.micro" value="${version.micro}"/>
+    <variable name="eap.supported.version.minor" value="${version.minor}"/>
+
+    <!--installation-->
+    <variable name="installation.logfile" value="installation/InstallationLog.txt"/>
+
+    <!--jdbc-->
+    <variable name="jdbc.driver.install" value="off"/>
+
+    <!-- master -->
+    <variable name="master.password.vars" value="Dashboard.admin.password,Teiid.user.password,Modeshape.password,vault.keystorepwd"/>
+    <variable name="master.password.var" value="adminPassword"/>
+
+    <!--new-->
+    <variable name="new.layers.conf" value="dv"/>
+
+    <!--override-->
+    <variable name="override.http.port" value="8080"/>
+
+    <!--platform-->
+    <variable name="platform.readable.name" value="${platform.name}"/>
+
+    <!--postinstall-->
+    <variable name="postinstallServer" value="false"/>
+    <variable name="postinstall.datasource.enabled" value="false"/>
+    <variable name="postinstall.dblogging.enabled" value="false"/>
+    <variable name="postinstall.password" value="POSTINSTALL.TEMPPASSW0RD"/>
+    <variable name="postinstall.path" value="${INSTALL_PATH}${SYSTEM_file_separator}"/>
+    <variable name="postinstall.username" value="POSTINSTALL.TEMPUSER"/>
+
+    <!--pre-->
+    <variable name="pre.existing.ldap" value="false"/>
+    <variable name="pre.existing.ssl" value="false"/>
+
+    <!--product-->
+    <variable name="product.name" value="dv"/>
+
+    <!--pureIPv6-->
+    <variable name="pureIPv6" value="false"/>
+
+    <!--runDatabaseSchemas-->
+    <variable name="runDatabaseSchemas" value="on"/>
+
+    <!--securitydomain-->
+    <variable name="securitydomain.name" value="mySecurityDomain"/>
+
+    <!--server_mode-->
+    <variable name="server_mode" value="none"/>
+
+    <!--server_up-->
+    <variable name="server_up" value="false"/>
+
+    <!--vault-->
+    <variable name="vault.alias" value="vault"/>
+    <variable name="vault.alias.default" value="vault"/>
+    <variable name="vault.encrdir" value="${INSTALL_PATH}${SYSTEM_file_separator}vault"/>
+    <variable name="vault.encrdir.default" value="${INSTALL_PATH}${SYSTEM_file_separator}vault"/>
+    <variable name="vault.itercount" value="50"/>
+    <variable name="vault.itercount.default" value="50"/>
+    <variable name="vault.keystoreloc" value="${INSTALL_PATH}${SYSTEM_file_separator}vault.keystore"/>
+    <variable name="vault.keystoreloc.default" value="${INSTALL_PATH}${SYSTEM_file_separator}vault.keystore"/>
+    <variable name="vault.keystorepwd.default" value="" />
+    <variable name="vault.salt" value="8675309K" />
+    <variable name="vault.salt.default" value="8675309K" />
+
+    <variable name="standalone.conf.patch.bits-1" value=""/>
+    <variable name="host.option.bits.value" value=""/>
+    <variable name="domain.java.opts.bits-1" value=""/>
+    <variable name="appclient.conf.patch.bits-1" value=""/>
+
+    <variable name="new.postinstall.vault" value="true"/>
+
+    <variable name="domain.management-https" value="${jboss.management.https.port:9443}" />
+
+</xfragment>

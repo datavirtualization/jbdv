@@ -1,0 +1,92 @@
+#!/bin/bash
+
+if [ "$#" -ne 3 ]
+then
+    echo "Usage: getzip [soa|dv] [make-mead path] [jbossas-installer path]"
+    exit 1
+fi
+
+meadroot=$2
+workspaceid=$(ls -t $meadroot | grep workspace | head -1)
+
+insroot=$3/$1
+
+if [ "$1" == soa ]
+then
+    echo [ Grabbing SOA Zips from Make-Mead ]
+    ziproot=$meadroot/$workspaceid/build/soa-p/target
+
+    echo [ Cleaning Out Dist Directories ]
+    # Clear out the files from the soa dists.
+    rm -rf $insroot/rtgovc-dist/jboss-eap-6.1/*
+    rm -rf $insroot/rtgovs-dist/jboss-eap-6.1/*
+    rm -rf $insroot/sramp-dist/jboss-eap-6.1/*
+    rm -rf $insroot/soa-dist/jboss-eap-6.1/*
+    rm -rf $insroot/overlord-dist/jboss-eap-6.1/*
+    rm -rf $insroot/dtgov-dist/jboss-eap-6.1/*
+
+    echo [ Moving zips from make-mead ]
+    # Move the zips over to the soa dists.
+    cp $ziproot/*rtgov-c*.zip $insroot/rtgovc-dist
+    cp $ziproot/*rtgov-s*.zip $insroot/rtgovs-dist
+    cp $ziproot/*s-ramp*.zip $insroot/sramp-dist
+    cp $ziproot/*switchyard*.zip $insroot/soa-dist
+    cp $ziproot/*overlord*.zip $insroot/overlord-dist
+    cp $ziproot/*dtgov*.zip $insroot/dtgov-dist
+
+    echo [ Unzipping ]
+
+    echo [ rtgovc ]
+    cd $insroot/rtgovc-dist
+    unzip -q *.zip
+
+    echo [ rtgovs ]
+    cd $insroot/rtgovs-dist
+    unzip -q *.zip
+
+    echo [ sramp ]
+    cd $insroot/sramp-dist
+    unzip -q *.zip
+
+    echo [ switchyard ]
+    cd $insroot/soa-dist
+    unzip -q *.zip
+
+    echo [ dtgov ]
+    cd $insroot/dtgov-dist
+    unzip -q *.zip
+
+    echo [ overlord ]
+    cd $insroot/overlord-dist
+    unzip -q *.zip
+
+    echo [ Cleaning zip files ]
+    # Clear out the files from the soa dists.
+    rm -rf $insroot/rtgovc-dist/*.zip
+    rm -rf $insroot/rtgovs-dist/*.zip
+    rm -rf $insroot/sramp-dist/*.zip
+    rm -rf $insroot/soa-dist/*.zip
+    rm -rf $insroot/overlord-dist/*.zip
+    rm -rf $insroot/dtgov-dist/*.zip
+
+elif [ "$1" == dv ]
+then
+    echo [ Grabbing DV Zips from Make-Mead ]
+    ziproot=$meadroot/$workspaceid/build/ds/target
+
+    echo [ Cleaning Out Dist Directories ]
+    rm -rf $insroot/dv-dist/jboss-eap-6.1/*
+
+    echo [ Moving zips from make-mead ]
+    cp $ziproot/dv*.zip $insroot/dv-dist
+
+    echo [ Unzipping ]
+    cd $insroot/dv-dist
+    unzip -q *.zip
+
+    echo [ Cleaning zip files ]
+    rm -rf $insroot/dv-dist/*.zip
+
+fi
+
+echo [ Done! ]

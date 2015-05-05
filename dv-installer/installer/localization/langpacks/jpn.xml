@@ -1,0 +1,986 @@
+<langpack>
+<str id="usermsg.overwrite" txt="Overwrite"/>
+<str id="usermsg.skip" txt="Skip"/>
+<str id="usermsg.cancel" txt="キャンセル"/>
+<str id="BrowseDialog.closeButton" txt="キャンセル"/>
+<str id="installer.cancel" txt="キャンセル"/>
+<str id="usermsg.continue" txt="Continue"/>
+<!-- fuzzy string match:
+<str id="add.user.text" txt="管理ユーザー"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="add.user.choice.yes" txt="管理ユーザー"/>
+end fuzzy string match -->
+<str id="add.user.choice.no" txt="Skip new administrative user creation."/>
+<str id="JBossJDBCDriverSetupPanel.info" txt="JBoss Enterprise Application Platform 6 supports a number of JDBC drivers, which convert application code to the relevant database language. Don't see your vendor below? Click here."/>
+<str id="JBossJDBCDriverSetupPanel.dropdown.label" txt="Driver vendor:"/>
+<str id="JBossJDBCDriverSetupPanel.dropdown.label.tooltip" txt="Select the driver vendor."/>
+<str id="JBossJDBCDriverSetupPanel.jdbcname.label" txt="JDBC Name:"/>
+<!-- fuzzy string match:
+<str id="JBossJDBCDriverSetupPanel.jdbcname.tooltip" txt="対象のディレクトリーが作成されます："/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="JBossJDBCDriverSetupPanel.modulename.label" txt="Modules"/>
+end fuzzy string match -->
+<str id="JBossJDBCDriverSetupPanel.modulename.tooltip" txt="The generated module this driver will use."/>
+<str id="JBossJDBCDriverSetupPanel.choice.yes" txt="Install JDBC Driver"/>
+<str id="JBossJDBCDatasourceSetupPanel.choice.yes" txt="Install Datasource"/>
+<str id="JBossJDBCDriverSetupPanel.xaclassname.label" txt="XA Classname:"/>
+<str id="JBossJDBCDriverSetupPanel.xaclassname.tooltip" txt="The XA classname for this driver."/>
+<str id="JBossJDBCDriverSetupPanel.dirstruct.label" txt="Directory Structure:"/>
+<str id="JBossJDBCDriverSetupPanel.dirstruct.tooltip" txt="The directory in which the jars and the generated module.xml will reside."/>
+<!-- fuzzy string match:
+<str id="JBossJDBCDriverSetupPanel.nodefault" txt="デフォルト値"/>
+end fuzzy string match -->
+<str id="JBossJDBCDriverSetupPanel.summaryCaption" txt="JDBC Driver Details"/>
+<str id="JBossJDBCDriverSetupPanel.headline" txt="JDBC Driver Setup"/>
+<str id="JBossJDBCDriverSetupPanel.dropdown.text" txt="Server profile to configure:"/>
+<str id="config.dropdown.text" txt="Server profile to configure:"/>
+<str id="JBossJDBCDriverSetupPanel.config.dropdown.1" txt="Standalone"/>
+<str id="application-platform.standalone" txt="Standalone"/>
+<str id="JBossJDBCDriverSetupPanel.config.dropdown.2" txt="Domain"/>
+<str id="application-platform.domain" txt="Domain"/>
+<str id="JBossJDBCDriverSetupPanel.jars.label" txt="Driver JAR locations:"/>
+<str id="JBossJDBCDriverSetupPanel.jars.tooltip" txt="Location of a jar to include with this driver. May be a remote file or a local file."/>
+<!-- fuzzy string match:
+<str id="JBossJDBCDriverSetupPanel.jars.col1.label" txt="パス"/>
+end fuzzy string match -->
+<str id="JBossJDBCDriverSetupPanel.jars.addone" txt="Add jar"/>
+<str id="JBossJDBCDriverSetupPanel.jars.removeone" txt="Remove jar"/>
+<!-- fuzzy string match:
+<str id="JBossJDBCDriverSetupPanel.path.error" txt="このファイルはディレクトリーではありません。ディレクトリーを選択してください。"/>
+end fuzzy string match -->
+<str id="JBossJDBCDriverSetupPanel.path.remote.error" txt="There was an error trying to reach the given file at %s. Please double check the url."/>
+<str id="JBossJDBCDriverSetupPanel.path.remote.nosupport" txt="The protocol in %s is not supported. Please double check the url."/>
+<!-- fuzzy string match:
+<str id="JBossJDBCDriverSetupPanel.path.notzip" txt="このファイルはディレクトリーではありません。ディレクトリーを選択してください。"/>
+end fuzzy string match -->
+<str id="JBossJDBCDriverSetupPanel.path.emptyzip" txt="The jar file %s does not contain any entries. Please double check the path."/>
+<str id="JBossJDBCDriverSetupPanel.path.nodriver" txt="None of the provided jars contained the chosen driver's Driver class: %s. Do you want to continue?"/>
+<str id="JBossJDBCDriverSetupPanel.path.changedriver" txt="Would you like to reselect the driver vendor?"/>
+<str id="JBossJDBCDriverSetupPanel.path.nopaths" txt="At least one jar is required for the JDBC driver."/>
+<str id="JBossJDBCDriverSetupPanel.profile.prompt" txt="Profile prompt"/>
+<!-- fuzzy string match:
+<str id="JBossDatasourceConfigPanel.info" txt="JBoss Enterprise Application Platform 6 のソケットバインディングを設定。"/>
+end fuzzy string match -->
+<str id="JBossDatasourceConfigPanel.question" txt="Would you like to use a security-domain for this datasource?"/>
+<str id="JBossDatasourceConfigPanel.console.summary" txt="Datasource Details Summary"/>
+<str id="JBossDatasourceConfigPanel.errorname" txt="Datasource name cannot be empty."/>
+<str id="JBossDatasourceConfigPanel.errorjndi" txt="JNDI Name must start with java:/ or java:jboss/."/>
+<str id="JBossDatasourceConfigPanel.errornan" txt="The min pool, max pool, and port number fields must be numeric and within valid range."/>
+<str id="JBossDatasourceConfigPanel.errorsecurity" txt="One of Security Domain or Username / Password must be supplied."/>
+<str id="JBossDatasourceConfigPanel.warning.xaProperty" txt="One of Security Domain or Username / Password must be supplied."/>
+<str id="JBossDatasourceConfigPanel.name" txt="Name:"/>
+<str id="JBossDatasourceConfigPanel.xa.properties.col1.label" txt="Name:"/>
+<str id="JBossDatasourceConfigPanel.name.tooltip" txt="The name for this data-source."/>
+<str id="JBossDatasourceConfigPanel.jndi.name" txt="JNDI Name:"/>
+<str id="infinispan.jndiname.text" txt="JNDI Name:"/>
+<str id="JBossDatasourceConfigPanel.jndi.name.tooltip" txt="The unique JNDI name for the datasource. Must start with &quot;java:/&quot; or &quot;java:jboss/&quot;."/>
+<str id="JBossDatasourceConfigPanel.security.domain" txt="Security-domain"/>
+<str id="JBossDatasourceConfigPanel.security.domain.tooltip" txt="The name of the security-domain to use for authentication."/>
+<!-- fuzzy string match:
+<str id="JBossDatasourceConfigPanel.username" txt="管理ユーザー名:"/>
+<str id="adminUser" txt="管理ユーザー名:"/>
+end fuzzy string match -->
+<str id="JBossDatasourceConfigPanel.username.tooltip" txt="The username used to create a new connection."/>
+<!-- fuzzy string match:
+<str id="JBossDatasourceConfigPanel.password" txt="管理パスワード:"/>
+end fuzzy string match -->
+<str id="JBossDatasourceConfigPanel.password.tooltip" txt="The password used to create a new connection."/>
+<str id="JBossDatasourceConfigPanel.xads.name" txt="XA Datasource Class:"/>
+<str id="JBossDatasourceConfigPanel.xads.name.tooltip" txt="The fully qualified name of the implementation class javax.sql.XADataSource."/>
+<str id="JBossDatasourceConfigPanel.pool.min" txt="Min Pool Size:"/>
+<str id="JBossDatasourceConfigPanel.pool.min.tooltip" txt="The minimum number of connections a pool holds."/>
+<str id="JBossDatasourceConfigPanel.pool.max" txt="Max Pool Size:"/>
+<str id="JBossDatasourceConfigPanel.pool.max.tooltip" txt="The maximum number of connections a pool holds."/>
+<str id="JBossDatasourceConfigPanel.ds.type" txt="Datasource type:"/>
+<str id="JBossDatasourceConfigPanel.ds.type.tooltip" txt="Specify if the data-source should be XA or Non-XA."/>
+<str id="JBossDatasourceConfigPanel.url" txt="Connection URL:"/>
+<str id="JBossDatasourceConfigPanel.url.tooltip" txt="The JDBC driver connection URL."/>
+<!-- fuzzy string match:
+<str id="JBossDatasourceConfigPanel.xa.servername" txt="サーバーモジュール。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="JBossDatasourceConfigPanel.xa.port" txt="@@ ポート番号"/>
+end fuzzy string match -->
+<str id="JBossDatasourceConfigPanel.xa.databasename" txt="Database name:"/>
+<str id="JBossDatasourceConfigPanel.xa.recoveryuser" txt="Recovery User:"/>
+<str id="JBossDatasourceConfigPanel.xa.recoverypass" txt="Recovery Pass:"/>
+<!-- fuzzy string match:
+<str id="JBossDatasourceConfigPanel.xa.cursor" txt="選択："/>
+end fuzzy string match -->
+<str id="JBossDatasourceConfigPanel.xa.protocol" txt="Network Protocol:"/>
+<str id="JBossDatasourceConfigPanel.xa.oracleurl" txt="Oracle URL:"/>
+<str id="JBossDatasourceConfigPanel.summaryCaption" txt="Datasource Details"/>
+<str id="JBossDatasourceConfigPanel.headline" txt="Datasource Setup"/>
+<str id="JBossDatasourceConfigPanel.securitytype" txt="Security Type:"/>
+<str id="JBossDatasourceConfigPanel.securitytype.tooltip" txt="Select whether to use a security-domain, or a username + password."/>
+<str id="JBossDatasourceConfigPanel.mingtmax" txt="The min pool value cannot be greater than the max pool value."/>
+<str id="JBossDatasourceConfigPanel.run.automated" txt="Run automated"/>
+<!-- fuzzy string match:
+<str id="JBossDatasourceConfigPanel.pass.prompt" txt="パスワードを入力してください。"/>
+end fuzzy string match -->
+<str id="JBossDatasourceConfigPanel.xa.properties.label" txt="XA Properties:"/>
+<str id="JBossDatasourceConfigPanel.xa.properties.label.console" txt="Additional XA Properties: Format is name=value."/>
+<str id="JBossDatasourceConfigPanel.xa.properties.col2.label" txt="Value:"/>
+<str id="JBossDatasourceConfigPanel.xa.properties.addone" txt="Add property"/>
+<str id="JBossDatasourceConfigPanel.xa.properties.removeone" txt="Remove property"/>
+<str id="JBossDatasourceConfigPanel.xa.error.duplicateProperty" txt="A property has been defined more than once. Please change the property name."/>
+<str id="JBossDatasourceConfigPanel.xa.error.invalidChars" txt="Property names and values cannot contain the following characters: , {} []. Values also may not contain =."/>
+<str id="JBossDatasourceConfigPanel.xa.error.wrongFormat" txt="Additional XA Properties must be of the format name=value."/>
+<str id="JBossDatasourceConfigPanel.xa.properties.tooltip" txt="Additional XA properties. Non-editable fields are dependent on the driver vendor."/>
+<str id="MavenRepoCheckPanel.settings.error" txt="指定の settings.xml は存在しません。その場所に settings.xml の例を作成しますか?"/>
+<!-- fuzzy string match:
+<str id="MavenRepoCheckPanel.info" txt="リポジトリへのローカルパスまたはリモート URL を指定し、settings.xml ファイルの場所を指定して、以下の maven リポジトリを指定します。指定された settings.xml は  jboss6 という名前の新しいプロファイルを持ち、リポジトリが設定されています。この設定オプションは開発者にとって大変便利ですが、実稼働設定では省略することも可能です。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="MavenRepoCheckPanel.option1" txt="&lt;html&gt; Red Hat アーティファクトと有効な settings.xml ファイルが含まれる既存の maven リポジトリへのパス (または URL) を指定します。 &lt;/html&gt;"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="MavenRepoCheckPanel.option2" txt="&lt;html&gt; maven リポジトリの設定を省略します。&lt;/html&gt;"/>
+end fuzzy string match -->
+<str id="MavenRepoCheckPanel.prompt" txt="maven レポジトリーの場所を指定："/>
+<str id="MavenRepoCheckPanel.warning" txt="クイックスタートを実行するには、Red Hat アーティファクトを含む有効な maven リポジトリが必要です。このままインストールを続けますか？"/>
+<str id="MavenRepoCheckPanel.path.error" txt="選択されたパスが存在しないか、ディレクトリではありません。"/>
+<str id="MavenRepoCheckPanel.settingsInfo" txt="maven の settings.xml の場所を指定:"/>
+<str id="MavenRepoCheckPanel.console.prompt" txt="いずれかを選択してください [1]。"/>
+<str id="MavenRepoCheckPanel.headline" txt="Maven リポジトリの設定"/>
+<str id="MavenRepoCheckPanel.summaryCaption" txt="Maven リポジトリの設定"/>
+<str id="MavenRepoCheckPanel.xslt.default.success" txt="xml が作成したデフォルト設定 -&gt;"/>
+<str id="MavenRepoCheckPanel.xslt.default.failure" txt="デフォルト設定の xml の作成に失敗しました。"/>
+<str id="MavenRepoCheckPanel.xslt.profile.success" txt="'jboss6' という ID で作成された新規プロファイル。"/>
+<str id="MavenRepoCheckPanel.xslt.profile.failure" txt="ID が 'jboss6' のプロファイルはすでに定義されています。何も行われませんでした。"/>
+<str id="MavenRepoCheckPanel.location" txt="リポジトリの場所:"/>
+<str id="MavenRepoCheckPanel.settings.location" txt="settings.xml の場所:"/>
+<str id="JDKCheckPanel.intro" txt="JBoss Enterprise Application Platform 6 の機能をすべて使用するには、バージョンが 1.6 以上の JDK が必要です。"/>
+<str id="JDKCheckPanel.required" txt="存在しないディレクトリーを入力しました。"/>
+<str id="JDKCheckPanel.notools" txt="指定のディレクトリーには有効な JDK が含まれていないようです。JDK がないと、EAP 6 の機能を一部使用できません。続けますか？"/>
+<str id="JDKCheckPanel.headline" txt="jdk の確認"/>
+<str id="JDKCheckPanel.get.title" txt="@here@ をクリックして JDK を取得してください。"/>
+<str id="JDKPathPanel.info" txt="JDK パスの選択:"/>
+<!-- fuzzy string match:
+<str id="JDKPathPanel.path.invalid" txt="無効です。"/>
+end fuzzy string match -->
+<str id="JDKPathPanel.badVersion1" txt="選択された JDK のバージョンは不正です (利用可能なバージョン:"/>
+<str id="JDKPathPanel.badVersion2" txt="必須："/>
+<str id="JDKPathPanel.badVersion3" txt=") この JDK をそのまま利用しますか？"/>
+<str id="JDKPathPanel.summaryCaption" txt="JDK パス"/>
+<str id="JDKPathPanel.path.1" txt="パス"/>
+<str id="JDKPathPanel.path.2" txt="無効です。"/>
+<str id="JDKPathPanel.continue.anyway" txt="続けますか？[y/n]"/>
+<str id="BrowseDialog.openButtonTT" txt="選択したファイルを開きます。"/>
+<str id="BrowseDialog.cancelButtonTT" txt="ファイル選択のダイアログを閉じます。"/>
+<str id="BrowseDialog.title" txt="開く"/>
+<str id="BrowseDialog.openButton" txt="OK"/>
+<str id="BrowseDialog.newButton" txt="新規フォルダー"/>
+<str id="BrowseDialog.selectionText" txt="選択："/>
+<str id="BrowseDialog.homeButton" txt="ホーム"/>
+<str id="BrowseDialog.upButton" txt="上へ移動"/>
+<str id="BrowseDialog.listButton" txt="一覧"/>
+<str id="BrowseDialog.detailsButton" txt="詳細"/>
+<str id="FieldNotEqualValidator.errorMsg" txt="ユーザー名と同じパスワードは使用できません。"/>
+<str id="DuplicateUsername.errorMsg" txt="Cannot overwrite existing %s user %s"/>
+<!-- fuzzy string match:
+<str id="DuplicateUsername.warningMsg" txt="このディレクトリーは既に存在します。既存のファイルが上書きされる可能性がありますが、本当にインストールしてもよいですか?"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="DuplicateUsername.console.options" txt="継続するには 1 を、終了するには 2 を、再表示するには 3 を押してください。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="DuplicateUsername.warning.title" txt="ファイルはすでに存在します。"/>
+end fuzzy string match -->
+<str id="installer.title" txt=" "/>
+<str id="installer.next" txt="次へ"/>
+<str id="installer.prev" txt="前へ"/>
+<str id="installer.quit" txt="終了"/>
+<str id="installer.madewith" txt="Red Hat JBoss Middleware"/>
+<str id="installer.quit.title" txt="$APP_NAME $APP_VER"/>
+<str id="installer.quit.message" txt="インストールが中止されますが、本当に中止しますか？"/>
+<str id="installer.warning" txt="警告"/>
+<str id="installer.yes" txt="はい"/>
+<str id="LicencePanel.yes" txt="はい"/>
+<str id="ldap.recursive.2" txt="はい"/>
+<str id="jdbc.driver.choice.yes" txt="はい"/>
+<str id="quickstarts.choice.yes" txt="はい"/>
+<str id="server.launch.choice.yes" txt="はい"/>
+<str id="installer.no" txt="いいえ"/>
+<str id="LicencePanel.no" txt="いいえ"/>
+<str id="ldap.recursive.1" txt="いいえ"/>
+<str id="jdbc.driver.choice.no" txt="いいえ"/>
+<str id="quickstarts.choice.no" txt="いいえ"/>
+<str id="server.launch.choice.no" txt="いいえ"/>
+<str id="installer.error" txt="エラー"/>
+<str id="UserInputPanel.error.caption" txt="エラー"/>
+<str id="installer.Message" txt="メッセージ"/>
+<str id="uninstaller.warning" txt="インストールされているアプリケーションを削除します。"/>
+<str id="LicencePanel.info" txt="以下のライセンス契約を注意してお読みください:"/>
+<str id="LicencePanel.agree" txt="このライセンス契約の条件に同意します。"/>
+<str id="LicencePanel.notagree" txt="このライセンス契約の条項に同意しません。"/>
+<str id="HTMLLicence.Error" txt="エラー: 定義されたリソースのライセンステキストをロードできませんでした。"/>
+<str id="HTMLLicence.continue" txt="Enter を押して継続します。X で終了します。"/>
+<str id="InfoPanel.info" txt="以下の情報を確認してください："/>
+<str id="PathInputPanel.required" txt="${platform.name} requires an EAP distribution. Please indicate its location."/>
+<str id="PathInputPanel.required.forModificationInstallation" txt="${platform.name} requires an EAP distribution. Please indicate its location."/>
+<str id="TargetPanel.info" txt="インストールパスの選択:"/>
+<str id="TargetPanel.browse" txt="参照"/>
+<str id="UserInputPanel.search.browse" txt="参照"/>
+<!-- fuzzy string match:
+<str id="TargetPanel.warn" txt="このディレクトリーは既に存在します。既存のファイルが上書きされる可能性がありますが、本当にインストールしてもよいですか?"/>
+end fuzzy string match -->
+<str id="TargetPanel.empty_target" txt="インストール先を指定していません。よろしいですか?"/>
+<str id="TargetPanel.createdir" txt="A fresh Red Hat JBoss Enterprise Application Platform installation will be placed here: "/>
+<str id="TargetPanel.nodir" txt="このファイルはディレクトリーではありません。ディレクトリーを選択してください。"/>
+<str id="TargetPanel.notwritable" txt="このディレクトリーは書き込みできません。別のディレクトリーを選択してください。"/>
+<str id="TargetPanel.summaryCaption" txt="インストールパス"/>
+<str id="install.quickstarts.path" txt="インストールパス"/>
+<str id="TargetPanel.default.dir" txt="Found default install dir in variables"/>
+<str id="PacksPanel.info" txt="インストールしたいパッケージを選択してください:"/>
+<str id="PacksPanel.tip" txt="注：グレイアウトされているパッケージは必須となっているか、あるいは以前のパネルで設定されています。"/>
+<str id="PacksPanel.space" txt="必須容量:"/>
+<str id="PacksPanel.freespace" txt="利用可能な容量："/>
+<str id="PacksPanel.description" txt="説明"/>
+<str id="PacksPanel.dependencyList" txt="選択されたパッケージには以下の依存関係があります。"/>
+<str id="PacksPanel.notEnoughSpace" txt="インストールに必要なディスク領域は、利用可能なディスク領域を上まわっています。"/>
+<str id="PacksPanel.notAscertainable" txt="確認できません。"/>
+<str id="PacksPanel.excludes" txt="除外："/>
+<str id="PacksPanel.dependencies" txt="依存性:"/>
+<str id="PacksPanel.summaryCaption" txt="選択されたインストールパッケージ"/>
+<str id="TreePacksPanel.summaryCaption" txt="選択されたインストールパッケージ"/>
+<!-- fuzzy string match:
+<str id="PacksPanel.pack.modify" txt="ツリー形式でパッケージを表示します。"/>
+end fuzzy string match -->
+<str id="PacksPanel.pack.read" txt="Read pack list from xml definition."/>
+<str id="PacksPanel.try" txt="Try to"/>
+<str id="PacksPanel.add" txt="add to"/>
+<str id="PacksPanel.remove" txt="remove from"/>
+<!-- fuzzy string match:
+<str id="PacksPanel.selection" txt="選択："/>
+end fuzzy string match -->
+<str id="PacksPanel.pack" txt="Pack"/>
+<str id="TreePacksPanel.headline" txt="ツリー形式でパッケージを表示します。"/>
+<str id="TreePacksPanel.no.packs" txt="パックが選択されていません。"/>
+<str id="TreePacksPanel.continue.question" txt="本当に継続しますか？"/>
+<str id="TreePacksPanel.already.selected" txt="[選択済み]"/>
+<str id="TreePacksPanel.not.selected" txt="[末選択]"/>
+<str id="TreePacksPanel.required" txt="[必須]"/>
+<str id="TreePacksPanel.unselectable" txt="[Unselectable]"/>
+<str id="TreePacksPanel.confirm" txt="Press 0 to confirm your selections"/>
+<!-- fuzzy string match:
+<str id="TreePacksPanel.number" txt="ユーザー名を入力してください。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="TreePacksPanel.prompt" txt="インストールしたいパッケージを選択してください:"/>
+end fuzzy string match -->
+<str id="TreePacksPanel.invalid" txt="Invalid options"/>
+<str id="TreePacksPanel.done" txt="パックを選択しました。"/>
+<str id="InstallPanel.info" txt="インストールを開始するには &quot;Install&quot; をクリックしてください。"/>
+<str id="InstallPanel.install" txt="インストール"/>
+<str id="InstallPanel.tip" txt="コンポーネントインストールの進捗"/>
+<str id="InstallPanel.finished" txt="[完了]"/>
+<str id="InstallPanel.progress" txt="インストール全体の進捗:"/>
+<str id="InstallPanel.overwrite.title" txt="ファイルはすでに存在します。"/>
+<str id="InstallPanel.overwrite.question" txt="以下のファイルは既に存在します。上書きしますか?"/>
+<str id="InstallPanel.unpack.finish" txt="Unpacking finished."/>
+<!-- fuzzy string match:
+<str id="InstallPanel.unpack.start" txt="プロセス開始"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="InstallPanel.pack.process" txt="処理中"/>
+end fuzzy string match -->
+<str id="java.mismatch.error" txt="インストールしようとしているアプリケーションには、バージョンが @@ 以上の Java プラットフォームが必要です。現在、バージョン @@ の Java プラットフォームが実行されています。新しいバージョンにアップグレードしてください。"/>
+<str id="FinishPanel.success" txt="インストールが正常に完了しました。"/>
+<str id="FinishPanel.done" txt="完了"/>
+<str id="FinishPanel.fail" txt="インストールに失敗しました。"/>
+<str id="FinishPanel.uninst.info" txt="アンインストーラープログラムの作成場所："/>
+<str id="FinishPanel.auto" txt="自動インストールスクリプトを生成します。"/>
+<str id="FinishPanel.auto.tip" txt="他のコンピュータでこのインストールを繰り返すには、このスクリプトを使用してください。"/>
+<str id="FinishPanel.autoxml.info" txt="自動インストールスクリプトのパスを選択します。"/>
+<str id="FinishPanel.install" txt="アプリケーションがインストールされました。"/>
+<str id="FinishPanel.automatic.install" txt="自動インストールスクリプトを生成しますか？"/>
+<str id="FinishPanel.automatic.warning" txt="[警告]: パスワードはプレーンテキストで保存されます。"/>
+<str id="FinishPanel.directory" txt="ディレクトリーへのパスで、ファイルは指定されていません。"/>
+<str id="FinishPanel.file.already.exists" txt="ファイルはすでに存在します。上書きしますか？"/>
+<str id="FinishPanel.file.cannot.write" txt="パスへの書き込みはできません。別の場所を選択してください。"/>
+<str id="FinishPanel.xml.success" txt="XML が正常に書き込まれました。"/>
+<str id="FinishPanel.xml.no.success" txt="XML が正常に書き込まれませんでした。"/>
+<str id="ShortcutPanel.headline" txt="ショートカット設定"/>
+<str id="ShortcutPanel.regular.StartMenu:Start-Menu" txt="スタートメニュ"/>
+<str id="ShortcutPanel.regular.StartMenu:K-Menu" txt="XDG メニュー"/>
+<str id="ShortcutPanel.regular.userIntro" txt="ショートカットの作成："/>
+<str id="ShortcutPanel.regular.create" txt="スタートメニューにショートカットを作成します。"/>
+<str id="ShortcutPanel.regular.currentUser" txt="現在のユーザー"/>
+<str id="ShortcutPanel.regular.allUsers" txt="全ユーザー"/>
+<str id="ShortcutPanel.regular.list" txt="ショートカットを作成するプログラムグループを選択します："/>
+<str id="ShortcutPanel.regular.default" txt="デフォルト"/>
+<!-- fuzzy string match:
+<str id="ShortcutPanel.shortcut.fail" txt="スタートメニューにショートカットを作成します。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="ShortcutPanel.spec.fail" txt="ショートカットに使用されるアイコン。"/>
+end fuzzy string match -->
+<str id="ShortcutPanel.done" txt="done"/>
+<!-- fuzzy string match:
+<str id="ShortcutPanel.shortcut.create" txt="ショートカットの作成："/>
+end fuzzy string match -->
+<str id="ShortcutPanel.shortcut.add" txt="Add shortcuts to uninstaller"/>
+<str id="ProcessPanel.heading" txt="処理中"/>
+<str id="ProcessPanel.start.process" txt="プロセス開始"/>
+<str id="ProcessPanel.start.processing" txt="処理開始"/>
+<!-- fuzzy string match:
+<str id="ProcessPanel.finish.processing" txt="処理中"/>
+end fuzzy string match -->
+<str id="SummaryPanel.info" txt="JBoss Enterprise Application Platform 6 をインストール準備ができました。重要なデータポイントは以下の通りです。&quot;Next&quot; をクリックしてインストールを開始します。"/>
+<str id="UserInputPanel.failed" txt="検証に失敗しました。入力内容を確認してください。"/>
+<str id="UserInputPanel.validation.error" txt="検証エラー。"/>
+<str id="UserInputPanel.console.error" txt="検証エラー。"/>
+<str id="UserInputPanel.console.error" txt="エラー: コンソールが見つかりません。"/>
+<str id="UserInputPanel.input.selection" txt="入力事項の選択"/>
+<str id="UserInputPanel.choice" txt="選択するには 1 を、選択を解除するには 0 を入力してください。"/>
+<str id="UserInputPanel.collection.missing" txt="field collection not implemented"/>
+<str id="UserInputPanel.spec.pass" txt="No spec specified for input of type password"/>
+<str id="UserInputPanel.pass.pass" txt="No pwd specified in the spec for type password"/>
+<str id="UserInputPanel.spec.check" txt="No spec specified for input of type check"/>
+<str id="UserInputPanel.summaryCaption.0" txt="管理ユーザー"/>
+<str id="UserInputPanel.summaryCaption.1" txt="Quickstarts"/>
+<str id="quickstarts.title" txt="Quickstarts"/>
+<str id="application-platform.quickstarts" txt="Quickstarts"/>
+<!-- fuzzy string match:
+<str id="UserInputPanel.summaryCaption.2" txt="ポートの設定"/>
+end fuzzy string match -->
+<str id="UserInputPanel.summaryCaption.3" txt="ポートの設定"/>
+<str id="UserInputPanel.summaryCaption.12" txt="サーバーの起動"/>
+<str id="UserInputPanel.summaryCaption.13" txt="Logging"/>
+<!-- fuzzy string match:
+<str id="UserInputPanel.summaryCaption.14" txt="ポートの設定"/>
+end fuzzy string match -->
+<str id="UserInputPanel.summaryCaption.15" txt="Password Vault"/>
+<str id="UserInputPanel.summaryCaption.16" txt="SSL"/>
+<str id="UserInputPanel.summaryCaption.17" txt="LDAP"/>
+<str id="UserInputPanel.summaryCaption.18" txt="Security Realm"/>
+<str id="UserInputPanel.summaryCaption.19" txt="Infinispan"/>
+<str id="UserInputPanel.summaryCaption.20" txt="Security Domain"/>
+<str id="UserInputPanel.summaryCaption.21" txt="JSSE"/>
+<!-- fuzzy string match:
+<str id="installQuickStarts" txt="インストールに失敗しました。"/>
+end fuzzy string match -->
+<str id="portDecision" txt="Custom ports"/>
+<!-- fuzzy string match:
+<str id="configureStandalone" txt="Standalone"/>
+end fuzzy string match -->
+<str id="configureDomain" txt="For domain.xml"/>
+<str id="portOffsetType" txt="Offset"/>
+<str id="serverStartup" txt="Selected server"/>
+<!-- fuzzy string match:
+<str id="browserStartup" txt="サーバー起動"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="configureLog" txt="ポートの設定"/>
+end fuzzy string match -->
+<str id="root-log-level" txt="Root logging level"/>
+<str id="console-log-level" txt="Console logging level"/>
+<!-- fuzzy string match:
+<str id="postinstall.profile" txt="インストールに失敗しました。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="installVault" txt="ポートの設定"/>
+end fuzzy string match -->
+<str id="vault.salt" txt="Salt"/>
+<str id="vault.itercount" txt="Iteration count"/>
+<str id="vault.itercount.text" txt="Iteration count"/>
+<str id="vault.encrdir" txt="Encrypted file directory"/>
+<!-- fuzzy string match:
+<str id="vault.keystoreloc" txt="リポジトリの場所:"/>
+<str id="ssl.path" txt="リポジトリの場所:"/>
+end fuzzy string match -->
+<str id="vault.alias" txt="Vault alias"/>
+<!-- fuzzy string match:
+<str id="installSsl" txt="ポートの設定"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="installLdap" txt="ポートの設定"/>
+end fuzzy string match -->
+<str id="ldap.name" txt="Connection name"/>
+<str id="ldap.url" txt="Directory server"/>
+<str id="ldap.dn" txt="Distinguished name"/>
+<str id="ldap.realmname" txt="Security realm name"/>
+<str id="ldap.basedn" txt="Base DN"/>
+<str id="ldap.recursive" txt="Recursive directory search enabled"/>
+<str id="ldap.filtertype.text" txt="Filter Type:"/>
+<str id="ldap.filtertype" txt="Filter Type"/>
+<str id="ldap.filter" txt="Filter"/>
+<str id="ldap.filtertype.attribute" txt="Username attribute"/>
+<str id="ldap.filtertype.advanced" txt="LDAP syntax query"/>
+<str id="installSecurityDomain" txt="Install security-domain"/>
+<str id="securitydomain.name" txt="Security-domain name"/>
+<str id="securitydomain.cachetype" txt="Security-domain cache-type"/>
+<str id="securityDomainAddAuthen" txt="Add authentication element"/>
+<str id="securitydomain.add.authen.text" txt="Add authentication element"/>
+<str id="securitydomain.authencode" txt="Authentication code"/>
+<str id="securitydomain.authenflag" txt="Authentication flag"/>
+<str id="securitydomain.authenopts" txt="Authentication options"/>
+<str id="securityDomainAddAuthor" txt="Add authorization element"/>
+<str id="securitydomain.add.author.text" txt="Add authorization element"/>
+<str id="securitydomain.authorcode" txt="Authorization code"/>
+<str id="securitydomain.authorflag" txt="Authorization flag"/>
+<str id="securitydomain.authoropts" txt="Authorization options"/>
+<str id="securityDomainAddMapping" txt="Add mapping element"/>
+<str id="securitydomain.add.mapping.text" txt="Add mapping element"/>
+<str id="securitydomain.mappingcode" txt="Mapping code"/>
+<str id="securitydomain.mappingtype" txt="Mapping type"/>
+<str id="securitydomain.mappingopts" txt="Mapping options"/>
+<str id="securityDomainAddJsse" txt="Add JSSE element"/>
+<str id="securitydomain.ciphersuites" txt="Cipher-suites"/>
+<str id="securitydomain.protocols" txt="Protocols"/>
+<str id="securitydomain.clientalias" txt="Client alias"/>
+<!-- fuzzy string match:
+<str id="securitydomain.serveralias" txt="サーバーモジュール。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="securitydomain.authtoken" txt="サーバー起動"/>
+end fuzzy string match -->
+<str id="securityDomainJsseAddKeystore" txt="Add keystore element"/>
+<str id="securitydomain.jsse.add.keystore.text" txt="Add keystore element"/>
+<!-- fuzzy string match:
+<str id="securitydomain.keystore.password" txt="パスワードを入力してください。"/>
+end fuzzy string match -->
+<str id="securitydomain.keystore.provider" txt="Keystore provider"/>
+<str id="securitydomain.keystore.providerargument" txt="Keystore provider argument"/>
+<str id="securitydomain.keystore.type" txt="Keystore type"/>
+<str id="securitydomain.keystore.url" txt="Keystore URL"/>
+<str id="securityDomainJsseAddKeystoreManager" txt="Add keystore-manager element"/>
+<str id="securitydomain.keystoremanager.algorithm" txt="Keystore-manager algorithm"/>
+<str id="securitydomain.keystoremanager.provider" txt="Keystore-manager provider"/>
+<str id="securityDomainJsseAddTruststore" txt="Add truststore element"/>
+<str id="securitydomain.jsse.add.truststore.text" txt="Add truststore element"/>
+<str id="securitydomain.truststore.password" txt="Truststore password"/>
+<str id="securitydomain.truststore.provider" txt="Truststore provider"/>
+<str id="securitydomain.truststore.providerargument" txt="Truststore provider argument"/>
+<str id="securitydomain.truststore.type" txt="Truststore type"/>
+<str id="securitydomain.truststore.url" txt="Truststore URL"/>
+<str id="securityDomainJsseAddTruststoreManager" txt="Add truststore-manager element"/>
+<str id="securitydomain.truststoremanager.algorithm" txt="Truststore-manager algorithm"/>
+<str id="securitydomain.truststoremanager.provider" txt="Truststore-manager provider"/>
+<str id="installInfinispan" txt="Install Infinispan cache"/>
+<str id="infinispan.container" txt="Infinispan name"/>
+<str id="infinispan.jndiname" txt="Infinispan JNDI name"/>
+<str id="infinispan.localcache" txt="Local cache name"/>
+<str id="infinispan.transactionmode" txt="Transaction mode"/>
+<str id="infinispan.evictionstrat" txt="Eviction strategy"/>
+<str id="infinispan.evictionmax" txt="Eviction max entries"/>
+<str id="infinispan.expirationmax" txt="Expiration max idle"/>
+<!-- fuzzy string match:
+<str id="jdbc.driver.install" txt="ポートの設定"/>
+end fuzzy string match -->
+<str id="security.title" txt="ユーザーの作成"/>
+<!-- fuzzy string match:
+<str id="security.text" txt="管理ユーザーを作成できません。ユーザーは ManagementRealm へ追加され、管理コンソールや、ManagementRealm を使用して保護された他のアプリケーションへアクセスするために使用することができます。"/>
+end fuzzy string match -->
+<str id="username.text" txt="管理ユーザー名:"/>
+<str id="username.nameerror" txt="ユーザー名を入力してください。"/>
+<str id="username.alphanumeric" txt="ユーザー名は英数字である必要があります。"/>
+<str id="username.password.text" txt="管理パスワード:"/>
+<str id="username.password.re.text" txt="管理パスワードを再入力: "/>
+<str id="username.no.password" txt="パスワードを入力してください。"/>
+<str id="username.no.match.password" txt="両方のパスワードが一致する必要があります。"/>
+<str id="password.no.match.user" txt="ユーザー名と同じパスワードは使用できません。"/>
+<!-- fuzzy string match:
+<str id="password.min.eight.chars" txt="パスワードには 8 文字以上必要です。"/>
+end fuzzy string match -->
+<str id="password.at.least.one.digit" txt="パスワードには数字が 1 文字以上必要です。"/>
+<str id="password.at.least.one.non.alphanum" txt="パスワードには英数字でない記号が 1 文字以上必要です。"/>
+<!-- fuzzy string match:
+<str id="postinstall.title" txt="ポートの設定"/>
+end fuzzy string match -->
+<str id="config.server.text" txt="There are several additional options for configuring the JBoss Enterprise Application Platform now that the server has been installed. Each option can be individually chosen, and will be configured in the order displayed upon pressing next. Would you like to do this now?"/>
+<str id="config.choice.no" txt="Do not perform additional post-install configuration"/>
+<str id="config.choice.yes" txt="Perform additional post-install configuration"/>
+<str id="postinstall.processpanel.startingServer" txt="Starting Application Server."/>
+<str id="postinstall.processpanel.serverStarted" txt="Application Server successfully started."/>
+<str id="postinstall.processpanel.checkingServer" txt="Checking if server is ready...(%s/%s)."/>
+<str id="postinstall.processpanel.serverNotStarted" txt="Failed to start Server after %s attempts."/>
+<str id="postinstall.processpanel.init.error" txt="Failed to initialize the CommandContext."/>
+<str id="postinstall.processpanel.connect.error" txt="Failed to connect the CommandContext to the server."/>
+<str id="postinstall.processpanel.dircreation.error" txt="Failed to create directories."/>
+<str id="postinstall.processpanel.dircreation.success" txt="Successfully created directories."/>
+<str id="postinstall.processpanel.jarcopy.error" txt="Failed to copy jars. "/>
+<str id="postinstall.processpanel.jarcopy.success" txt="Successfully copied jars. "/>
+<str id="postinstall.processpanel.xmlcreation.error" txt="Failed to create XML: "/>
+<str id="postinstall.processpanel.xmlcreation.success" txt="Successfully created XML: "/>
+<str id="postinstall.processpanel.batch.error" txt="Post-installation configuration has failed. See the log for a list of commands that were run. These can be manually run to achieve the same effect as the installation process."/>
+<str id="postinstall.processpanel.batch.empty" txt="Post-installation configuration has ended: no further configuration needed."/>
+<str id="postinstall.processpanel.unpacking.complete" txt="Unpacking complete."/>
+<str id="postinstall.processpanel.user.added" txt="Successfully added administrative user account."/>
+<str id="postinstall.processpanel.batch.success" txt="Post-installation completed successfully. See the log for a list of commands that were run on your system. "/>
+<str id="postinstall.processpanel.log.error" txt="Failure to write the log. See the stacktrace for more information."/>
+<str id="postinstall.processpanel.log.success" txt="Log successfully written to: "/>
+<str id="postinstall.processpanel.management.connecting" txt="Trying to connect to Management Interface...(%s/%s)."/>
+<str id="postinstall.processpanel.management.connectSuccess" txt="Connected to Management Interface."/>
+<str id="postinstall.processpanel.management.connectFail" txt="Failed to connect to Management Interface after %s attempts."/>
+<str id="postinstall.processpanel.management.postInstallFails" txt="Server or Management Interface are not up: Unable to complete post-installation."/>
+<str id="postinstall.processpanel.shutdown.error" txt="Post-installation configuration failed to shutdown the server gracefully."/>
+<str id="postinstall.processpanel.shutdown.success" txt="Post-installation configuration completed."/>
+<str id="ssl.title" txt="SSL Security"/>
+<str id="ssl.text" txt="SSL security can be enabled for the management interfaces by specifying the location of a keystore and the password for it."/>
+<!-- fuzzy string match:
+<str id="ssl.path.text" txt="リポジトリの場所:"/>
+<str id="vault.path.text" txt="リポジトリの場所:"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="ssl.no.password" txt="パスワードを入力してください。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="ssl.password.text" txt="パスワードを入力してください。"/>
+<str id="vault.password.text" txt="パスワードを入力してください。"/>
+<str id="securitydomain.jsse.keystore.password.text" txt="パスワードを入力してください。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="ssl.password.re.text" txt="管理パスワードを再入力: "/>
+end fuzzy string match -->
+<str id="ssl.choice.no" txt="Do not enable SSL security"/>
+<str id="ssl.choice.yes" txt="Enable SSL security"/>
+<!-- fuzzy string match:
+<str id="ssl.dropdown.text" txt="maven レポジトリーの場所を指定："/>
+end fuzzy string match -->
+<str id="ssl.dropdown.1" txt="スタンドアロンモード"/>
+<str id="jdbc.driver.install.type.standalone" txt="スタンドアロンモード"/>
+<str id="server.launch.choice.standalone" txt="スタンドアロンモード"/>
+<str id="ssl.dropdown.2" txt="ドメインモード"/>
+<str id="jdbc.driver.install.type.domain" txt="ドメインモード"/>
+<str id="server.launch.choice.domain" txt="ドメインモード"/>
+<str id="ssl.password.tooltip" txt="Enter the password for the supplied keystore."/>
+<str id="ssl.path.tooltip" txt="Enter the full path to the keystore to use."/>
+<str id="ldap.text" txt="JBoss Enterprise Application Platform 6 can be configured to allow you to use a LDAP server as the authentication and authorization authority, both for applications and the management interface. This is a 2-step process."/>
+<!-- fuzzy string match:
+<str id="ldap.title" txt="ポートの設定"/>
+end fuzzy string match -->
+<str id="ldap.choice.no" txt="Do not enable LDAP authentication"/>
+<str id="ldap.choice.yes" txt="Enable LDAP authentication"/>
+<str id="ldap.name.text" txt="Connection Name:"/>
+<str id="ldap.url.text" txt="Directory Server:"/>
+<str id="ldap.dn.text" txt="Distinguished Name (DN):"/>
+<!-- fuzzy string match:
+<str id="ldap.creds.text" txt="管理パスワード:"/>
+<str id="ldap.password.text" txt="管理パスワード:"/>
+end fuzzy string match -->
+<str id="ldap.factory.text" txt="Context Factory:"/>
+<str id="ldap.ic.error" txt="A new LDAP connection requires a Connection Name, Directory Server, Distinguished Name (DN), and a DN Password. All four fields must be filled."/>
+<!-- fuzzy string match:
+<str id="ldap.password.re.text" txt="管理パスワードを再入力: "/>
+end fuzzy string match -->
+<str id="ldap.name.tooltip" txt="The name that this LDAP-enabled connection will be known by."/>
+<str id="ldap.url.tooltip" txt="The hostname of the LDAP server to connect to."/>
+<str id="ldap.dn.tooltip" txt="The fully distinguished name (DN) of the user on the supplied server who is authorized to perform searches."/>
+<str id="ldap.creds.tooltip" txt="The password of the supplied user."/>
+<str id="ldap2.text" txt="A new security realm will be added with the attributes below, and will utilize the LDAP outbound connection defined in the previous step. This new security realm will be associated with the management interfaces. The value for Filter can either be of the form attribute=&quot;value&quot;, where value is the name of the attribute which holds the username, or of the form filter=&quot;value&quot;, where value is a query in standard LDAP syntax. If using an LDAP query, escape &quot;&amp;&quot; with &quot;&amp;amp;&quot;"/>
+<str id="ldap.realmname.text" txt="Security Realm Name:"/>
+<str id="ldap.basedn.text" txt="Base DN:"/>
+<!-- fuzzy string match:
+<str id="ldap.username.text" txt="管理ユーザー名:"/>
+end fuzzy string match -->
+<str id="ldap.recursive.text" txt="Recursive directory search:"/>
+<str id="ldap.filter.text" txt="Username filter:"/>
+<str id="ldap2.ic.error" txt="A new LDAP security realm requires a Security Realm Name, an LDAP Username, and a Base Distinguished Name (Base DN). All three of these fields must be filled."/>
+<str id="ldap.realmname.tooltip" txt="The name that this LDAP-enabled security-realm will be known by."/>
+<str id="ldap.basedn.tooltip" txt="The distinguished name of the context to begin searching for the user."/>
+<str id="ldap.filtertype.tooltip" txt="The type of filter selected determines how the Username filter value is interpreted. Username attribute indicates that the supplied value is the LDAP attribute which contains the username."/>
+<str id="ldap.filter.tooltip" txt="This contains either the LDAP attribute containing the username for the searches, or an LDAP syntax query."/>
+<str id="ldap.recursive.tooltip" txt="Indicate whether or not the search should recurse through the LDAP directory tree."/>
+<!-- fuzzy string match:
+<str id="vault.title" txt="ポートの設定"/>
+end fuzzy string match -->
+<str id="vault.text" txt="Red Hat JBoss Enterprise Application Platform 6 can be configured to mask passwords used in file descriptors using an encrypted keystore. Using the values below, the installer will initialize the vault and mask any other passwords used in other parts of the post-installation process."/>
+<str id="vault.alias.text" txt="Vault alias:"/>
+<str id="vault.salt.text" txt="Salt (8-chars)"/>
+<str id="vault.salt.not.eight.chars" txt="The vault salt must be exactly 8 digits in length."/>
+<!-- fuzzy string match:
+<str id="vault.password.re.text" txt="パスワードを入力してください。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="vault.no.password" txt="パックが選択されていません。"/>
+end fuzzy string match -->
+<str id="vault.encrdir.text" txt="Encrypted file directory:"/>
+<!-- fuzzy string match:
+<str id="vault.choice.yes" txt="インストールパス"/>
+end fuzzy string match -->
+<str id="vault.ic.error" txt="A new password-vault requires a vault alias, a salt value, an iteration count value, a keystore password, the keystore location and a directory where encrypted files will be placed. All fields are required."/>
+<str id="vault.alias.tooltip" txt="The alias given to the keystore to be used in the vault."/>
+<str id="vault.salt.tooltip" txt="The salt value for the vault. This value is used with the iteration count to create the password-vault's hash value."/>
+<str id="vault.itercount.tooltip" txt="The iteration count. This number is used with the salt value to create the hash value for the password-vault. "/>
+<str id="vault.password.tooltip" txt="The password for the supplied keystore."/>
+<str id="securitydomain.jsse.keystore.password.tooltip" txt="The password for the supplied keystore."/>
+<str id="vault.password.re.tooltip" txt="Confirm the password for the supplied keystore."/>
+<str id="vault.path.tooltip" txt="The full path to the keystore the vault should use."/>
+<str id="vault.encrdir.tooltip" txt="The directory where encrypted files will be stored. This directory should be reasonably secured, but still accessible by JBoss EAP."/>
+<!-- fuzzy string match:
+<str id="infinispan.title" txt="ポートの設定"/>
+end fuzzy string match -->
+<str id="infinispan.text" txt="Specify information below for creating an infinispan cache."/>
+<str id="infinispan.container.text" txt="Infinispan Name:"/>
+<str id="infinispan.localcache.text" txt="Local Cache Name:"/>
+<!-- fuzzy string match:
+<str id="infinispan.transactionmode.text" txt="スタンドアロンモード"/>
+end fuzzy string match -->
+<str id="infinispan.evictionstrat.text" txt="Eviction Strategy:"/>
+<str id="infinispan.evictionmax.text" txt="Eviction Max Entries:"/>
+<str id="infinispan.expirationmax.text" txt="Expiration Max Idle:"/>
+<str id="infinispan.choice.yes" txt="Install Infinispan Cache"/>
+<str id="infinispan.container.tooltip" txt="The name for this Infinispan cache."/>
+<str id="infinispan.jndiname.tooltip" txt="The JNDI name to be associated with this cache."/>
+<str id="infinispan.localcache.tooltip" txt="The local cache name for this cache."/>
+<str id="infinispan.transactionmode.tooltip" txt="The transaction mode for this cache."/>
+<str id="infinispan.evictionstrat.tooltip" txt="The eviction strategy for this cache."/>
+<str id="infinispan.evictionmax.tooltip" txt="The maximum amount of eviction entries for this cache."/>
+<str id="infinispan.expirationmax.tooltip" txt="The maximum amount of idle time for cache expiration."/>
+<!-- fuzzy string match:
+<str id="jmsqueue.title" txt="ポートの設定を選択:"/>
+end fuzzy string match -->
+<str id="jmsqueue.text" txt="Add a JMS Queue by providing the required information below."/>
+<str id="jmsqueue.name.text" txt="JMS Queue Name:"/>
+<str id="jmsqueue.entries.text" txt="Entries:"/>
+<str id="jmsqueue.durable.text" txt="Durable Queue:"/>
+<str id="jmsqueue.choice.yes" txt="Install a JMS Queue"/>
+<!-- fuzzy string match:
+<str id="securitydomain.title" txt="ポートの設定を選択:"/>
+end fuzzy string match -->
+<str id="securitydomain.text" txt="Configure a security-domain using the fields below. The only required field is the security-domain name. The rest of the fields are optional. Most fields have a predefined list of valid values."/>
+<str id="securitydomain.name.text" txt="Security-Domain Name:"/>
+<str id="securitydomain.cachetype.text" txt="Security-Domain Cache-type:"/>
+<str id="securitydomain.add.jsse.text" txt="Add jsse element"/>
+<str id="securitydomain.authencode.text" txt="Authentication code:"/>
+<str id="securitydomain.authorcode.text" txt="Authorization code:"/>
+<str id="securitydomain.mappingcode.text" txt="Mapping code:"/>
+<str id="securitydomain.authenflag.text" txt="Authentication flag:"/>
+<str id="securitydomain.authorflag.text" txt="Authorization flag:"/>
+<str id="securitydomain.mappingtype.text" txt="Mapping type:"/>
+<str id="securitydomain.authenopts.text" txt="Authentication options:"/>
+<str id="securitydomain.authoropts.text" txt="Authorization options:"/>
+<str id="securitydomain.mappingopts.text" txt="Mapping options:"/>
+<str id="securitydomain.choice.yes" txt="Add a security-domain"/>
+<!-- fuzzy string match:
+<str id="securitydomain.jsse.keystore.password.re.text" txt="管理パスワードを再入力: "/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="securitydomain.jsse.keystore.password.empty" txt="ユーザー名と同じパスワードは使用できません。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="securitydomain.jsse.keystore.password.nomatch" txt="両方のパスワードが一致する必要があります。"/>
+end fuzzy string match -->
+<str id="securitydomain.jsse.keystore.provider.text" txt="Keystore Provider:"/>
+<str id="securitydomain.jsse.keystore.providerargument.text" txt="Provider argument:"/>
+<str id="securitydomain.jsse.truststore.providerargument.text" txt="Provider argument:"/>
+<str id="securitydomain.jsse.keystore.type.text" txt="Keystore type:"/>
+<str id="securitydomain.jsse.keystore.url.text" txt="Keystore URL:"/>
+<str id="securitydomain.jsse.no.keystore.url" txt="The keystore URL field cannot be empty."/>
+<str id="securitydomain.jsse.add.keystoremanager.text" txt="Add keystore manager element"/>
+<str id="securitydomain.jsse.keystoremanager.algorithm.text" txt="KeyManagerFactory algorithm:"/>
+<str id="securitydomain.jsse.keystoremanager.provider.text" txt="KeyManagerFactory Provider:"/>
+<str id="securitydomain.jsse.truststore.password.text" txt="Truststore password:"/>
+<!-- fuzzy string match:
+<str id="securitydomain.jsse.truststore.password.re.text" txt="管理パスワードを再入力: "/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="securitydomain.jsse.truststore.password.empty" txt="ユーザー名と同じパスワードは使用できません。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="securitydomain.jsse.truststore.password.nomatch" txt="両方のパスワードが一致する必要があります。"/>
+end fuzzy string match -->
+<str id="securitydomain.jsse.truststore.provider.text" txt="Truststore Provider:"/>
+<str id="securitydomain.jsse.truststore.type.text" txt="Truststore type:"/>
+<str id="securitydomain.jsse.truststore.url.text" txt="Truststore URL:"/>
+<str id="securitydomain.jsse.no.truststore.url" txt="The truststore URL field cannot be empty."/>
+<str id="securitydomain.jsse.add.truststoremanager.text" txt="Add trust-manager element"/>
+<str id="securitydomain.jsse.truststoremanager.algorithm.text" txt="TrustManagerFactory algorithm:"/>
+<str id="securitydomain.jsse.truststoremanager.provider.text" txt="TrustManagerFactory Provider:"/>
+<str id="securitydomain.jsse.ciphersuites.text" txt="Cipher suites used by SSLContext:"/>
+<str id="securitydomain.jsse.protocols.text" txt="Protocols used by SSLContext:"/>
+<str id="securitydomain.jsse.clientalias.text" txt="Alias of client-side keystore:"/>
+<str id="securitydomain.jsse.serveralias.text" txt="Alias of server-side keystore:"/>
+<str id="securitydomain.jsse.authtoken.text" txt="Third party validation token:"/>
+<str id="securitydomain.ic.error" txt="Please make sure that all required fields are filled in."/>
+<str id="securitydomain.jsse.text" txt="Configure a JSSE element. The JSSE element requires either a keystore or a truststore to be configured."/>
+<str id="securitydomain.jsse.requirements" txt="JSSE Element requires either a keystore, or a truststore."/>
+<str id="securitydomain.jsse.keystore.reqs" txt="Keystore requires the password and URL fields to be set."/>
+<str id="securitydomain.jsse.truststore.reqs" txt="Truststore requires the password and URL fields to be set."/>
+<str id="securitydomain.name.tooltip" txt="The unique name for this security-domain."/>
+<str id="securitydomain.cachetype.tooltip" txt="The type of authentication cache to use with this domain. Default uses a simply Map based cache. Infinispan uses the infinispan subsystem."/>
+<str id="securitydomain.authencode.tooltip" txt="Select the implementing class of the authentication element."/>
+<!-- fuzzy string match:
+<str id="securitydomain.authenflag.tooltip" txt="自動インストールスクリプトのパスを選択します。"/>
+end fuzzy string match -->
+<str id="securitydomain.authenopts.tooltip" txt="The module-options for the authentication element. Consists of a comma-separated list of key=value entries."/>
+<str id="securitydomain.authorcode.tooltip" txt="Select the implementing class of the authorization element."/>
+<str id="securitydomain.authorflag.tooltip" txt="Select the JAAS flag for the authorization element."/>
+<str id="securitydomain.authoropts.tooltip" txt="The module-options for the authorization element. Consists of a comma-separated list of key=value entries."/>
+<str id="securitydomain.mappingcode.tooltip" txt="Select the implementing class of the mapping element."/>
+<str id="securitydomain.mappingtype.tooltip" txt="This attribute reflects the type of mapping of the provider."/>
+<str id="securitydomain.mappingopts.tooltip" txt="The module-options for the mapping element. Consists of a comma-separated list of key=value entries."/>
+<str id="securitydomain.jsse.ciphersuites.tooltip" txt="A comma-separated list of cipher suites to be used by a SSLContext."/>
+<str id="securitydomain.jsse.protocols.tooltip" txt="A comma-separated list of SSL protocols to be used by a SSLContext."/>
+<str id="securitydomain.jsse.clientalias.tooltip" txt="The alias of the keystore to be used when creating client-side SSL sockets."/>
+<str id="securitydomain.jsse.serveralias.tooltip" txt="The alias of the keystore to be used when creating server-side SSL sockets."/>
+<str id="securitydomain.jsse.authtoken.tooltip" txt="Flag indicating whether the server-side SSL socket should require client authentication."/>
+<str id="securitydomain.jsse.keystore.provider.tooltip" txt="The Provider of the keystore. The default JDK provider for the keystore type is used if this attribute is blank."/>
+<str id="securitydomain.jsse.keystore.providerargument.tooltip" txt="String that can be passed as the argument of the keystore Provider constructor."/>
+<str id="securitydomain.jsse.keystore.type.tooltip" txt="The type of the keystore."/>
+<str id="securitydomain.jsse.keystore.url.tooltip" txt="The URL of the keystore. This can be a local or remote location."/>
+<str id="securitydomain.jsse.keystoremanager.algorithm.tooltip" txt="The algorithm of the KeyManagerFactory. The default JDK algorithm of the KeyManagerFactory is used if this attribute is blank."/>
+<str id="securitydomain.jsse.keystoremanager.provider.tooltip" txt="The Provider of the KeyManagerFactory. The default JDK provider for the KeyManagerFactory algorithm is used if this attribute is blank."/>
+<str id="securitydomain.jsse.truststore.password.tooltip" txt="The password for the supplied truststore."/>
+<str id="securitydomain.jsse.truststore.provider.tooltip" txt="The Provider of the truststore. The default JDK provider for the truststore type is used if this attribute is blank."/>
+<str id="securitydomain.jsse.truststore.providerargument.tooltip" txt="String that can be passed as the argument of the truststore Provider constructor."/>
+<str id="securitydomain.jsse.truststore.type.tooltip" txt="The type of the truststore."/>
+<str id="securitydomain.jsse.truststore.url.tooltip" txt="The URL of the truststore. This can be a local or remote location."/>
+<str id="securitydomain.jsse.truststoremanager.algorithm.tooltip" txt="The algorithm of the TrustManagerFactory. The default JDK algorithm of the TrustManagerFactory is used if this attribute is blank."/>
+<str id="securitydomain.jsse.truststoremanager.provider.tooltip" txt="The Provider of the TrustManagerFactory. The default JDK provider for the TrustManagerFactory algorithm is used if this attribute is blank."/>
+<str id="jdbc.driver.install.info" txt="&lt;html&gt;JBoss Enterprise Application Platform 6 supports a number of JDBC drivers, which convert application code to the relevant database language. It is possible to select multiple JARs for the driver.&lt;/html&gt;"/>
+<str id="jdbc.driver.install.choice.text" txt="Do you want to configure a JDBC driver? The driver will be installed as a core module of JBoss ${platform.name}. A module.xml file will be generated in the module directory, and appropriate entries will be made in the standalone.xml/domain.xml files."/>
+<!-- fuzzy string match:
+<str id="jdbc.driver.path.text" txt="maven レポジトリーの場所を指定："/>
+end fuzzy string match -->
+<str id="jdbc.driver.name.text" txt="Name of the JDBC driver:"/>
+<str id="jdbc.driver.module.name.text" txt="Module name for the JDBC driver:"/>
+<str id="jdbc.driver.xads.name.text" txt="XA Datasource class name:"/>
+<str id="jdbc.driver.dir.struct.text" txt="Files will be placed into this directory:"/>
+<str id="jdbc.driver.install.type.text" txt="Include the JDBC module in standalone mode, domain mode, or both:"/>
+<str id="jdbc.driver.install.type.both" txt="Both"/>
+<str id="jdbc.driver.oracle.warning" txt="The following settings must be applied for the user accessing an Oracle XA datasource in order for XA recovery to operate correctly:"/>
+<str id="UserPathPanel.info" txt="クイックスタートのインストールパスを選択:"/>
+<str id="quickstarts.install.text" txt="JBoss Enterprise Application Platform 6 には、Java EE 6 の技術を使用してアプリケーションを作成する場合に役立つクイックスタートの例が複数含まれています。クイックスタートをインストールしますか？"/>
+<str id="quickstarts.path.text" txt="クイックスタートのインストールパスを選択:"/>
+<str id="rtgov.title" txt="RT-Gov Server"/>
+<str id="rtgov.text" txt="Please enter the URL of the RT-Gov Server."/>
+<!-- fuzzy string match:
+<str id="rtgov.username.text" txt="管理ユーザー名:"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="rtgov.password.text" txt="管理パスワード:"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="rtgov.password.re.text" txt="管理パスワードを再入力: "/>
+end fuzzy string match -->
+<str id="rtgov.url.text" txt="RT-Gov Server Location:"/>
+<!-- fuzzy string match:
+<str id="rtgov.loc" txt="リポジトリの場所:"/>
+end fuzzy string match -->
+<str id="rtgov.url.error" txt="Please enter a RT-Gov Server Location:"/>
+<str id="port.setup.title" txt="ソケットバインディング"/>
+<str id="port.setup.choice.text" txt="ポートの設定を選択:"/>
+<str id="port.setup.choice.default" txt="スタンドアロンおよびドメインモードにデフォルトのポートバインディングを使用します。"/>
+<!-- fuzzy string match:
+<str id="port.setup.choice.assisted" txt="カスタムポートバインディングを設定。"/>
+end fuzzy string match -->
+<str id="port.setup.choice.custom" txt="カスタムポートバインディングを設定。"/>
+<str id="port.setup.config.standalone" txt="スタンドアロンモードのポートを設定"/>
+<str id="port.setup.config.domain" txt="ドメインモードのポートを設定"/>
+<str id="port.setup.desc" txt="JBoss Enterprise Application Platform 6 のソケットバインディングを設定。"/>
+<str id="port.setup.offset.specifyInput" txt="オフセット値:"/>
+<str id="port.setup.offset.choice.plus1" txt="+1 オフセット"/>
+<str id="port.setup.offset.choice.plus100" txt="+100 オフセット"/>
+<str id="port.setup.offset.choice.text" txt="オフセットタイプの選択"/>
+<str id="port.setup.offset.choice.specify" txt="オフセットの指定"/>
+<str id="offset.posInt" txt="オフセットは正の整数である必要があります。"/>
+<str id="offset.valid" txt="Offset value is too large. Maximum offset possible is @@."/>
+<str id="port.intro" txt="ポート"/>
+<str id="property.header" txt="システムプロパティ (オプション)"/>
+<str id="port.header" txt="デフォルト値"/>
+<str id="port.standalone.title" txt="ソケットバインディング (スタンドアローン)"/>
+<!-- fuzzy string match:
+<str id="port.standalone.h.title" txt="ソケットバインディング (スタンドアローン)"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="port.standalone.f.title" txt="ソケットバインディング (スタンドアローン)"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="port.standalone.fa.title" txt="ソケットバインディング (スタンドアローン)"/>
+end fuzzy string match -->
+<str id="port.domain.title" txt="ソケットバインディング (ドメイン)"/>
+<str id="port.domain.h.title" txt="ソケットバインディング (ha ドメイン)"/>
+<str id="port.domain.f.title" txt="ソケットバインディング (full-ドメイン)"/>
+<str id="port.domain.fa.title" txt="ソケットバインディング (full-ha-ドメイン)"/>
+<str id="UserInputPanel.tooltip.adminUser" txt="The username may only contain alphanumeric characters."/>
+<str id="UserInputPanel.tooltip.adminPwd" txt="The password must have at least 8 characters, at least one digit, and at least one special character."/>
+<str id="UserInputPanel.tooltip.offset" txt="This option will modify the standard ports by the given value."/>
+<str id="UserInputPanel.tooltip.offsetSpecify" txt="This option allows you to specify your own port offset value."/>
+<str id="UserInputPanel.tooltip.installVault" txt="Check this box to install a password vault."/>
+<str id="UserInputPanel.tooltip.installSsl" txt="Check this box to secure the management interfaces with SSL."/>
+<str id="UserInputPanel.tooltip.installLdap" txt="Check this box to enable LDAP authentication on the management interfaces."/>
+<str id="UserInputPanel.tooltip.installInfinispan" txt="Check this box to create a new Infinispan cache."/>
+<str id="UserInputPanel.tooltip.installSecurityDomain" txt="Check this box to create a new security-domain."/>
+<str id="UserInputPanel.tooltip.installJdbcDriver" txt="Check this box to install a JDBC driver and a datasource utilizing this driver."/>
+<str id="server.launch.title" txt="サーバー起動"/>
+<str id="server.launch.choice.text" txt="サーバー起動モードを選択:"/>
+<str id="server.launch.choice.no.start" txt="サーバーを起動しない"/>
+<str id="server.launch.browser" txt="サーバー開始後にブラウザーを起動"/>
+<str id="log-level.title" txt="Logging Options"/>
+<!-- fuzzy string match:
+<str id="configure-log-level.choice.text" txt="JBoss Enterprise Application Platform 6 のソケットバインディングを設定。"/>
+end fuzzy string match -->
+<str id="root-log-level.choice.text" txt="Logging level for the root-logger: "/>
+<str id="console-log-level.choice.text" txt="Logging level for the console: "/>
+<str id="${platform.edition}-core" txt="${platform.edition}-core"/>
+<str id="${platform.edition}-core.description" txt="${platform.name} プラットフォームコア。"/>
+<str id="application-platform.appclient" txt="AppClient"/>
+<str id="application-platform.appclient.description" txt="AppClient フォルダー。"/>
+<str id="application-platform.bin.unix" txt="Bin"/>
+<str id="application-platform.bin.windows" txt="Bin"/>
+<str id="application-platform.bin.unix.description" txt="JBoss ${platform.name} UNIX シェルスクリプト。"/>
+<str id="application-platform.bin.windows.description" txt="JBoss ${platform.name} Windows バッチスクリプト。"/>
+<str id="application-platform.bundles" txt="Bundles"/>
+<str id="application-platform.bundles.description" txt="OSGi バンドル。"/>
+<str id="application-platform.docs" txt="Docs"/>
+<str id="application-platform.docs.description" txt="XML スキーマの定義ファイル。"/>
+<str id="application-platform.domain.description" txt="ドメインモードプロセスによって使用される設定ファイル、デプロイメントコンテンツ、および書き込み可能領域。"/>
+<str id="jboss-shell.domain" txt="Domain Shell Scripts"/>
+<str id="jboss-shell.domain.description" txt="JBoss ${platform.name} ドメインモード UNIX シェルスクリプト。"/>
+<str id="jboss-batch.domain" txt="Domain Batch Scripts"/>
+<str id="jboss-batch.domain.description" txt="JBoss ${platform.name} ドメインモードバッチスクリプト。"/>
+<str id="application-platform.modules" txt="Modules"/>
+<str id="application-platform.modules.description" txt="サーバーモジュール。"/>
+<str id="application-platform.standalone.description" txt="スタンドアロンモードプロセスによって使用される設定ファイル、デプロイメントコンテンツ、および書き込み可能領域。"/>
+<str id="jboss-shell.standalone" txt="Standalone Shell Scripts"/>
+<str id="jboss-shell.standalone.description" txt="JBoss ${platform.name} のスタンドアロン UNIX シェルスクリプト。"/>
+<str id="jboss-batch.standalone" txt="Standalone Batch Scripts"/>
+<str id="jboss-batch.standalone.description" txt="JBoss ${platform.name} のスタンドアロンバッチスクリプト。"/>
+<str id="application-platform.welcome-content" txt="Welcome Content"/>
+<str id="application-platform.welcome-content.description" txt="デフォルトの Welcome ページコンテンツ"/>
+<str id="application-platform.quickstarts.description" txt="JBoss ${platform.name} サンプルアプリケーション。"/>
+<str id="application-platform.maven" txt="Apache Maven バイナリ"/>
+<str id="application-platform.maven.description" txt="Apache Maven ${maven.version}。"/>
+<str id="application-platform.icons" txt="アイコン"/>
+<str id="application-platform.icons.description" txt="ショートカットに使用されるアイコン。"/>
+<str id="${platform.edition}-native" txt="${platform.name} ネイティブ"/>
+<str id="application-platform.native.rhel5.i386" txt="ネイティブ RHEL5 i386"/>
+<str id="application-platform.native.rhel5.i386.description" txt="RHEL5 i386 用ネイティブバイナリ"/>
+<str id="application-platform.native.rhel5.x86_64" txt="ネイティブ RHEL5 x86_64"/>
+<str id="application-platform.native.rhel5.x86_64.description" txt="RHEL5 x86_64 用ネイティブバイナリ。"/>
+<str id="application-platform.native.utils.rhel5.i386" txt="ネイティブ Utils RHEL5 i386"/>
+<str id="application-platform.native.utils.rhel5.i386.description" txt="RHEL5 i386 用ネイティブ Utils バイナリ"/>
+<str id="application-platform.native.utils.rhel5.x86_64" txt="ネイティブ Utils RHEL5 x86_64"/>
+<str id="application-platform.native.utils.rhel5.x86_64.description" txt="RHEL5 x86_64 用ネイティブ Utils バイナリ。"/>
+<str id="application-platform.native.webserver.rhel5.i386" txt="ネイティブ Webserver RHEL5 i386"/>
+<str id="application-platform.native.webserver.rhel5.i386.description" txt="RHEL5 i386 用ネイティブ Webserver コネクタバイナリ。"/>
+<str id="application-platform.native.webserver.rhel5.x86_64" txt="ネイティブ Webserver RHEL5 x86_64"/>
+<str id="application-platform.native.webserver.rhel5.x86_64.description" txt="RHEL5 x86_64 用ネイティブ Webserver コネクタバイナリ。"/>
+<str id="application-platform.native.rhel6.i386" txt="ネイティブ RHEL6 i386"/>
+<str id="application-platform.native.rhel6.i386.description" txt="RHEL6 i386 用ネイティブバイナリ。"/>
+<str id="application-platform.native.rhel6.x86_64" txt="ネイティブ RHEL6 x86_64"/>
+<str id="application-platform.native.rhel6.x86_64.description" txt="RHEL6 x86_64 用ネイティブバイナリ。"/>
+<str id="application-platform.native.utils.rhel6.i386" txt="ネイティブ Utils RHEL6 i386"/>
+<str id="application-platform.native.utils.rhel6.i386.description" txt="RHEL6 i386 用ネイティブ Utils バイナリ。"/>
+<str id="application-platform.native.utils.rhel6.x86_64" txt="ネイティブ Utils RHEL6 x86_64"/>
+<str id="application-platform.native.utils.rhel6.x86_64.description" txt="RHEL6 x86_64 用ネイティブ Utils バイナリ。"/>
+<str id="application-platform.native.webserver.rhel6.i386" txt="ネイティブ Webserver RHEL6 i386"/>
+<str id="application-platform.native.webserver.rhel6.i386.description" txt="RHEL6 i386 用ネイティブ Webserver コネクタバイナリ。"/>
+<str id="application-platform.native.webserver.rhel6.x86_64" txt="ネイティブ Webserver RHEL6 x86_64"/>
+<str id="application-platform.native.webserver.rhel6.x86_64.description" txt="RHEL6 x86_64 用ネイティブ Webserver コネクタバイナリ"/>
+<str id="application-platform.native.windows.i386" txt="ネイティブ Windows i386"/>
+<str id="application-platform.native.windows.i386.description" txt="Windows i386 用ネイティブバイナリ。"/>
+<str id="application-platform.native.windows.x86_64" txt="ネイティブ Windows x86_64"/>
+<str id="application-platform.native.windows.x86_64.description" txt="Windows x86_64 用ネイティブバイナリ。"/>
+<str id="application-platform.native.utils.windows.i386" txt="ネイティブ Utils Windows i386"/>
+<str id="application-platform.native.utils.windows.i386.description" txt="Windows i386 用ネイティブ Utils バイナリ。"/>
+<str id="application-platform.native.utils.windows.x86_64" txt="ネイティブ Utils Windows x86_64"/>
+<str id="application-platform.native.utils.windows.x86_64.description" txt="Windows x86_64 用ネイティブ Utils バイナリ。"/>
+<str id="application-platform.native.webserver.windows.i386" txt="ネイティブ Webserver Windows i386"/>
+<str id="application-platform.native.webserver.windows.i386.description" txt="Windows i386 用ネイティブ Webserver コネクタバイナリ。"/>
+<str id="application-platform.native.webserver.windows.x86_64" txt="ネイティブ Webserver Windows x86_64"/>
+<str id="application-platform.native.webserver.windows.x86_64.description" txt="Windows x86_64 用ネイティブ Webserver コネクタバイナリ。"/>
+<str id="application-platform.native.sun.i386" txt="ネイティブ Solaris 10/11 i386"/>
+<str id="application-platform.native.sun.i386.description" txt="Solaris 10/11 i386 用ネイティブバイナリ。"/>
+<str id="application-platform.native.sun.x86_64" txt="ネイティブ Solaris 10/11 x86_64"/>
+<str id="application-platform.native.sun.x86_64.description" txt="Solaris 10/11 x86_64 用ネイティブバイナリ。"/>
+<str id="application-platform.native.sun.sparc64" txt="ネイティブ Solaris 10/11 sparc64"/>
+<str id="application-platform.native.sun.sparc64.description" txt="Solaris 10/11 sparc64 用ネイティブバイナリ。"/>
+<str id="application-platform.native.utils.sun.i386" txt="ネイティブ Utils Solaris 10/11 i386"/>
+<str id="application-platform.native.utils.sun.i386.description" txt="Solaris 10/11 i386 用ネイティブ Utils バイナリ。"/>
+<str id="application-platform.native.utils.sun.x86_64" txt="ネイティブ Utils Solaris 10/11 x86_64"/>
+<str id="application-platform.native.utils.sun.x86_64.description" txt="Solaris 10/11 x86_64 用ネイティブ Utils バイナリ。"/>
+<str id="application-platform.native.utils.sun.sparc64" txt="ネイティブ Utils Solaris 10/11 sparc64"/>
+<str id="application-platform.native.utils.sun.sparc64.description" txt="Solaris 10/11 sparc64 用ネイティブ Utils バイナリ。"/>
+<str id="application-platform.native.webserver.sun.i386" txt="ネイティブ Webserver Solaris 10/11 i386"/>
+<str id="application-platform.native.webserver.sun.i386.description" txt="Solaris 10/11 i386 用ネイティブ Webserver コネクタバイナリ。"/>
+<str id="application-platform.native.webserver.sun.x86_64" txt="ネイティブ Webserver Solaris 10/11 x86_64"/>
+<str id="application-platform.native.webserver.sun.x86_64.description" txt="Solaris 10/11 x86_64 用ネイティブ Webserver コネクタバイナリ。"/>
+<str id="application-platform.native.webserver.sun.sparc64" txt="ネイティブ Webserver Solaris 10/11 sparc64"/>
+<str id="application-platform.native.webserver.sun.sparc64.description" txt="Solaris 10/11 sparc64 用ネイティブ Webserver コネクタバイナリ。"/>
+<str id="console.ask" txt="継続するには 1 を、終了するには 2 を、再表示するには 3 を押してください。"/>
+<str id="port.template" txt="@@ ポート番号"/>
+<str id="multicast-port.template" txt="@@ マルチキャストポート"/>
+<str id="multicast-address.template" txt="@@ マルチキャストアドレス"/>
+<str id="validator.template" txt="@@ のポート番号を入力してください。"/>
+<str id="multicast-address-validator.template" txt="@@ マルチキャストアドレスのポート番号を入力してください。"/>
+<str id="multicast-port-validator.template" txt="@@ マルチキャストポートのポート番号を入力してください。"/>
+<str id="verify-address-validator.template" txt="アドレスは IPv4 / IPv6 に準拠していません。@@ のアドレスを確認してください。"/>
+<str id="range-validator.template" txt="@@ のポート番号は、1 〜 65535 の範囲内にある整数である必要があります。"/>
+<str id="port.collision.check.template" txt="競合を防ぐため、異なるポート番号を指定してください。"/>
+<!-- fuzzy string match:
+<str id="ConsoleInstaller.panel.fail" txt="インストールに失敗しました。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="ConsoleInstaller.done" txt="選択されたインストールパッケージ"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="ConsoleInstaller.fail" txt="選択されたインストールパッケージ"/>
+end fuzzy string match -->
+<str id="WebRepositoryAccessor.download.fail" txt=" while trying to download "/>
+<str id="WebRepositoryAccessor.write.fail" txt=" while trying to write temp file: "/>
+<str id="WebRepositoryAccessor.warn.parse" txt="WARN: Unable to parse"/>
+<str id="AutomatedInstaller.file.missing" txt="File not found."/>
+<str id="AutomatedInstaller.xml.prompt" txt="Please specify a correct XML file."/>
+<str id="AutomatedInstaller.uninstaller.write" txt="Writing the uninstaller data ..."/>
+<!-- fuzzy string match:
+<str id="AutomatedInstaller.installation.start" txt="自動インストールスクリプトを生成します。"/>
+end fuzzy string match -->
+<!-- fuzzy string match:
+<str id="AutomatedInstaller.installation.done" txt="コンポーネントインストールの進捗"/>
+end fuzzy string match -->
+<str id="AutomatedInstaller.installation.fail" txt="Automated installation FAILED!"/>
+<str id="AutomatedInstaller.user.skip" txt="Provided username already exists previous install config files. Skipping user creation."/>
+<str id="Unix_Shortcut.backup.fail" txt="Cannot create backup file "/>
+<str id="Unix_Shortcut.main.test" txt="Test Main Program"/>
+<str id="Unix_Shortcut.done" txt="DONE."/>
+<str id="UnixHelper.wrote" txt="Wrote"/>
+<str id="UnixHelper.write.fail" txt="Could not write"/>
+<str id="Log.record.messages" txt="The following debug channels did record mesages"/>
+<str id="Console.error" txt="Error in atleast of the following"/>
+<str id="Console.exec.error" txt="Error during execution"/>
+<str id="Console.start.error" txt="Error during execution"/>
+<str id="FileSpanningInputStream.eof" txt="EOF reached."/>
+<str id="CompileWorker.parse.error" txt="Error parsing XML specification for compilation."/>
+<str id="Unpacker.file.unfound" txt="File not found"/>
+<str id="Unpacker.file.unfound2" txt="Could not find loosely bundled file: "/>
+<!-- fuzzy string match:
+<str id="Unpacker.install.cancel" txt="インストールに失敗しました。"/>
+end fuzzy string match -->
+<str id="Unpacker.install.corrupt" txt="Unexpected end of stream (installer corrupted?)"/>
+<str id="Installer.file.invalid" txt="Invalid file."/>
+<str id="Installer.xml.prompt" txt="Please specify the correct XML file."/>
+<str id="ValidatorContainer.fail" txt="ValidatorContainer Contructore Failed"/>
+<!-- fuzzy string match:
+<str id="PasswordKeystoreValidator.validate.skip" txt="検証エラー。"/>
+end fuzzy string match -->
+<str id="PasswordKeystoreValidator.validate.no" txt=" Not validating keystore"/>
+<str id="PasswordKeystoreValidator.keystore.null" txt="keystorePassword parameter null, using validator password for keystore"/>
+<str id="PasswordKeystoreValidator.keystore.empty" txt="keystorePassword parameter empty, using validator password for keystore"/>
+<str id="PasswordKeystoreValidatorar.alias.null" txt="aliasPassword parameter null, using validator password for key"/>
+<str id="PasswordKeystoreValidatorar.alias.empty" txt="aliasPassword parameter empty, using validator password for key"/>
+<str id="PasswordKeystoreValidator.keystore.nulld" txt="keystoreType parameter null, using default of JKS"/>
+<str id="PasswordKeystoreValidator.keystore.emptyd" txt="keystoreType parameter empty, using default of JKS"/>
+<str id="PasswordKeystoreValidator.open.attempt" txt="Attempting to open keystore: "/>
+<str id="PasswordKeystoreValidator.password.validated" txt="keystore password validated"/>
+<str id="PasswordKeystoreValidator.keystore.alias" txt="Keystore alias"/>
+<str id="PasswordKeystoreValidator.retrive.try" txt="trying to retrieve"/>
+<str id="PasswordKeystoreValidator.validated" txt="validated"/>
+<!-- fuzzy string match:
+<str id="PasswordKeystoreValidator.validate.fail" txt="インストールに失敗しました。"/>
+end fuzzy string match -->
+<str id="PasswordKeystoreValidator.not.found" txt="not found"/>
+<str id="PasswordKeystoreValidator.keystore.unprovided" txt="KeystoreFile param not provided"/>
+<str id="PasswordKeystoreValidator.params.unprovided" txt="Params no provided"/>
+<str id="PostInstallUser.user.add" txt="Added post-install user."/>
+<str id="PostInstallUser.user.fail" txt="Unable to add post-install user."/>
+<str id="RollBackInstaller.deleted" txt="Deleted"/>
+<str id="RollBackInstaller.deleted.reason" txt="because there was no backup available."/>
+<str id="BackupCreator.backup" txt="Backing up"/>
+<str id="BackupCreator.to" txt="to"/>
+</langpack>

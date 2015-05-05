@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shortcuts>
+
+   <programGroup location="applications" defaultName="JBoss Platform" xml:lang="fr"></programGroup>
+
+   <shortcut type="Application" terminal="true" target="$INSTALL_PATH/${common.eap.name}/bin/standalone.sh" startup="no" programGroup="yes" initialState="normal" iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-start.png" encoding="UTF-8" desktop="no" createForAll="true" categories="" name="Démarrer le serveur (autonome)" description="Démarrer le serveur autonome" KdeSubstUID="false" xml:lang="fr"></shortcut>
+
+   <shortcut type="Application" terminal="true" target="$INSTALL_PATH/${common.eap.name}/bin/domain.sh" startup="no" programGroup="yes" initialState="normal" iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-start.png" encoding="UTF-8" desktop="no" createForAll="true" categories="" name="Démarrer le serveur (domaine)" description="Démarrer le serveur de domaine" KdeSubstUID="false" xml:lang="fr"></shortcut>
+
+   <shortcut type="Application" terminal="false" target="xdg-open" startup="no" programGroup="yes" initialState="normal" iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-jmx.png" encoding="UTF-8" desktop="no" createForAll="true" commandLine="http://localhost:9990/console" categories="" name="Console Administration JBoss (domaine)" description="Lancer la Console Administration JBoss" KdeSubstUID="false" xml:lang="fr">
+   </shortcut>
+
+   <shortcut type="Application" terminal="false" target="xdg-open" startup="no" programGroup="yes" initialState="normal" iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-jmx.png" encoding="UTF-8" desktop="no" createForAll="true" commandLine="http://localhost:${standalone.http.with-offset}/console" categories="" name="Console Administration JBoss (autonome)" description="Lancer la Console Administration JBoss" KdeSubstUID="false" xml:lang="fr">
+   </shortcut>
+
+   <shortcut type="Application" terminal="true" target="$INSTALL_PATH/${common.eap.name}/bin/jboss-cli.sh" startup="no" programGroup="yes" initialState="normal" iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-stop.png" encoding="UTF-8" desktop="no" createForAll="true" commandLine="--connect command=:shutdown --controller=${standalone.native-management.with-offset}" categories="" name="Fermer le serveur (autonome)" description="Fermer le serveur d&apos;applications" KdeSubstUID="false" xml:lang="fr"></shortcut>
+
+   <shortcut type="Application" terminal="true" target="$INSTALL_PATH/${common.eap.name}/bin/jboss-cli.sh" startup="no" programGroup="yes" initialState="normal" iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-stop.png" encoding="UTF-8" desktop="no" createForAll="true" commandLine="--connect command=/host=master:shutdown --controller=localhost:9999" categories="" name="Fermer le serveur (domaine)" description="Fermer le serveur d&apos;applications" KdeSubstUID="false" xml:lang="fr"></shortcut>
+
+   <shortcut type="Application" terminal="false" target="$JAVA_HOME/bin/java" startup="no" startMenu="no" programGroup="yes" initialState="normal" iconIndex="0" iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-uninstall.png" encoding="UTF-8" desktop="no" createForAll="true" commandLine="-jar &#34;$INSTALL_PATH/Uninstaller/uninstaller.jar&#34;" categories="" applications="no" name="Désinstaller la Plateforme" description="Désinstaller JBoss Platform" KdeSubstUID="false" xml:lang="fr"></shortcut>
+
+   
+
+</shortcuts>

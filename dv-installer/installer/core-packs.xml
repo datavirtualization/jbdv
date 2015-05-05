@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<installation version="1.0">
+<!-- The packs under the group "Core" that are referenced in install.xml  -->
+
+<!--
+
+     NOTE: Even though the description and name of the pack are specified here,
+           the installer is actually reading those attributes from the langpack.
+
+           I [dcheung] could not remove the name and description attributes from 
+           the pack section since IzPack complains about that and leaving them
+           blank produces strange behaviours, like required packs are not faded etc.
+
+           If you current intern can fix that, please accept a big apology from me
+           for doing that mess but also pleaase accept a Thank You from me for actually
+           reading this comment and fixing it! 
+
+-->
+
+<packs>
+    <pack name="Red Hat JBoss Enterprise Application Platform" id="eap" required="yes" selectable="no" condition="eap.needs.install" hidden="false">
+        <description>Red Hat JBoss Enterprise Application Platform 6</description>
+        <fileset dir="${eap.bin.loc}"
+                targetdir="${INSTALL_PATH}/"
+    override="true">
+            <include name="**/*"/>
+            <exclude name="patches-applied.txt"/>
+            <exclude name="dataVirtualization/vdb/ModeShape.vdb"/>
+            <exclude name="standalone/deployments/teiid-dashboard-builder.war.dodeploy"/>
+        </fileset>
+        <!-- useless if no shortcuts are installed, pointless bloat -->
+        <!--<fileset dir="${izpack.config.dir}/icons"
+            targetdir="${INSTALL_PATH}/icons"
+            override="false">
+            <include name="**/*"/>
+        </fileset>-->
+        <executable targetfile="${INSTALL_PATH}/bin/add-user.sh" stage="never" os="unix" />
+        <executable targetfile="${INSTALL_PATH}/bin/appclient.sh" stage="never" os="unix" />
+        <executable targetfile="${INSTALL_PATH}/bin/jboss-cli.sh" stage="never" os="unix" />
+        <executable targetfile="${INSTALL_PATH}/bin/jconsole.sh" stage="never" os="unix" />
+        <executable targetfile="${INSTALL_PATH}/bin/jdr.sh" stage="never" os="unix" />
+        <executable targetfile="${INSTALL_PATH}/bin/run.sh" stage="never" os="unix" />
+        <executable targetfile="${INSTALL_PATH}/bin/vault.sh" stage="never" os="unix" />
+        <executable targetfile="${INSTALL_PATH}/bin/wsconsume.sh" stage="never" os="unix" />
+        <executable targetfile="${INSTALL_PATH}/bin/wsprovide.sh" stage="never" os="unix" />
+        <executable targetfile="${INSTALL_PATH}/bin/init.d/jboss-as-standalone.sh" stage="never" os="unix" />
+        <executable targetfile="${INSTALL_PATH}/bin/add-user.bat" stage="never" os="windows"/>
+        <executable targetfile="${INSTALL_PATH}/bin/appclient.bat" stage="never" os="windows"/>
+        <executable targetfile="${INSTALL_PATH}/bin/jboss-admin.bat" stage="never" os="windows"/>
+        <executable targetfile="${INSTALL_PATH}/bin/wsconsume.bat" stage="never" os="windows"/>
+        <executable targetfile="${INSTALL_PATH}/bin/wsprovide.bat" stage="never" os="windows"/>
+        <executable targetfile="${INSTALL_PATH}/bin/jdr.bat" stage="never" os="windows"/>
+        <parsable targetfile="${INSTALL_PATH}/domain/configuration/domain.xml" />
+        <parsable targetfile="${INSTALL_PATH}/domain/configuration/host.xml" />
+        <executable targetfile="${INSTALL_PATH}/bin/domain.sh" stage="never" os="unix"/>
+        <executable targetfile="${INSTALL_PATH}/bin/domain.bat" stage="never" os="windows"/>
+        <parsable targetfile="${INSTALL_PATH}/standalone/configuration/standalone.xml" /> 
+        <parsable targetfile="${INSTALL_PATH}/standalone/configuration/standalone-full.xml" />
+        <parsable targetfile="${INSTALL_PATH}/standalone/configuration/standalone-ha.xml" />
+        <parsable targetfile="${INSTALL_PATH}/standalone/configuration/standalone-full-ha.xml" />
+        <parsable targetfile="${INSTALL_PATH}/standalone/configuration/standalone-osgi.xml" />
+        <parsable targetfile="${INSTALL_PATH}/bin/standalone.conf" />
+        <parsable targetfile="${INSTALL_PATH}/bin/domain.conf" />
+        <parsable targetfile="${INSTALL_PATH}/bin/appclient.conf" />
+        <parsable targetfile="${INSTALL_PATH}/domain/configuration/host.xml" />
+        <parsable targetfile="${INSTALL_PATH}/domain/configuration/host-slave.xml" />
+        <parsable targetfile="${INSTALL_PATH}/domain/configuration/host-master.xml" />
+        <executable targetfile="${INSTALL_PATH}/bin/standalone.sh" stage="never" os="unix"/>
+        <executable targetfile="${INSTALL_PATH}/bin/standalone.bat" stage="never" os="windows"/>
+    </pack>
+
+    <pack name="Integration Platform Console" required="yes" hidden="yes">
+        <description>Contains the default welcome page replacement</description>
+        <fileset dir="${dv.bin.loc}"
+                targetdir="${INSTALL_PATH}/"
+                override="false">
+                <include name="standalone/deployments/integration-platform-console.war/**/*"/>
+            <exclude name="dataVirtualization/vdb/ModeShape.vdb"/>
+            <exclude name="standalone/deployments/teiid-dashboard-builder.war.dodeploy"/>
+        </fileset>
+    </pack>
+
+    <pack name="Red Hat JBoss DV Platform" id="dv" required="yes"
+        preselect="yes">
+        <description>Red Hat JBoss DV</description>
+        <fileset dir="${dv.bin.loc}"
+            targetdir="${INSTALL_PATH}/"
+            override="true">
+            <include name="**/*"/>
+            <exclude name="patches-applied.txt"/>
+            <exclude name="standalone/deployments/integration-platform-console.war/**/*"/>
+            <exclude name="dataVirtualization/vdb/ModeShape.vdb"/>
+            <exclude name="standalone/deployments/teiid-dashboard-builder.war.dodeploy"/>
+        </fileset>
+        <executable targetfile="${INSTALL_PATH}/dataVirtualization/teiid-adminshell/migrate.sh"/>
+        <executable targetfile="${INSTALL_PATH}/dataVirtualization/teiid-adminshell/adminshell.sh"/>
+        <executable targetfile="${INSTALL_PATH}/dataVirtualization/teiid-adminshell/adminshell-console.sh"/>
+    </pack>
+
+    <pack name="Teiid" id="teiid" required="no" preselect="yes" ondeselect="modeshape">
+        <description>Teiid</description>
+        <singlefile src="${dv.bin.loc}/standalone/deployments/teiid-dashboard-builder.war.dodeploy" target="${INSTALL_PATH}/standalone/deployments/teiid-dashboard-builder.war.dodeploy" />
+    </pack>
+
+    <pack name="ModeShape" id="modeshape" required="no" preselect="yes" ondeselect="teiid">
+        <description>ModeShape CLI</description>
+        <singlefile src="${dv.bin.loc}/dataVirtualization/vdb/ModeShape.vdb" target="${INSTALL_PATH}/dataVirtualization/vdb/ModeShape.vdb" />
+    </pack>
+</packs>
+</installation>

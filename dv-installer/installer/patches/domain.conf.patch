@@ -1,0 +1,11 @@
+--- bin/domain.conf.orig	2014-08-01 14:57:05.579222905 -0400
++++ bin/domain.conf	2014-08-01 14:55:51.447329374 -0400
+@@ -44,7 +44,7 @@
+ if [ "x$JAVA_OPTS" = "x" ]; then
+    JAVA_OPTS="-Xms64m -Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true"
+    JAVA_OPTS="$JAVA_OPTS -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS -Djava.awt.headless=true"
+-   JAVA_OPTS="$JAVA_OPTS -Djboss.modules.policy-permissions=true"
++   JAVA_OPTS="$JAVA_OPTS -Djboss.modules.policy-permissions=true${domain.java.opts.bits-1}"
+ else
+    echo "JAVA_OPTS already set in environment; overriding default settings with values: $JAVA_OPTS"
+ fi

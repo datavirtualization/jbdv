@@ -1,0 +1,1629 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <!--
+        /* 
+         * ModeShape (http://www.modeshape.org)
+         * See the COPYRIGHT.txt file distributed with this work for information
+         * regarding copyright ownership. Some portions may be licensed
+         * to Red Hat, Inc. under one or more contributor license agreements.
+         * See the AUTHORS.txt file in the distribution for a full listing of
+         * individual contributors.
+         *
+         * ModeShape is free software. Unless otherwise indicated, all code in
+         * ModeShape is licensed to you under the terms of the GNU Lesser General Public License as
+         * published by the Free Software Foundation; either version 2.1 of
+         * the License, or (at your option) any later version.
+         * * ModeShape is distributed in the hope that it will be useful,
+         * but WITHOUT ANY WARRANTY; without even the implied warranty of
+         * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+         * Lesser General Public License for more details.
+         *
+         * You should have received a copy of the GNU Lesser General Public
+         * License along with this software; if not, write to the Free
+         * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+         * 02110-1301 USA, or see the FSF site: http://www.fsf.org. */
+    -->
+<plugin name="ModeShape"
+    displayName="ModeShape"
+    package="org.modeshape.rhq"
+    description="Supports management and monitoring of ModeShape"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="urn:xmlns:rhq-plugin"
+    xmlns:c="urn:xmlns:rhq-configuration">
+
+    <depends plugin="JBossAS7" useClasses="true" />
+
+    <server name="modeshape" 
+        description="ModeShape JCR Engine"
+        class="EngineComponent"
+        discovery="EngineDiscoveryComponent"
+        singleton="true">
+        
+        <runs-inside>
+            <parent-resource-type name="JBossAS7 Standalone Server"
+                plugin="JBossAS7" />
+        </runs-inside>
+
+        <!--
+            *
+            * REPOSITORIES
+            *
+        -->
+        <service name="Repositories"
+            description="ModeShape repositories"
+            class="RepositoryComponent"
+            discovery="RepositoryDiscoveryComponent">
+
+            <!-- METRICS
+              * property: should exactly equal the metric literal in ModeShape
+              * category: availability, performance (default), throughput, utilization
+              * dataType: measurement (default), trait, calltime
+              * displayType: summary, detail (default)
+              * measurementType: dynamic (default), trendsup, trendsdown
+            -->
+
+            <metric property="event-count"
+                displayName="Event count"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The number of observation events that have been sent to at least one listener." />
+
+            <metric property="event-queue-size"
+                displayName="Event queue size"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The number of events at the end of the window that have yet to be processed and sent to listeners." />
+
+            <metric property="listener-count"
+                displayName="Active listeners"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The number of listeners registered during the metrics window." />
+
+            <metric property="node-changes"
+                displayName="Changed nodes"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The number of nodes that were created, updated or deleted during the window due to session saves, workspace imports, or version checkin calls." />
+
+            <metric property="open-scoped-lock-count"
+                displayName="Open-scoped locks"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The number of locks that were held by clients during the window. The values go up or down from one window to the next as clients lock and unlock nodes." />
+
+            <metric property="query-count"
+                displayName="Active queries"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The number of queries that are executing during the metrics window." />
+
+            <metric property="query-execution-time"
+                displayName="Query duration"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The amount of time required to execute queries." />
+
+            <metric property="sequenced-count"
+                displayName="Sequenced nodes"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The number of nodes that were sequenced during the metrics window." />
+
+            <metric property="sequencer-execution-time"
+                displayName="Sequencer duration"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="A measurement of how long sequencers take to run and save changes." />
+
+            <metric property="sequenced-queue-size"
+                displayName="Sequencer queue size"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The number of nodes at the end of the metrics window that have yet to be sequenced." />
+
+            <metric property="session-count"
+                displayName="Active sessions"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The number of nodes that were sequenced during the metrics window." />
+
+            <metric property="session-lifetime"
+                displayName="Session duration"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="A measurement of how long sessions are kept open." />
+
+            <metric property="session-saves"
+                displayName="Saves"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The number of save operations called on sessions during the metrics window." />
+
+            <metric property="session-scoped-lock-count"
+                displayName="Session-scoped locks"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The number of session-scoped locks that were held by clients during the metrics window. The values go up or down from one window to the next as clients lock and unlock nodes." />
+
+            <metric property="workspace-count"
+                displayName="Workspace count"
+                displayType="summary"
+                category="utilization"
+                defaultInterval="60000"
+                description="The number of workspaces that exist during the metrics window." />
+
+            <resource-configuration>
+                <c:group name="general_properties"
+                    displayName="General Properties"
+                    hiddenByDefault="false">
+
+                    <c:simple-property name="cache-container"
+                        displayName="Cache Container"
+                        description="The name of the Infinispan cache container that contains the cache to be used for storing this repository's content."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="cache-name"
+                        displayName="Cache Name"
+                        description="The name of the Infinispan cache that is to be used for storing this repository's content."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="cluster-name"
+                        displayName="JGroups Stack"
+                        description="Defines the name of the communication channel used by this and other clustered repositories."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="cluster-stack"
+                        displayName="JGroups Stack"
+                        description="Defines the JGroups stack used by the repository when clustered."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="default-initial-content"
+                        displayName="Default Initial Content"
+                        description="The path to the initial content file which should be imported by default in all workspaces."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="default-workspace"
+                        displayName="Default Workspace Name"
+                        description="The name of the workspace that is used when clients don't specify a workspace name."
+                        required="false"
+                        readOnly="true"
+                        default="default"
+                        type="string" />
+
+                    <c:simple-property name="enable-monitoring"
+                        displayName="Enable Monitoring"
+                        description="Enable monitoring of the repository."
+                        required="false"
+                        readOnly="true"
+                        default="true"
+                        type="boolean" />
+
+                    <c:simple-property name="enable-queries"
+                        displayName="Enable Queries"
+                        description="Enable queries, indexing and text extractors."
+                        required="false"
+                        readOnly="true"
+                        default="true"
+                        type="boolean" />
+
+                    <c:simple-property name="garbage-collection-initial-time"
+                        displayName="Garbage Collection Initial Time"
+                        description="The initial local time after starting that garbage collection should first be run."
+                        required="false"
+                        readOnly="true"
+                        default="00:00"
+                        type="string" />
+
+                    <c:simple-property name="garbage-collection-interval"
+                        displayName="Garbage Collection Interval"
+                        description="The number of hours between garbage collection operations."
+                        required="false"
+                        readOnly="true"
+                        default="24"
+                        type="integer" />
+
+                    <c:simple-property name="garbage-collection-thread-pool"
+                        displayName="Garbage Collection Thread Pool"
+                        description="The scheduled thread pool to be used for garbage collection."
+                        required="false"
+                        readOnly="true"
+                        default="modeshape-gc"
+                        type="string" />
+
+                    <c:simple-property name="jndi-name"
+                        displayName="JNDI Name"
+                        description="The optional name in JNDI where this repository is to be registered."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="minimum-binary-size"
+                        displayName="Minimum Binary Size"
+                        description="The size threshold that dictates whether binary values should be stored in the binary store. Binary values smaller than this value are stored with the node, whereas binary values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value."
+                        required="false"
+                        readOnly="true"
+                        default="4096"
+                        type="integer" />
+
+                    <c:simple-property name="minimum-string-size"
+                        displayName="Minimum String Size"
+                        description="The size threshold that dictates whether String values should be stored in the binary store. String values smaller than this value are stored with the node, whereas string values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:list-property name="node-types"
+                        displayName="Node Types"
+                        description="The list of CND files which should be imported at repository startup."
+                        required="false"
+                        readOnly="true">
+
+                        <c:simple-property name="cnd-uri"
+                            displayName="CND URI"
+                            description="The URI of a CND file which should be imported at repository startup."
+                            required="false"
+                            readOnly="true"
+                            type="string" /> 
+                    </c:list-property>
+
+                    <c:list-property name="predefined-workspace-names"
+                        displayName="Predefined Workspace Names"
+                        description="The list of workspace names that exist when the repository is started."
+                        required="false"
+                        readOnly="true">
+
+                        <c:simple-property name="workspace-name"
+                            displayName="Workspace Name"
+                            description="The name of a workspace that exists when the repository is started."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+                    </c:list-property>
+
+                    <c:simple-property name="workspaces-cache-container"
+                        displayName="Workspace Cache Container"
+                        description="Specifies the name of the Infinispan cache container in which the workspace caches will be found."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:list-property name="workspaces-initial-content"
+                        displayName="Workspaces Initial Content"
+                        description="The mapping from the name of a predefined workspace to an initial content file."
+                        required="false"
+                        readOnly="true">
+
+                        <c:map-property name="initial-content"
+                             description="A collection of initial content mappings."
+                             required="false"
+                             readOnly="true">
+
+                             <c:simple-property name="predefined-workspace"
+                                 displayName="Workspace"
+                                 description="The name of the predefined workspace."
+                                 required="false"
+                                 readOnly="true"
+                                 type="string" />
+
+                             <c:simple-property name="file-path"
+                                 displayName="Content Path"
+                                 description="The path to an initial content file."
+                                 required="false"
+                                 readOnly="true"
+                                 type="string" />
+                        </c:map-property>
+                    </c:list-property>
+                </c:group>
+
+                <c:group name="indexing"
+                    displayName="Indexing"
+                    hiddenByDefault="false">
+
+                    <c:simple-property name="indexing-analyzer-classname"
+                        displayName="Indexing Analyzer Classname"
+                        description="The fully-qualified name of the Lucene analyzer implementation class."
+                        required="false"
+                        readOnly="true"
+                        default="org.apache.lucene.analysis.standard.StandardAnalyzer"
+                        type="string" />
+
+                    <c:simple-property name="indexing-analyzer-module"
+                        displayName="Indexing Analyzer Module"
+                        description="The name of the module that contains the specified analyzer class."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="indexing-async-max-queue-size"
+                        displayName="Indexing ASYNC Max Query Size"
+                        description="The maximum size of the queue used for asynchronous indexing."
+                        required="false"
+                        readOnly="true"
+                        default="1"
+                        type="integer" />
+
+                    <c:simple-property name="indexing-async-thread-pool-size"
+                        displayName="Indexing ASYNC Thread Pool Size"
+                        description="The size of the thread pool used for asynchronous indexing."
+                        required="false"
+                        readOnly="true"
+                        default="1"
+                        type="integer" />
+
+                    <c:simple-property name="indexing-batch-size"
+                        displayName="Indexing Batch Size"
+                        description="The size of the indexing batches."
+                        required="false"
+                        readOnly="true"
+                        default="-1"
+                        type="integer" />
+
+                    <c:simple-property name="indexing-mode"
+                        displayName="Indexing Mode"
+                        description="The concurrency mode for indexing."
+                        required="false"
+                        readOnly="true"
+                        default="SYNC"
+                        type="string">
+
+                        <c:property-options>
+                            <c:option value="SYNC" name="Synchronous Mode" />
+                            <c:option value="ASYNC" name="Asynchronous Mode" />
+                            <c:option value="DISABLED" name="Disabled Mode" />
+                        </c:property-options>
+                    </c:simple-property>
+
+                    <c:simple-property name="indexing-reader-strategy"
+                        displayName="Indexing Reader Strategy"
+                        description="The strategy for sharing (or not sharing) index readers."
+                        required="false"
+                        readOnly="true"
+                        default="SHARED"
+                        type="string">
+
+                        <c:property-options>
+                            <c:option name="Shared" value="SHARED" />
+                            <c:option name="Not Shared" value="NOT_SHARED" />
+                        </c:property-options>
+                    </c:simple-property>
+
+                    <c:simple-property name="indexing-thread-pool"
+                        displayName="Indexing Thread Pool"
+                        description="The name of the thread pool that the repository indexing system should use."
+                        required="false"
+                        readOnly="true"
+                        default="modeshape-indexing-workers"
+                        type="string" />
+
+                    <c:simple-property name="rebuild-upon-startup"
+                        displayName="Rebuild Upon Startup"
+                        description="Specifies when (if at all) the indexes should be rebuilt upon repository startup."
+                        required="false"
+                        readOnly="true"
+                        default="IF_MISSING"
+                        type="string">
+
+                        <c:property-options>
+                            <c:option value="ALWAYS" name="Always" />
+                            <c:option value="NEVER" name="Never" />
+                            <c:option value="IF_MISSING" name="If Missing" />
+                        </c:property-options>
+                    </c:simple-property>
+
+                    <c:simple-property name="rebuild-upon-startup-include-system-content"
+                        displayName="Rebuild Indexes At Startup"
+                        description="Specifies whether the system area should be reindexed or not at startup."
+                        required="false"
+                        readOnly="true"
+                        default="false"
+                        type="boolean" />
+
+                    <c:simple-property name="rebuild-upon-startup-mode"
+                        displayName="Rebuild Upon Startup Mode"
+                        description="ESpecifies whether indexes should be built synchronously or asynchronously on startup."
+                        required="false"
+                        readOnly="true"
+                        default="ASYNC"
+                        type="string">
+
+                        <c:property-options>
+                            <c:option value="SYNC" name="Synchronous Mode" />
+                            <c:option value="ASYNC" name="Asynchronous Mode" />
+                            <c:option value="DISABLED" name="Disabled Mode" />
+                        </c:property-options>
+                    </c:simple-property>
+
+                    <c:simple-property name="system-content-indexing-mode"
+                        displayName="System Content Indexing Mode"
+                        description="The concurrency mode for indexing system content."
+                        required="false"
+                        readOnly="true"
+                        default="DISABLED"
+                        type="string">
+
+                        <c:property-options>
+                            <c:option value="SYNC" name="Synchronous Mode" />
+                            <c:option value="ASYNC" name="Asynchronous Mode" />
+                            <c:option value="DISABLED" name="Disabled Mode" />
+                        </c:property-options>
+                    </c:simple-property>
+                </c:group>
+
+                <c:group name="security"
+                    displayName="Security"
+                    hiddenByDefault="false">
+
+                    <c:simple-property name="allow-workspace-creation"
+                        displayName="Allow Workspace Creation"
+                        description="Specifies whether workspaces can be created (and removed) by clients, if those clients are authorized."
+                        required="false"
+                        readOnly="true"
+                        default="true"
+                        type="boolean" />
+
+                    <c:list-property name="anonymous-roles"
+                        displayName="Anonymous Roles"
+                        description="The roles given to all anonymous users for accessing and changing repository content."
+                        required="false"
+                        readOnly="true">
+
+                        <c:simple-property name="role"
+                            displayName="Anonymous Role"
+                            description="The roles given to all anonymous users for accessing and changing repository content."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+                    </c:list-property>
+
+                    <c:simple-property name="anonymous-username"
+                        displayName="Anonymous Username"
+                        description="The username that is used for all anonymous users."
+                        required="false"
+                        readOnly="true"
+                        default="&lt;anonymous&gt;"
+                        type="string" />
+
+                    <c:simple-property name="security-domain"
+                        displayName="Security Domain"
+                        description="The name of the security domain used for JAAS authentication and authorization of repository users."
+                        required="false"
+                        readOnly="true"
+                        default="modeshape-security"
+                        type="string" />
+
+                    <c:simple-property name="use-anonymous-upon-failed-authentication"
+                        displayName="Use Anonymous Login Upon Failed Authentication"
+                        description="Specify whether users that fail authentication should be automatically logged in as anonymous users."
+                        required="false"
+                        readOnly="true"
+                        default="false"
+                        type="boolean" />
+                </c:group>
+
+                <c:group name="document-optimization"
+                    displayName="Content Optimization"
+                    hiddenByDefault="false">
+
+                    <c:simple-property name="document-optimization-child-count-target"
+                        displayName="Document Optimization Child Count Target"
+                        description="The maximum number of children that are ideally stored in each document/page."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:simple-property name="document-optimization-child-count-tolerance"
+                        displayName="Document Optimization Child Count Tolerance"
+                        description="The range that the actual number of children in a document/page can vary above the target before the documents are split, or below the target before documents are merged."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:simple-property name="document-optimization-initial-time"
+                        displayName="Document Optimization Initial Time"
+                        description="The initial local time that document optimization should first be run after startup."
+                        required="false"
+                        readOnly="true"
+                        default="00:00"
+                        type="string" />
+
+                    <c:simple-property name="document-optimization-interval"
+                        displayName="Document Optimization Interval"
+                        description="The number of hours between document optimization runs."
+                        required="false"
+                        readOnly="true"
+                        default="24"
+                        type="integer" />
+
+                    <c:simple-property name="document-optimization-thread-pool"
+                        displayName="Document Optimization Thread Pool"
+                        description="The scheduled thread pool to be used for document optimization."
+                        required="false"
+                        readOnly="true"
+                        default="modeshape-opt"
+                        type="string" />
+                </c:group>
+            </resource-configuration>
+
+            <!--
+                *
+                * SEQUENCERS
+                *
+            -->
+            <service name="Sequencers"
+                description="ModeShape sequencers"
+                class="SequencerComponent"
+                discovery="SequencerDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="classname"
+                        displayName="Class Name"
+                        description="The fully-qualified name (including packages) of the sequencer class, or optionally the alias of one of the built-in sequencers."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="module"
+                        displayName="Module"
+                        description="The name of the module that contains the sequencer class."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:list-property name="path-expressions"
+                        displayName="Path Expressions"
+                        description="The expressions that describes the paths upon which this sequencer operates and the paths where the sequencer output is written."
+                        required="false"
+                        readOnly="true">
+
+                        <c:simple-property name="path-expression"
+                            displayName="Path Expression"
+                            description="An expression that describes a path upon which this sequencer operates and output is written."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+                    </c:list-property>
+
+                    <c:list-property name="properties"
+                        displayName="Custom Properties"
+                        description="The name-value pairs for the sequencer custom properties."
+                        required="false"
+                        readOnly="true">
+
+                        <c:map-property name="property"
+                             description="The property name and value."
+                             required="false"
+                             readOnly="true">
+
+                             <c:simple-property name="name"
+                                 displayName="Name"
+                                 description="The property name."
+                                 required="false"
+                                 readOnly="true"
+                                 type="string" />
+
+                             <c:simple-property name="value"
+                                 displayName="Name"
+                                 description="The property value."
+                                 required="false"
+                                 readOnly="true"
+                                 type="string" />
+                        </c:map-property>
+                    </c:list-property>
+                </resource-configuration>
+            </service>
+
+            <!--
+                *
+                * TEXT EXTRACTORS
+                *
+            -->
+            <service name="Text Extractors"
+                description="ModeShape text extractors"
+                class="TextExtractorComponent"
+                discovery="TextExtractorDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="classname"
+                        displayName="Class Name"
+                        description="The fully-qualified name (including packages) of the text extractor class, or optionally the alias of one of the built-in text extractors."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="module"
+                        displayName="Module"
+                        description="The name of the module that contains the text extractor class."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:list-property name="properties"
+                        displayName="Custom Properties"
+                        description="The name-value pairs for the text extractor custom properties."
+                        required="false"
+                        readOnly="true">
+
+                        <c:map-property name="property"
+                             description="The property name and value."
+                             required="false"
+                             readOnly="true">
+
+                             <c:simple-property name="name"
+                                 displayName="Name"
+                                 description="The property name."
+                                 required="false"
+                                 readOnly="true"
+                                 type="string" />
+
+                             <c:simple-property name="value"
+                                 displayName="Name"
+                                 description="The property value."
+                                 required="false"
+                                 readOnly="true"
+                                 type="string" />
+                        </c:map-property>
+                    </c:list-property>
+                </resource-configuration>
+            </service>
+
+            <!--
+                *
+                * AUTHENTICATORS
+                *
+            -->
+            <service name="Authenticators"
+                description="ModeShape authenticators"
+                class="AuthenticatorComponent"
+                discovery="AuthenticatorDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="classname"
+                        displayName="Class Name"
+                        description="The fully-qualified name (including packages) of the authenticator class."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="module"
+                        displayName="Module"
+                        description="The name of the module that contains the authenticator class."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:list-property name="properties"
+                        displayName="Custom Properties"
+                        description="The name-value pairs for the authenticator custom properties."
+                        required="false"
+                        readOnly="true">
+
+                        <c:map-property name="property"
+                             description="The property name and value."
+                             required="false"
+                             readOnly="true">
+
+                             <c:simple-property name="name"
+                                 displayName="Name"
+                                 description="The property name."
+                                 required="false"
+                                 readOnly="true"
+                                 type="string" />
+
+                             <c:simple-property name="value"
+                                 displayName="Name"
+                                 description="The property value."
+                                 required="false"
+                                 readOnly="true"
+                                 type="string" />
+                        </c:map-property>
+                    </c:list-property>
+                </resource-configuration>
+            </service>
+
+            <!--
+                *
+                * EXTERNAL SOURCES (CONNECTORS)
+                *
+            -->
+            <service name="Sources"
+                description="ModeShape external sources (connectors)"
+                class="ConnectorComponent"
+                discovery="ConnectorDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="cacheTtlSeconds"
+                        displayName="Cache TTL Seconds"
+                        description="The number of seconds an external node should be stored in the workspace cache."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:simple-property name="classname"
+                        displayName="Class Name"
+                        description="The fully-qualified name (including packages) of the connector class."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="module"
+                        displayName="Module"
+                        description="The name of the module that contains the connector class."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:list-property name="projections"
+                        displayName="Projections"
+                        description="The expressions that describes a set of projection mappings."
+                        required="false"
+                        readOnly="true">
+
+                        <c:simple-property name="projection"
+                            displayName="Projection"
+                            description="A projection mapping."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+                    </c:list-property>
+
+                    <c:list-property name="properties"
+                        displayName="Custom Properties"
+                        description="The name-value pairs for the external source custom properties."
+                        required="false"
+                        readOnly="true">
+
+                        <c:map-property name="property"
+                             description="The property name and value."
+                             required="false"
+                             readOnly="true">
+
+                             <c:simple-property name="name"
+                                 displayName="Name"
+                                 description="The property name."
+                                 required="false"
+                                 readOnly="true"
+                                 type="string" />
+
+                             <c:simple-property name="value"
+                                 displayName="Name"
+                                 description="The property value."
+                                 required="false"
+                                 readOnly="true"
+                                 type="string" />
+                        </c:map-property>
+                    </c:list-property>
+ 
+                    <c:simple-property name="queryable"
+                        displayName="Queryable"
+                        description="Whether content exposed by an external source should be queryable or not."
+                        required="false"
+                        readOnly="true"
+                        default="true"
+                        type="boolean" />
+
+                    <c:simple-property name="readonly"
+                        displayName="Readonly"
+                        description="Whether source supports only reads or writes as well."
+                        required="false"
+                        readOnly="true"
+                        default="false"
+                        type="boolean" />
+                </resource-configuration>
+            </service>
+
+            <!--
+                *
+                * CUSTOM INDEX STORAGE
+                *
+            -->
+            <service name="Custom Index Storages"
+                description="Store indexes in a custom store."
+                class="org.modeshape.rhq.storage.CustomIndexStorageComponent"
+                discovery="org.modeshape.rhq.storage.CustomIndexStorageDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="classname"
+                        displayName="Classname"
+                        description="The fully-qualified name of the class used for index storage."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="index-format"
+                        displayName="Index Format"
+                        description="The format in which the indexes are to be written."
+                        required="false"
+                        readOnly="true"
+                        default="LUCENE_CURRENT"
+                        type="string" />
+
+                    <c:simple-property name="module"
+                        displayName="Module"
+                        description="The name of the module that contains the specified index storage class."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+                </resource-configuration>
+            </service>
+
+            <!--
+                *
+                * MASTER FILE INDEX STORAGE
+                *
+            -->
+            <service name="Master File Index Storages"
+                description="Store indexes on the local file system, for clustered usage only."
+                class="org.modeshape.rhq.storage.MasterFileIndexStorageComponent"
+                discovery="org.modeshape.rhq.storage.MasterFileIndexStorageDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="access-type"
+                        displayName="Access Type"
+                        description="The exact type of Lucene FSDirectory implementation to be used. If set to 'auto' (the default), NIOFSDirectory will be used on non-Windows systems and SimpleFSDirectory will be used on Windows. If set to 'simple', then SimpleFSDirectory will be used. If set to 'nio', then NIOFSDirectory will be used. If set to 'mmap', then MMapDirectory will be used. Make sure to refer to Javadocs of these Directory implementations before changing this setting. Even though NIOFSDirectory or MMapDirectory can bring substantial performace boosts they also have constraints and limitations."
+                        required="false"
+                        readOnly="true"
+                        default="AUTO"
+                        type="string">
+
+                        <c:property-options>
+                            <c:option value="AUTO" name="Auto" />
+                            <c:option value="SIMPLE" name="Simple" />
+                            <c:option value="NIO" name="NIO" />
+                            <c:option value="MMAP" name="MMAP" />
+                        </c:property-options>
+                    </c:simple-property>
+
+                    <c:simple-property name="connection-factory-jndi-name"
+                        displayName="Connection Factory JNDI Name"
+                        description="The name in JNDI where the JMS connection factory can be found. The value is often 'ConnectionFactory' by default in JBoss AS."
+                        required="false"
+                        readOnly="true"
+                        default="ConnectionFactory"
+                        type="string" />
+
+                    <c:simple-property name="index-format"
+                        displayName="Index Format"
+                        description="The format in which the indexes are to be written."
+                        required="false"
+                        readOnly="true"
+                        default="LUCENE_CURRENT"
+                        type="string" />
+
+                    <c:simple-property name="locking-strategy"
+                        displayName="Locking Strategy"
+                        description="The type of locking used to prevent concurrent writes to the indexes. The default locking strategy works well for most cases. If set to 'simple', a marker file will be created using the Java File API (this file may need to be manually removed if the process is terminated abormally). If set to 'native' (the default), a marker file will be created using native OS file locks (which will never need to be cleaned up). If set to 'single', an in-memory Java object is used for the lock, and therefore not useful in a clustered repository. If 'none' is used, no locking is used to prevent concurrent writes (use with caution)."
+                        required="false"
+                        readOnly="true"
+                        default="NATIVE"
+                        type="string">
+
+                        <c:property-options>
+                            <c:option value="SIMPLE" name="Simple" />
+                            <c:option value="NATIVE" name="Native" />
+                            <c:option value="SINGLE" name="Single" />
+                            <c:option value="NONE" name="None" />
+                        </c:property-options>
+                    </c:simple-property>
+
+                    <c:simple-property name="path"
+                        displayName="Path"
+                        description="The path to the directory where the indexes are to be stored."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="queue-jndi-name"
+                        displayName="Queue JNDI Name"
+                        description="The name in JNDI where JMS queue can be found. The queue will be used to post work messages."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="refresh-period"
+                        displayName="Refresh Period"
+                        description="The number of seconds specifying the frequency of copying the master index into the 'sourceLocation' directory. The copy is incremental, so it only copies the changes since the last copy. The recommended value for the refresh period is (at least) 50% higher that the time to copy the information, and defaults to 3600 seconds - 60 minutes."
+                        required="false"
+                        readOnly="true"
+                        default="3600"
+                        type="integer" />
+
+                    <c:simple-property name="relative-to"
+                        displayName="Relative-To"
+                        description="The (optional) path to the directory that the 'path' parameter is relative to."
+                        required="false"
+                        readOnly="true"
+                        default="jboss.server.data.dir"
+                        type="string" />
+
+                    <c:simple-property name="source-path"
+                        displayName="Source Path"
+                        description="The path to the (remote) file system directory to which the copy is to be written. This must not be the same resolved directory as 'path'."
+                        required="false"
+                        readOnly="true"
+                        default="LUCENE_CURRENT"
+                        type="string" />
+
+                    <c:simple-property name="source-relative-to"
+                        displayName="Source Relative-To"
+                        description="The format in which the indexes are to be written."
+                        required="false"
+                        readOnly="true"
+                        default="jboss.server.data.dir"
+                        type="string" />
+                </resource-configuration>
+            </service>
+
+            <!--
+                *
+                * LOCAL FILE INDEX STORAGE
+                *
+            -->
+            <service name="Local File Index Storages"
+                description="Store indexes on the local file system (non-clustered usage only)."
+                class="org.modeshape.rhq.storage.LocalFileIndexStorageComponent"
+                discovery="org.modeshape.rhq.storage.LocalFileIndexStorageDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="access-type"
+                        displayName="Access Type"
+                        description="The exact type of Lucene FSDirectory implementation to be used. If set to 'auto' (the default), NIOFSDirectory will be used on non-Windows systems and SimpleFSDirectory will be used on Windows. If set to 'simple', then SimpleFSDirectory will be used. If set to 'nio', then NIOFSDirectory will be used. If set to 'mmap', then MMapDirectory will be used. Make sure to refer to Javadocs of these Directory implementations before changing this setting. Even though NIOFSDirectory or MMapDirectory can bring substantial performace boosts they also have constraints and limitations."
+                        required="false"
+                        readOnly="true"
+                        default="AUTO"
+                        type="string">
+
+                        <c:property-options>
+                            <c:option value="AUTO" name="Auto" />
+                            <c:option value="SIMPLE" name="Simple" />
+                            <c:option value="NIO" name="NIO" />
+                            <c:option value="MMAP" name="MMAP" />
+                        </c:property-options>
+                    </c:simple-property>
+
+                    <c:simple-property name="index-format"
+                        displayName="Index Format"
+                        description="The format in which the indexes are to be written."
+                        required="false"
+                        readOnly="true"
+                        default="LUCENE_CURRENT"
+                        type="string" />
+
+                    <c:simple-property name="locking-strategy"
+                        displayName="Locking Strategy"
+                        description="The type of locking used to prevent concurrent writes to the indexes. The default locking strategy works well for most cases. If set to 'simple', a marker file will be created using the Java File API (this file may need to be manually removed if the process is terminated abormally). If set to 'native' (the default), a marker file will be created using native OS file locks (which will never need to be cleaned up). If set to 'single', an in-memory Java object is used for the lock, and therefore not useful in a clustered repository. If 'none' is used, no locking is used to prevent concurrent writes (use with caution)."
+                        required="false"
+                        readOnly="true"
+                        default="NATIVE"
+                        type="string">
+
+                        <c:property-options>
+                            <c:option value="SIMPLE" name="Simple" />
+                            <c:option value="NATIVE" name="Native" />
+                            <c:option value="SINGLE" name="Single" />
+                            <c:option value="NONE" name="None" />
+                        </c:property-options>
+                    </c:simple-property>
+
+                    <c:simple-property name="path"
+                        displayName="Path"
+                        description="The path to the directory where the indexes are to be stored."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="relative-to"
+                        displayName="Relative-To"
+                        description="The (optional) path to the directory that the 'path' parameter is relative to."
+                        required="false"
+                        readOnly="true"
+                        default="jboss.server.data.dir"
+                        type="string" />
+                </resource-configuration>
+            </service>
+
+            <!--
+                *
+                * SLAVE FILE INDEX STORAGE
+                *
+            -->
+            <service name="Slave File Index Storages"
+                description="Store indexes on the local file system, for clustered usage only."
+                class="org.modeshape.rhq.storage.SlaveFileIndexStorageComponent"
+                discovery="org.modeshape.rhq.storage.SlaveFileIndexStorageDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="access-type"
+                        displayName="Access Type"
+                        description="The exact type of Lucene FSDirectory implementation to be used. If set to 'auto' (the default), NIOFSDirectory will be used on non-Windows systems and SimpleFSDirectory will be used on Windows. If set to 'simple', then SimpleFSDirectory will be used. If set to 'nio', then NIOFSDirectory will be used. If set to 'mmap', then MMapDirectory will be used. Make sure to refer to Javadocs of these Directory implementations before changing this setting. Even though NIOFSDirectory or MMapDirectory can bring substantial performace boosts they also have constraints and limitations."
+                        required="false"
+                        readOnly="true"
+                        default="AUTO"
+                        type="string">
+
+                        <c:property-options>
+                            <c:option value="AUTO" name="Auto" />
+                            <c:option value="SIMPLE" name="Simple" />
+                            <c:option value="NIO" name="NIO" />
+                            <c:option value="MMAP" name="MMAP" />
+                        </c:property-options>
+                    </c:simple-property>
+ 
+                     <c:simple-property name="connection-factory-jndi-name"
+                        displayName="Connection Factory JNDI Name"
+                        description="The name in JNDI where the JMS connection factory can be found. The value is often 'ConnectionFactory' by default in JBoss AS."
+                        required="false"
+                        readOnly="true"
+                        default="ConnectionFactory"
+                        type="string" />
+
+                    <c:simple-property name="copy-buffer-size"
+                        displayName="Copy Buffer Size"
+                        description="The number of megabytes to move in a single low level copy instruction. The default is '16' (or 16MB)."
+                        required="false"
+                        readOnly="true"
+                        default="16"
+                        type="integer" />
+ 
+                    <c:simple-property name="index-format"
+                        displayName="Index Format"
+                        description="The format in which the indexes are to be written."
+                        required="false"
+                        readOnly="true"
+                        default="LUCENE_CURRENT"
+                        type="string" />
+
+                    <c:simple-property name="locking-strategy"
+                        displayName="Locking Strategy"
+                        description="The type of locking used to prevent concurrent writes to the indexes. The default locking strategy works well for most cases. If set to 'simple', a marker file will be created using the Java File API (this file may need to be manually removed if the process is terminated abormally). If set to 'native' (the default), a marker file will be created using native OS file locks (which will never need to be cleaned up). If set to 'single', an in-memory Java object is used for the lock, and therefore not useful in a clustered repository. If 'none' is used, no locking is used to prevent concurrent writes (use with caution)."
+                        required="false"
+                        readOnly="true"
+                        default="NATIVE"
+                        type="string">
+
+                        <c:property-options>
+                            <c:option value="SIMPLE" name="Simple" />
+                            <c:option value="NATIVE" name="Native" />
+                            <c:option value="SINGLE" name="Single" />
+                            <c:option value="NONE" name="None" />
+                        </c:property-options>
+                    </c:simple-property>
+
+                    <c:simple-property name="path"
+                        displayName="Path"
+                        description="The path to the directory where the indexes are to be stored."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="queue-jndi-name"
+                        displayName="Queue JNDI Name"
+                        description="The name in JNDI where JMS queue can be found. The queue will be used to post work messages."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="refresh-period"
+                        displayName="Refresh Period"
+                        description="The number of seconds specifying the frequency of copying the master index into the 'sourceLocation' directory. The copy is incremental, so it only copies the changes since the last copy. The recommended value for the refresh period is (at least) 50% higher that the time to copy the information, and defaults to 3600 seconds - 60 minutes."
+                        required="false"
+                        readOnly="true"
+                        default="3600"
+                        type="integer" />
+
+                    <c:simple-property name="relative-to"
+                        displayName="Relative-To"
+                        description="The (optional) path to the directory that the 'path' parameter is relative to."
+                        required="false"
+                        readOnly="true"
+                        default="jboss.server.data.dir"
+                        type="string" />
+
+                    <c:simple-property name="retry-initialize-period"
+                        displayName="Retry Initialize Period"
+                        description="The number of megabytes to move in a single low level copy instruction. The default is '16' (or 16MB).The number of seconds before retrying initialization. If the slave can't find the master index, it will try again (in the background) until it's found, without preventing the application to start. Queries performed before the index is initialized are not blocked but will return empty results. A value of '0' is used by default, signaling that initialization will fail with an exception rather than trying in the background. To prevent the application from starting without an invalid index but still control an initialization timeout, use 'retryMarkerLookup' instead."
+                        required="false"
+                        readOnly="true"
+                        default="0"
+                        type="integer" />
+
+                    <c:simple-property name="retry-marker-lookup"
+                        displayName="Retry Marker Lookup"
+                        description="The number of times to look for the marker files in the source directory before failing, waiting 5 seconds between each try. The default is '0'."
+                        required="false"
+                        readOnly="true"
+                        default="0"
+                        type="integer" />
+
+                    <c:simple-property name="source-path"
+                        displayName="Source Path"
+                        description="The path to the (remote) file system directory to which the copy is to be written. This must not be the same resolved directory as 'path'."
+                        required="false"
+                        readOnly="true"
+                        default="LUCENE_CURRENT"
+                        type="string" />
+
+                    <c:simple-property name="source-relative-to"
+                        displayName="Source Relative-To"
+                        description="The format in which the indexes are to be written."
+                        required="false"
+                        readOnly="true"
+                        default="jboss.server.data.dir"
+                        type="string" />
+                </resource-configuration>
+            </service>
+
+            <!--
+                *
+                * CACHE BINARY STORAGE
+                *
+            -->
+            <service name="Cache Binary Storages"
+                description="Store binary values in Infinispan."
+                class="org.modeshape.rhq.storage.CacheBinaryStorageComponent"
+                discovery="org.modeshape.rhq.storage.CacheBinaryStorageDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="cache-container"
+                        displayName="Cache Container"
+                        description="The name of the Infinispan container where the caches are found. If not provided, the default will be the same container used for the repository content."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="data-cache-name"
+                        displayName="Data Cache Name"
+                        description="The name of the Infinispan cache where the binary values will be stored. If not provided, the default will be '&lt;repositoryName&gt;-binary-data'."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="metadata-cache-name"
+                        displayName="Metadata Cache Name"
+                        description="The name of the Infinispan cache where the binary metadata will be stored. If not provided, the default will be '&lt;repositoryName&gt;-binary-metadata'."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="minimum-binary-size"
+                        displayName="Minimum Binary Size"
+                        description="The size threshold that dictates whether binary values should be stored in the binary store. Binary values smaller than this value are stored with the node, whereas binary values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:simple-property name="minimum-string-size"
+                        displayName="Minimum String Size"
+                        description="The size threshold that dictates whether string values should be stored in the binary store. String values smaller than this value are stored with the node, whereas string values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:simple-property name="store-name"
+                        displayName="Store Name"
+                        description="An implementation-supplied name for this binary store."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+                </resource-configuration>
+            </service>
+
+            <!--
+                *
+                * DB BINARY STORAGE
+                *
+            -->
+            <service name="DB Binary Storages"
+                description="Store binary values in a SQL database."
+                class="org.modeshape.rhq.storage.DbBinaryStorageComponent"
+                discovery="org.modeshape.rhq.storage.DbBinaryStorageDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="data-source-jndi-name"
+                        displayName="Data Source JNDI Name"
+                        description="The name in JNDI for the JDBC data source that should be used to store the binary values."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="minimum-binary-size"
+                        displayName="Minimum Binary Size"
+                        description="The size threshold that dictates whether binary values should be stored in the binary store. Binary values smaller than this value are stored with the node, whereas binary values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:simple-property name="minimum-string-size"
+                        displayName="Minimum String Size"
+                        description="The size threshold that dictates whether string values should be stored in the binary store. String values smaller than this value are stored with the node, whereas string values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:simple-property name="store-name"
+                        displayName="Store Name"
+                        description="An implementation-supplied name for this binary store."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+                </resource-configuration>
+            </service>
+
+            <!--
+                *
+                * CUSTOM BINARY STORAGE
+                *
+            -->
+            <service name="Custom Binary Storages"
+                description="Store binary values in a custom store."
+                class="org.modeshape.rhq.storage.CustomBinaryStorageComponent"
+                discovery="org.modeshape.rhq.storage.CustomBinaryStorageDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="classname"
+                        displayName="Classname"
+                        description="The fully-qualified name of the class used for index storage."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="minimum-binary-size"
+                        displayName="Minimum Binary Size"
+                        description="The size threshold that dictates whether binary values should be stored in the binary store. Binary values smaller than this value are stored with the node, whereas binary values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:simple-property name="minimum-string-size"
+                        displayName="Minimum String Size"
+                        description="The size threshold that dictates whether string values should be stored in the binary store. String values smaller than this value are stored with the node, whereas string values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:simple-property name="module"
+                        displayName="Module"
+                        description="The name of the module that contains the specified index storage class."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="store-name"
+                        displayName="Store Name"
+                        description="An implementation-supplied name for this binary store."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+                </resource-configuration>
+            </service>
+
+            <!--
+                *
+                * FILE BINARY STORAGE
+                *
+            -->
+            <service name="File Binary Storages"
+                description="Store binary values on the file system."
+                class="org.modeshape.rhq.storage.FileBinaryStorageComponent"
+                discovery="org.modeshape.rhq.storage.FileBinaryStorageDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="minimum-binary-size"
+                        displayName="Minimum Binary Size"
+                        description="The size threshold that dictates whether binary values should be stored in the binary store. Binary values smaller than this value are stored with the node, whereas binary values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:simple-property name="minimum-string-size"
+                        displayName="Minimum String Size"
+                        description="The size threshold that dictates whether string values should be stored in the binary store. String values smaller than this value are stored with the node, whereas string values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:simple-property name="path"
+                        displayName="Path"
+                        description="The path to the directory where the binary values are to be stored."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+
+                    <c:simple-property name="relative-to"
+                        displayName="Relative-To"
+                        description="The (optional) path to the directory that the 'path' parameter is relative to."
+                        required="false"
+                        readOnly="true"
+                        default="jboss.server.data.dir"
+                        type="string" />
+
+                    <c:simple-property name="store-name"
+                        displayName="Store Name"
+                        description="An implementation-supplied name for this binary store."
+                        required="false"
+                        readOnly="true"
+                        type="string" />
+                </resource-configuration>
+            </service>
+
+            <!--
+                *
+                * COMPOSITE BINARY STORAGE
+                *
+            -->
+            <service name="Composite Binary Storages"
+                description="Store binary values in one of many named binary stores."
+                class="org.modeshape.rhq.storage.CompositeBinaryStorageComponent"
+                discovery="org.modeshape.rhq.storage.CompositeBinaryStorageDiscoveryComponent">
+
+                <resource-configuration>
+                    <c:simple-property name="minimum-binary-size"
+                        displayName="Minimum Binary Size"
+                        description="The size threshold that dictates whether binary values should be stored in the binary store. Binary values smaller than this value are stored with the node, whereas binary values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:simple-property name="minimum-string-size"
+                        displayName="Minimum String Size"
+                        description="The size threshold that dictates whether string values should be stored in the binary store. String values smaller than this value are stored with the node, whereas string values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                        required="false"
+                        readOnly="true"
+                        type="integer" />
+
+                    <c:list-property name="nested-stores"
+                        displayName="Nested Stores"
+                        description="The nested binary stores configurations."
+                        required="false"
+                        readOnly="true">
+
+                        <c:simple-property name="store-name"
+                            displayName="Store Name"
+                            description="The name of binary store nested within a composite store."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+                    </c:list-property>
+                </resource-configuration>
+
+                <!--
+                    *
+                    * NESTED DB BINARY STORAGE
+                    *
+                -->
+                <service name="Nested DB Binary Storages"
+                    description="A container of one or more database binary storages."
+                    class="org.modeshape.rhq.storage.NestedDbBinaryStorageComponent"
+                    discovery="org.modeshape.rhq.storage.NestedDbBinaryStorageDiscoveryComponent">
+
+                    <resource-configuration>
+                        <c:simple-property name="data-source-jndi-name"
+                            displayName="Data Source JNDI Name"
+                            description="The name in JNDI for the JDBC data source that should be used to store the binary values."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+
+                        <c:simple-property name="minimum-binary-size"
+                            displayName="Minimum Binary Size"
+                            description="The size threshold that dictates whether binary values should be stored in the binary store. Binary values smaller than this value are stored with the node, whereas binary values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                            required="false"
+                            readOnly="true"
+                            type="integer" />
+
+                        <c:simple-property name="minimum-string-size"
+                            displayName="Minimum String Size"
+                            description="The size threshold that dictates whether string values should be stored in the binary store. String values smaller than this value are stored with the node, whereas string values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                            required="false"
+                            readOnly="true"
+                            type="integer" />
+
+                        <c:simple-property name="store-name"
+                            displayName="Store Name"
+                            description="An implementation-supplied name for this binary store."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+                    </resource-configuration>
+                </service>
+
+                <!--
+                    *
+                    * NESTED CACHE BINARY STORAGE
+                    *
+                -->
+                <service name="Nested Cache Binary Storages"
+                    description="A container of one or more cache binary storages."
+                    class="org.modeshape.rhq.storage.NestedCacheBinaryStorageComponent"
+                    discovery="org.modeshape.rhq.storage.NestedCacheBinaryStorageDiscoveryComponent">
+
+                    <resource-configuration>
+                        <c:simple-property name="cache-container"
+                            displayName="Cache Container"
+                            description="The name of the Infinispan container where the caches are found. If not provided, the default will be the same container used for the repository content."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+
+                        <c:simple-property name="data-cache-name"
+                            displayName="Data Cache Name"
+                            description="The name of the Infinispan cache where the binary values will be stored. If not provided, the default will be '&lt;repositoryName&gt;-binary-data'."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+
+                        <c:simple-property name="metadata-cache-name"
+                            displayName="Metadata Cache Name"
+                            description="The name of the Infinispan cache where the binary metadata will be stored. If not provided, the default will be '&lt;repositoryName&gt;-binary-metadata'."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+
+                        <c:simple-property name="minimum-binary-size"
+                            displayName="Minimum Binary Size"
+                            description="The size threshold that dictates whether binary values should be stored in the binary store. Binary values smaller than this value are stored with the node, whereas binary values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                            required="false"
+                            readOnly="true"
+                            type="integer" />
+
+                        <c:simple-property name="minimum-string-size"
+                            displayName="Minimum String Size"
+                            description="The size threshold that dictates whether string values should be stored in the binary store. String values smaller than this value are stored with the node, whereas string values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                            required="false"
+                            readOnly="true"
+                            type="integer" />
+
+                        <c:simple-property name="store-name"
+                            displayName="Store Name"
+                            description="An implementation-supplied name for this binary store."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+                    </resource-configuration>
+                </service>
+
+                <!--
+                    *
+                    * NESTED FILE BINARY STORAGE
+                    *
+                -->
+                <service name="Nested File Binary Storages"
+                    description="A container of one or more file binary storages."
+                    class="org.modeshape.rhq.storage.NestedFileBinaryStorageComponent"
+                    discovery="org.modeshape.rhq.storage.NestedFileBinaryStorageDiscoveryComponent">
+
+                    <resource-configuration>
+                        <c:simple-property name="minimum-binary-size"
+                            displayName="Minimum Binary Size"
+                            description="The size threshold that dictates whether binary values should be stored in the binary store. Binary values smaller than this value are stored with the node, whereas binary values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                            required="false"
+                            readOnly="true"
+                            type="integer" />
+
+                        <c:simple-property name="minimum-string-size"
+                            displayName="Minimum String Size"
+                            description="The size threshold that dictates whether string values should be stored in the binary store. String values smaller than this value are stored with the node, whereas string values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                            required="false"
+                            readOnly="true"
+                            type="integer" />
+
+                        <c:simple-property name="path"
+                            displayName="Path"
+                            description="The path to the directory where the binary values are to be stored."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+
+                        <c:simple-property name="relative-to"
+                            displayName="Relative-To"
+                            description="The (optional) path to the directory that the 'path' parameter is relative to."
+                            required="false"
+                            readOnly="true"
+                            default="jboss.server.data.dir"
+                            type="string" />
+
+                        <c:simple-property name="store-name"
+                            displayName="Store Name"
+                            description="An implementation-supplied name for this binary store."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+                    </resource-configuration>
+                </service>
+
+                <!--
+                    *
+                    * NESTED CUSTOM BINARY STORAGE
+                    *
+                -->
+                <service name="Nested Custom Binary Storages"
+                    description="A container of one or more custom binary storages."
+                    class="org.modeshape.rhq.storage.NestedCustomBinaryStorageComponent"
+                    discovery="org.modeshape.rhq.storage.NestedCustomBinaryStorageDiscoveryComponent">
+
+                    <resource-configuration>
+                        <c:simple-property name="classname"
+                            displayName="Classname"
+                            description="The fully-qualified name of the class used for index storage."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+
+                        <c:simple-property name="minimum-binary-size"
+                            displayName="Minimum Binary Size"
+                            description="The size threshold that dictates whether binary values should be stored in the binary store. Binary values smaller than this value are stored with the node, whereas binary values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                            required="false"
+                            readOnly="true"
+                            type="integer" />
+
+                        <c:simple-property name="minimum-string-size"
+                            displayName="Minimum String Size"
+                            description="The size threshold that dictates whether string values should be stored in the binary store. String values smaller than this value are stored with the node, whereas string values with a size equal to or greater than this limit will be stored separately from the node and in the binary store, keyed by the SHA-1 hash of the value. This is a space and performance optimization that stores each unique large value only once."
+                            required="false"
+                            readOnly="true"
+                            type="integer" />
+
+                        <c:simple-property name="module"
+                            displayName="Module"
+                            description="The name of the module that contains the specified index storage class."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+
+                        <c:simple-property name="store-name"
+                            displayName="Store Name"
+                            description="An implementation-supplied name for this binary store."
+                            required="false"
+                            readOnly="true"
+                            type="string" />
+                    </resource-configuration>
+                </service>
+            </service>
+        </service>
+
+        <!--
+            *
+            * WEB APPS
+            *
+        -->
+        <service name="Web Applications"
+            description="ModeShape web applications"
+            class="org.modeshape.rhq.webapp.WebAppComponent"
+            discovery="org.modeshape.rhq.webapp.WebAppDiscoveryComponent">
+
+            <resource-configuration>
+                <c:simple-property name="exploded"
+                    displayName="Exploded"
+                    description="Indicates if a web application is packaged exploded or not."
+                    required="false"
+                    readOnly="true"
+                    default="false"
+                    type="boolean" />
+            </resource-configuration>
+        </service>
+    </server>
+
+</plugin>

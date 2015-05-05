@@ -1,0 +1,1158 @@
+<processing>
+    <job name="Setting required properties" condition="use.same.password">
+        <executeclass name="com.redhat.installer.password.processpanel.SetMasterPassword"/>
+    </job>
+    <!-- log the izpack variables map. -->
+    <job name="Logging installation information">
+        <executeclass name="com.redhat.installer.logging.LogIzPackVars"/>
+    </job>
+
+    <!-- this must go first, or the Post-Install will fail -->
+    <job name="Adding temporary admin user">
+        <os family="unix"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.CommandRunner">
+            <arg>--mute=true</arg>
+            <arg>${INSTALL_PATH}/bin/add-user.sh</arg>
+            <arg>-s</arg>
+            <arg>-u</arg>
+            <arg>${postinstall.username}</arg>
+            <arg>-p</arg>
+            <arg>${postinstall.password}</arg>
+        </executeclass>
+    </job>
+
+    <job name="Adding temporary admin user">
+        <os family="windows"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.CommandRunner">
+            <arg>--mute=true</arg>
+            <arg>${INSTALL_PATH}/bin/add-user.bat</arg>
+            <arg>-s</arg>
+            <arg>-u</arg>
+            <arg>${postinstall.username}</arg>
+            <arg>-p</arg>
+            <arg>${postinstall.password}</arg>
+        </executeclass>
+    </job>
+
+    <!-- make sure that IPv6 is preferred if the user selects it to be -->
+    <job name="Apply IPv6 configuration to server descriptors" condition="pure.ipv6.machine">
+        <os family="unix"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.TextReplacer">
+            <arg>--file=${INSTALL_PATH}/standalone/configuration/standalone.xml</arg>
+            <arg>--file=${INSTALL_PATH}/standalone/configuration/standalone-ha.xml</arg>
+            <arg>--file=${INSTALL_PATH}/standalone/configuration/standalone-full.xml</arg>
+            <arg>--file=${INSTALL_PATH}/standalone/configuration/standalone-osgi.xml</arg>
+            <arg>--file=${INSTALL_PATH}/standalone/configuration/standalone-full-ha.xml</arg>
+            <arg>--file=${INSTALL_PATH}/domain/configuration/domain.xml</arg>
+            <arg>--file=${INSTALL_PATH}/domain/configuration/host.xml</arg>
+            <arg>--file=${INSTALL_PATH}/appclient/configuration/appclient.xml</arg>
+            <arg>--replace=127.0.0.1</arg>
+            <arg>--text=localhost</arg>
+        </executeclass>
+    </job>
+
+    <job name="Apply IPv6 configuration to server descriptors" condition="pure.ipv6.machine">
+        <os family="windows"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.TextReplacer">
+            <arg>--file=${INSTALL_PATH}\standalone\configuration\standalone.xml</arg>
+            <arg>--file=${INSTALL_PATH}\standalone\configuration\standalone-ha.xml</arg>
+            <arg>--file=${INSTALL_PATH}\standalone\configuration\standalone-full.xml</arg>
+            <arg>--file=${INSTALL_PATH}\standalone\configuration\standalone-osgi.xml</arg>
+            <arg>--file=${INSTALL_PATH}\standalone\configuration\standalone-full-ha.xml</arg>
+            <arg>--file=${INSTALL_PATH}\domain\configuration\domain.xml</arg>
+            <arg>--file=${INSTALL_PATH}\domain\configuration\host.xml</arg>
+            <arg>--file=${INSTALL_PATH}\appclient\configuration\appclient.xml</arg>
+            <arg>--replace=127.0.0.1</arg>
+            <arg>--text=localhost</arg>
+        </executeclass>
+    </job>
+
+    <job name="Apply IPv6 configuration to server start scripts" condition="pure.ipv6.machine">
+        <os family="unix"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.TextReplacer">
+            <arg>--file=${INSTALL_PATH}/bin/standalone.conf</arg>
+            <arg>--file=${INSTALL_PATH}/bin/domain.conf</arg>
+            <arg>--file=${INSTALL_PATH}/bin/appclient.conf</arg>
+            <arg>--replace=-Djava.net.preferIPv4Stack=true</arg>
+            <arg>--text=-Djava.net.preferIPv4Stack=false -Djava.net.preferIPv6Addresses=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="Apply IPv6 configuration to server start scripts" condition="pure.ipv6.machine">
+        <os family="windows"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.TextReplacer">
+            <arg>--file=${INSTALL_PATH}\bin\standalone.conf.bat</arg>
+            <arg>--file=${INSTALL_PATH}\bin\domain.conf.bat</arg>
+            <arg>--file=${INSTALL_PATH}\bin\appclient.conf</arg>
+            <arg>--replace=-Djava.net.preferIPv4Stack=true</arg>
+            <arg>--text=-Djava.net.preferIPv4Stack=false -Djava.net.preferIPv6Addresses=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="Apply IPv6 configuration to domain server descriptor" condition="pure.ipv6.machine">
+        <os family="unix"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.TextReplacer">
+            <arg>--file=${INSTALL_PATH}/domain/configuration/domain.xml</arg>
+            <arg>--regex=.*&quot;java.net.preferIPv4Stack&quot;.*</arg>
+            <arg>--text=&lt;!-- ||SELF|| --&gt;</arg>
+        </executeclass>
+    </job>
+
+    <job name="Apply IPv6 configuration to domain server descriptor" condition="pure.ipv6.machine">
+        <os family="windows"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.TextReplacer">
+            <arg>--file=${INSTALL_PATH}\domain\configuration\domain.xml</arg>
+            <arg>--regex=.*&quot;java.net.preferIPv4Stack&quot;.*</arg>
+            <arg>--text=&lt;!-- ||SELF|| --&gt;</arg>
+        </executeclass>
+    </job>
+
+    <!-- Add the admin user -->
+    <job name="Adding admin user" condition="add.admin.user">
+        <os family="unix"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.CommandRunner">
+            <arg>--mute=true</arg>
+            <arg>${INSTALL_PATH}/bin/add-user.sh</arg>
+            <arg>-s</arg>
+            <arg>-u</arg>
+            <arg>${adminUser}</arg>
+            <arg>-p</arg>
+            <arg>${adminPassword}</arg>
+        </executeclass>
+    </job>
+
+    <!-- Add the admin user -->
+    <job name="Adding admin user" condition="add.admin.user">
+        <os family="windows"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.CommandRunner">
+            <arg>--mute=true</arg>
+            <arg>${INSTALL_PATH}/bin/add-user.bat</arg>
+            <arg>-s</arg>
+            <arg>-u</arg>
+            <arg>${adminUser}</arg>
+            <arg>-p</arg>
+            <arg>${adminPassword}</arg>
+        </executeclass>
+    </job>
+
+    <job name="Create Dashboard admin">
+        <os family="unix"/>
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.CommandRunner">
+            <arg>--mute=true</arg>
+            <arg>${INSTALL_PATH}/bin/add-user.sh</arg>
+            <arg>-s</arg>
+            <arg>-a</arg>
+            <arg>-u</arg>
+            <arg>${Dashboard.admin.username}</arg>
+            <arg>-ro</arg>
+            <arg>admin</arg>
+            <arg>-p</arg>
+            <arg>${Dashboard.admin.password}</arg>
+        </executeclass>
+    </job>
+
+    <job name="Create Dashboard admin">
+        <os family="windows"/>
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.CommandRunner">
+            <arg>--mute=true</arg>
+            <arg>${INSTALL_PATH}/bin/add-user.bat</arg>
+            <arg>-s</arg>
+            <arg>-a</arg>
+            <arg>-u</arg>
+            <arg>${Dashboard.admin.username}</arg>
+            <arg>-ro</arg>
+            <arg>admin</arg>
+            <arg>-p</arg>
+            <arg>${Dashboard.admin.password}</arg>
+        </executeclass>
+    </job>
+
+    <job name="Create Teiid dashboard user">
+        <os family="unix"/>
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.CommandRunner">
+            <arg>--mute=true</arg>
+            <arg>${INSTALL_PATH}/bin/add-user.sh</arg>
+            <arg>-s</arg>
+            <arg>-a</arg>
+            <arg>-u</arg>
+            <arg>${Teiid.user.username}</arg>
+            <arg>-ro</arg>
+            <arg>user${Teiid.user.odata}</arg>
+            <arg>-p</arg>
+            <arg>${Teiid.user.password}</arg>
+        </executeclass>
+    </job>
+
+    <job name="Create Teiid dashboard user">
+        <os family="windows"/>
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.CommandRunner">
+            <arg>--mute=true</arg>
+            <arg>${INSTALL_PATH}/bin/add-user.bat</arg>
+            <arg>-s</arg>
+            <arg>-a</arg>
+            <arg>-u</arg>
+            <arg>${Teiid.user.username}</arg>
+            <arg>-ro</arg>
+            <arg>user${Teiid.user.odata}</arg>
+            <arg>-p</arg>
+            <arg>${Teiid.user.password}</arg>
+        </executeclass>
+    </job>
+
+    <job name="Create ModeShape user">
+        <executeForPack id="modeshape"/>
+        <os family="unix"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.CommandRunner">
+            <arg>--mute=true</arg>
+            <arg>${INSTALL_PATH}/bin/add-user.sh</arg>
+            <arg>-s</arg>
+            <arg>-a</arg>
+            <arg>-u</arg>
+            <arg>${Modeshape.user}</arg>
+            <arg>-ro</arg>
+            <arg>admin,connect</arg>
+            <arg>-p</arg>
+            <arg>${Modeshape.password}</arg>
+        </executeclass>
+    </job>
+
+    <job name="Create ModeShape user">
+        <os family="windows"/>
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.CommandRunner">
+            <arg>--mute=true</arg>
+            <arg>${INSTALL_PATH}/bin/add-user.bat</arg>
+            <arg>-s</arg>
+            <arg>-a</arg>
+            <arg>-u</arg>
+            <arg>${Modeshape.user}</arg>
+            <arg>-ro</arg>
+            <arg>admin,connect</arg>
+            <arg>-p</arg>
+            <arg>${Modeshape.password}</arg>
+        </executeclass>
+    </job>
+
+    <job name="Removing Existing SSL/LDAP Configurations" condition="pre.existing.ssl|pre.existing.ldap">
+        <executeclass name="com.redhat.installer.layering.processpanel.PreExistingLdapSslHelper">
+            <arg>--remove=true</arg>
+        </executeclass>
+    </job>
+
+
+    <!-- generate user specified vault keystore -->
+    <!-- WARNING: needs a better way to specify the DNAME -->
+    <job name="Generating custom password vault keystore" condition="install.vault+new.postinstall.vault+!vault.preexisting">
+        <executeclass name="com.redhat.installer.asconfiguration.keystore.processpanel.KeystoreGenerator">
+            <arg>--operation=-genseckey</arg>
+            <arg>--parameter=-keystore ${vault.keystoreloc}</arg>
+            <arg>--parameter=-storepass ${vault.keystorepwd}</arg>
+            <arg>--parameter=-keyalg AES</arg>
+            <arg>--parameter=-keysize 128</arg>
+            <arg>--parameter=-alias ${vault.alias}</arg>
+            <arg>--parameter=-storetype jceks</arg>
+            <arg>--parameter=-validity 36500</arg>
+            <arg>--allow-existing=true</arg>
+        </executeclass>
+    </job>
+    <!-- generate default vault keystore -->                 <!--     install.default.vault is equivalent to !install.vault+sramp.install-->
+    <job name="Generating default password vault keystore" condition="not.install.vault+!vault.preexisting">
+        <executeclass name="com.redhat.installer.asconfiguration.keystore.processpanel.KeystoreGenerator">
+            <arg>--operation=-genseckey</arg>
+            <arg>--parameter=-keystore ${INSTALL_PATH}/vault.keystore</arg>
+            <arg>--parameter=-storepass ${vault.keystorepwd}</arg>
+            <arg>--parameter=-keyalg AES</arg>
+            <arg>--parameter=-keysize 128</arg>
+            <arg>--parameter=-alias vault</arg>
+            <arg>--parameter=-storetype jceks</arg>
+            <arg>--parameter=-validity 36500</arg>
+            <arg>--allow-existing=true</arg>
+        </executeclass>
+    </job>
+
+    <!-- Add the admin user -->
+    <job name="Adding admin user" condition="add.admin.user">
+        <os family="unix"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.CommandRunner">
+            <arg>--mute=true</arg>
+            <arg>${INSTALL_PATH}/bin/add-user.sh</arg>
+            <arg>-s</arg>
+            <arg>-u</arg>
+            <arg>${adminUser}</arg>
+            <arg>-p</arg>
+            <arg>${adminPassword}</arg>
+        </executeclass>
+    </job>
+
+    <job name="Adding admin user" condition="add.admin.user">
+        <os family="windows"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.CommandRunner">
+            <arg>--mute=true</arg>
+            <arg>${INSTALL_PATH}/bin/add-user.bat</arg>
+            <arg>-s</arg>
+            <arg>-u</arg>
+            <arg>${adminUser}</arg>
+            <arg>-p</arg>
+            <arg>${adminPassword}</arg>
+        </executeclass>
+    </job>
+
+    <job name="Modify Maven Settings" conditionid="maven.settings">
+        <executeclass name="com.redhat.installer.installation.maven.processpanel.MavenSettingsTransformer">
+            <arg>--settings-file=${MAVEN_SETTINGS_FULLPATH}</arg>
+            <arg>--installer=fsw</arg>
+            <arg>--profile=dataVirtualization</arg>
+        </executeclass>
+    </job>
+
+    <job name="Appending version onto version.txt">
+        <executeclass name="com.redhat.installer.layering.processpanel.VersionTxtSetter"/>
+        <arg>--version=${project.version}</arg>
+    </job>
+
+    <job name="Create product.conf and layers.conf">
+        <executeclass name="com.redhat.installer.layering.processpanel.ProductLayersConfSetter"/>
+    </job>
+
+    <job name="IPConsole-Teiid">
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.TextFileAppender">
+            <arg>--file=${INSTALL_PATH}/standalone/deployments/integration-platform-console.war/consoles/dashboard</arg>
+            <arg>Teiid Dashboard</arg>
+        </executeclass>
+    </job>
+
+    <job name="Apply IPv6 configuration to jboss.cli" condition="pure.ipv6.machine">
+        <os family="windows"/>
+        <executeclass name="com.redhat.installer.installation.processpanel.TextReplacer">
+            <arg>--file=${INSTALL_PATH}\bin\jboss-cli.bat</arg>
+            <arg>--replace=-Djboss.modules.system.pkgs=com.sun.java.swing</arg>
+            <arg>--text=-Djboss.modules.system.pkgs=com.sun.java.swing -Djava.net.preferIPv4Stack=false -Djava.net.preferIPv6Addresses=true</arg>
+        </executeclass>
+    </job>
+
+
+    <!-- standard standalone.xml server execution -->
+    <job name="Starting standalone">
+        <os family="unix" />
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--postinstall-script=${INSTALL_PATH}/bin/standalone.sh</arg>
+            <arg>--attempts=10</arg>
+            <arg>ManagementRealm</arg>
+            <arg>${INSTALL_PATH}/</arg>
+        </executeclass>
+    </job>
+
+    <!-- standard standalone.xml server execution Winodws -->
+    <job name="Starting standalone">
+        <os family="windows" />
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--postinstall-script=${INSTALL_PATH}\bin\standalone.bat</arg>
+            <arg>--attempts=10</arg>
+            <arg>ManagementRealm</arg>
+            <arg>${INSTALL_PATH}\</arg>
+        </executeclass>
+    </job>
+
+    <job name="Querying server for jboss.server.data.dir">
+        <executeclass name="com.redhat.installer.asconfiguration.vault.processpanel.ServerVariableHelper">
+            <arg>jboss.server.data.dir</arg>
+            <arg>jboss.home.dir</arg>
+        </executeclass>
+    </job>
+
+    <job name="Welcome page installation">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/disable-welcome-root.cli</arg>
+        </executeclass>
+    </job>
+
+    <!-- begin Advanced Configuration: standalone.xml --> q
+
+    <!-- vault -->
+    <job name="Advanced Configuration - Vault"
+         condition="install.vault">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.CustomVault">
+            <arg>--xml-file=standalone.xml</arg>
+        </executeclass>
+    </job>
+
+    <job name="Advanced Configuration - Vault"
+         condition="!install.vault">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.DefaultVault">
+            <arg>--xml-file=standalone.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- jdbc -->
+    <job name="Advanced Configuration - Jdbc"
+         condition="install.jdbc">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Jdbc">
+            <arg>--xml-file=standalone.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- Ssl -->
+    <job name="Advanced Configuration - Ssl"
+         condition="install.ssl">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Ssl">
+            <arg>--xml-file=standalone.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- ldap -->
+    <job name="Advanced Configuration - Ldap"
+         condition="install.ldap">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Ldap">
+            <arg>--xml-file=standalone.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- security domain -->
+    <job name="Advanced Configuration - Security Domain"
+         condition="install.securitydomain">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.SecurityDomain">
+            <arg>--xml-file=standalone.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- end Advanced Configuration: standalone.xml -->
+
+    <job name="Vaulting ModeShape installation passwords">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.vault.processpanel.PasswordVaulter">
+        <arg>--username=${postinstall.username}</arg>
+        <arg>--password=${postinstall.password}</arg>
+        <arg>--pwd-args=modeshape,modeshape.password,${Modeshape.password}</arg>
+        </executeclass>
+    </job>
+
+    <job name="Vaulting Teiid installation passwords">
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.asconfiguration.vault.processpanel.PasswordVaulter">
+        <arg>--username=${postinstall.username}</arg>
+        <arg>--password=${postinstall.password}</arg>
+        <arg>--pwd-args=teiid,dblogging.password,${dblogging.password}</arg>
+        </executeclass>
+    </job>
+
+    <job name="Set ModeShape user properties">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.PropertiesSetter">
+            <arg>${INSTALL_PATH}/cli-scripts/ModeShape-ds.properties</arg>
+            <arg>db.user=${Modeshape.user}</arg>
+            <arg>db.password=${vaulted.modeshape.password}</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone installation" condition="!standalone.xml.org.modeshape.extension.exists">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-extension.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone installation" condition="!standalone.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-subsystem.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone installation" condition="!standalone.xml.modeshape.infinispan.exists">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-infinispan.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone installation">
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-extension.cli</arg>
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-standalone-mode-install.cli</arg>
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-dashboard-add_datasource.cli</arg>
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-deploy-dashboard.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone installation">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-standalone.cli</arg>
+	    <arg>--has-deploy=true</arg>
+        </executeclass>
+    </job>
+
+    <!-- Remember to add the other hyphen to your args-->
+    <job name="DV standalone datasource installation">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.datasource.processpanel.DatasourceScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-ds.cli</arg>
+            <arg>--properties=${INSTALL_PATH}/cli-scripts/ModeShape-ds.properties</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV database logging properties configuration">
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.PropertiesSetter">
+            <arg>${INSTALL_PATH}/cli-scripts/teiid-logger-ds.properties</arg>
+            <arg>db.driver_name=${dblogging.driver}</arg>
+            <arg>db.user=${dblogging.username}</arg>
+            <arg>db.password=${vaulted.dblogging.password}</arg>
+            <arg>db.url=${dblogging.url}</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone database logger configuration">
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.asconfiguration.datasource.processpanel.DatasourceScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-add-database-logger.cli</arg>
+            <arg>--properties=${INSTALL_PATH}/cli-scripts/teiid-logger-ds.properties</arg>
+            <arg>--has-deploy=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone database logger configuration" condition="postinstall.dblogging.enabled.and.postinstall">
+        <executeForPack id="teiid"/>
+	<executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+	    <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-enable-database-logger.cli</arg>
+	</executeclass> 
+    </job>
+
+    <!-- shutdown the server running with standalone.xml -->
+    <job name="Shutdown standalone">
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>standalone</arg>
+        </executeclass>
+    </job>
+
+    <!-- standard standlone-ha.xml server execution -->
+    <job name="Starting standalone-ha">
+        <os family="unix" />
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--postinstall-script=${INSTALL_PATH}/bin/standalone.sh</arg>
+            <arg>--standalone-config=ha</arg>
+            <arg>--attempts=10</arg>
+            <arg>ManagementRealm</arg>
+            <arg>${INSTALL_PATH}/</arg>
+        </executeclass>
+    </job>
+
+    <!-- standard standlone-ha.xml server execution windows-->
+    <job name="Starting standalone-ha">
+        <os family="windows" />
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--postinstall-script=${INSTALL_PATH}\bin\standalone.bat</arg>
+            <arg>--standalone-config=ha</arg>
+            <arg>--attempts=10</arg>
+            <arg>ManagementRealm</arg>
+            <arg>${INSTALL_PATH}\</arg>
+        </executeclass>
+    </job>
+
+    <job name="Welcome page installation">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/disable-welcome-root.cli</arg>
+        </executeclass>
+    </job>
+
+    <!-- Advanced Configuration: standalone-ha.xml -->
+    <!-- vault -->
+    <job name="Advanced Configuration - Vault"
+         condition="install.vault">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.CustomVault">
+            <arg>--xml-file=standalone-ha.xml</arg>
+        </executeclass>
+    </job>
+
+    <job name="Advanced Configuration - Vault"
+         condition="!install.vault">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.DefaultVault">
+            <arg>--xml-file=standalone-ha.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- jdbc -->
+    <job name="Advanced Configuration - Jdbc"
+         condition="install.jdbc">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Jdbc">
+            <arg>--xml-file=standalone-ha.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- Ssl -->
+    <job name="Advanced Configuration - Ssl"
+         condition="install.ssl">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Ssl">
+            <arg>--xml-file=standalone-ha.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- ldap -->
+    <job name="Advanced Configuration - Ldap"
+         condition="install.ldap">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Ldap">
+            <arg>--xml-file=standalone-ha.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- security domain -->
+    <job name="Advanced Configuration - Security Domain"
+         condition="install.securitydomain">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.SecurityDomain">
+            <arg>--xml-file=standalone-ha.xml</arg>
+        </executeclass>
+    </job>
+    <!-- end Advanced Configuration: standalone-ha.xml -->
+
+    <job name="DV standalone-ha installation" condition="!standalone-ha.xml.org.modeshape.extension.exists">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-extension.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-ha installation" condition="!standalone-ha.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-subsystem.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-ha installation" condition="!standalone-ha.xml.modeshape.infinispan.exists">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-infinispan.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-ha installation">
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-extension.cli</arg>
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-standalone-mode-install.cli</arg>
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-dashboard-add_datasource.cli</arg>
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-deploy-dashboard.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-ha installation">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-standalone.cli</arg>
+	    <arg>--has-deploy=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-ha datasource installation">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.datasource.processpanel.DatasourceScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-ds.cli</arg>
+            <arg>--properties=${INSTALL_PATH}/cli-scripts/ModeShape-ds.properties</arg>
+            <arg>--no-params=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-ha database logger configuration">
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.asconfiguration.datasource.processpanel.DatasourceScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-add-database-logger.cli</arg>
+            <arg>--properties=${INSTALL_PATH}/cli-scripts/teiid-logger-ds.properties</arg>
+            <arg>--has-deploy=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-ha database logger configuration" condition="postinstall.dblogging.enabled.and.postinstall">
+        <executeForPack id="teiid"/>
+	<executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+	    <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-enable-database-logger.cli</arg>
+	</executeclass> 
+    </job>
+
+    <!-- shutdown standalone-ha.xml server execution -->
+    <job name="Shutdown standalone-ha">
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>standalone</arg>
+        </executeclass>
+    </job>
+
+    <!-- standalone-full-ha.xml execution -->
+    <job name="Starting standalone-full-ha">
+        <os family="unix" />
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--postinstall-script=${INSTALL_PATH}/bin/standalone.sh</arg>
+            <arg>--standalone-config=full-ha</arg>
+            <arg>--attempts=10</arg>
+            <arg>ManagementRealm</arg>
+            <arg>${INSTALL_PATH}/</arg>
+        </executeclass>
+    </job>
+
+    <!-- standalone-full-ha.xml execution windows -->
+    <job name="Starting standalone-full-ha">
+        <os family="windows" />
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--postinstall-script=${INSTALL_PATH}\bin\standalone.bat</arg>
+            <arg>--standalone-config=full-ha</arg>
+            <arg>--attempts=10</arg>
+            <arg>ManagementRealm</arg>
+            <arg>${INSTALL_PATH}\</arg>
+        </executeclass>
+    </job>
+
+    <job name="Welcome page installation">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/disable-welcome-root.cli</arg>
+        </executeclass>
+    </job>
+
+    <!-- Advanced Configuration: standalone-full-ha.xml -->
+    <!-- vault -->
+    <job name="Advanced Configuration - Vault"
+         condition="install.vault">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.CustomVault">
+            <arg>--xml-file=standalone-full-ha.xml</arg>
+        </executeclass>
+    </job>
+
+    <job name="Advanced Configuration - Vault"
+         condition="!install.vault">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.DefaultVault">
+            <arg>--xml-file=standalone-full-ha.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- jdbc -->
+    <job name="Advanced Configuration - Jdbc"
+         condition="install.jdbc">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Jdbc">
+            <arg>--xml-file=standalone-full-ha.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- Ssl -->
+    <job name="Advanced Configuration - Ssl"
+         condition="install.ssl">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Ssl">
+            <arg>--xml-file=standalone-full-ha.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- ldap -->
+    <job name="Advanced Configuration - Ldap"
+         condition="install.ldap">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Ldap">
+            <arg>--xml-file=standalone-full-ha.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- security domain -->
+    <job name="Advanced Configuration - Security Domain"
+         condition="install.securitydomain">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.SecurityDomain">
+            <arg>--xml-file=standalone-full-ha.xml</arg>
+        </executeclass>
+    </job>
+
+    <!-- post-install configuation: standalone-full-ha.xml -->
+
+    <job name="DV standalone-full-ha datasource installation">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.datasource.processpanel.DatasourceScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-ds.cli</arg>
+            <arg>--properties=${INSTALL_PATH}/cli-scripts/ModeShape-ds.properties</arg>
+            <arg>--no-params=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-full-ha database logger configuration">
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.asconfiguration.datasource.processpanel.DatasourceScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-add-database-logger.cli</arg>
+            <arg>--properties=${INSTALL_PATH}/cli-scripts/teiid-logger-ds.properties</arg>
+            <arg>--has-deploy=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-full-ha database logger configuration" condition="postinstall.dblogging.enabled.and.postinstall">
+        <executeForPack id="teiid"/>
+	<executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+	    <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-enable-database-logger.cli</arg>
+	</executeclass> 
+    </job>
+
+    <job name="DV standalone-full-ha installation" condition="!standalone-full-ha.xml.org.modeshape.extension.exists">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-extension.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-full-ha installation" condition="!standalone-full-ha.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-subsystem.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-full-ha installation" condition="!standalone-full-ha.xml.modeshape.infinispan.exists">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-infinispan.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-full-ha installation">
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-extension.cli</arg>
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-standalone-mode-install.cli</arg>
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-dashboard-add_datasource.cli</arg>
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-deploy-dashboard.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV standalone-full-ha installation">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-standalone.cli</arg>
+	    <arg>--has-deploy=true</arg>
+        </executeclass>
+    </job>
+    <!-- shutdown standalone-full-ha.xml execution -->
+    <job name="Shutdown standalone-full-ha">
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>standalone</arg>
+        </executeclass>
+    </job>
+
+    <!-- domain.xml server execution -->
+    <job name="Starting domain">
+        <os family="unix" />
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--postinstall-script=${INSTALL_PATH}/bin/domain.sh</arg>
+            <arg>--attempts=10</arg>
+            <arg>ManagementRealm</arg>
+            <arg>${INSTALL_PATH}/</arg>
+        </executeclass>
+    </job>
+
+    <!-- domain.xml server execution Windows -->
+    <job name="Starting domain">
+        <os family="windows" />
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--postinstall-script=${INSTALL_PATH}\bin\domain.bat</arg>
+            <arg>--attempts=10</arg>
+            <arg>ManagementRealm</arg>
+            <arg>${INSTALL_PATH}\</arg>
+        </executeclass>
+    </job>
+
+    <!-- Remember to add the other hyphen to your args-->
+    <job name="DV domain datasource installation">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.datasource.processpanel.DatasourceScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-ds-domain.cli</arg>
+            <arg>--properties=${INSTALL_PATH}/cli-scripts/ModeShape-ds.properties</arg>
+        </executeclass>
+    </job>
+
+    <!-- domain Advanced Configuration -->
+    <!-- vault -->
+    <job name="Advanced Configuration - Vault"
+         condition="install.vault">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.CustomVault">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="Advanced Configuration - Vault"
+         condition="!install.vault">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.DefaultVault">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <!-- jdbc -->
+    <job name="Advanced Configuration - Jdbc"
+         condition="install.jdbc">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Jdbc">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <!-- Ssl -->
+    <job name="Advanced Configuration - Ssl"
+         condition="install.ssl">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Ssl">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <!-- ldap -->
+    <job name="Advanced Configuration - Ldap"
+         condition="install.ldap">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Ldap">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <!-- security domain -->
+    <job name="Advanced Configuration - Security Domain"
+         condition="install.securitydomain">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.SecurityDomain">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+    <!-- Advanced Configuration: host.xml -->
+
+    <!-- disable welcome root for domain also -->
+    <job name="Welcome page installation">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/disable-welcome-root-domain.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV domain installation">
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-extension.cli</arg>
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-domain-mode-install.cli</arg>
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-domain-dashboard-add_datasource.cli</arg>
+          <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-deploy-dashboard-domain.cli</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV domain installation">
+        <executeForPack id="modeshape"/>
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-extension.cli</arg>
+            <arg>--script=${INSTALL_PATH}/cli-scripts/ModeShape-domain.cli</arg>
+            <arg>--has-deploy=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV domain database logger configuration" >
+        <executeForPack id="teiid"/>
+        <executeclass name="com.redhat.installer.asconfiguration.datasource.processpanel.DatasourceScriptHelper">
+            <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-add-database-logger-domain.cli</arg>
+            <arg>--properties=${INSTALL_PATH}/cli-scripts/teiid-logger-ds.properties</arg>
+            <arg>--has-deploy=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="DV domain database logger configuration" condition="postinstall.dblogging.enabled.and.postinstall">
+        <executeForPack id="teiid"/>
+	<executeclass name="com.redhat.installer.asconfiguration.processpanel.CliScriptHelper">
+	    <arg>--script=${INSTALL_PATH}/cli-scripts/teiid-enable-database-logger-domain.cli</arg>
+	</executeclass> 
+    </job>
+
+    <job name="Shutdown domain">
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>domain</arg>
+        </executeclass>
+    </job>
+
+
+    <!-- domain.xml host-master server execution -->
+    <job name="Starting domain controller">
+        <os family="unix" />
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--postinstall-script=${INSTALL_PATH}/bin/domain.sh</arg>
+            <arg>--attempts=10</arg>
+            <arg>--timeout=4</arg>
+            <arg>--host-config=host-master</arg>
+            <arg>ManagementRealm</arg>
+            <arg>${INSTALL_PATH}/</arg>
+        </executeclass>
+    </job>
+
+    <!-- domain.xml host-master server execution Windows -->
+    <job name="Starting domain controller">
+        <os family="windows" />
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--postinstall-script=${INSTALL_PATH}\bin\domain.bat</arg>
+            <arg>--attempts=10</arg>
+            <arg>--timeout=4</arg>
+            <arg>--host-config=host-master</arg>
+            <arg>ManagementRealm</arg>
+            <arg>${INSTALL_PATH}\</arg>
+        </executeclass>
+    </job>
+
+    <!-- domain Advanced Configuration -->
+    <!-- vault -->
+    <job name="Advanced Configuration - Vault"
+         condition="install.vault">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.CustomVault">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="Advanced Configuration - Vault"
+         condition="!install.vault">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.DefaultVault">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <!-- Ssl -->
+    <job name="Advanced Configuration - Ssl"
+         condition="install.ssl">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Ssl">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <!-- ldap -->
+    <job name="Advanced Configuration - Ldap"
+         condition="install.ldap">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Ldap">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="Shutdown domain controller">
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>domain</arg>
+        </executeclass>
+    </job>
+
+    <job name="Prepare host-slave.xml">
+        <executeclass name="com.redhat.installer.installation.processpanel.TextReplacer">
+            <arg>--file=${INSTALL_PATH}/domain/configuration/host-slave.xml</arg>
+            <arg>--replace=host xmlns="urn:jboss:domain:1.6"</arg>
+            <arg>--text=host name="master" xmlns="urn:jboss:domain:1.6"</arg>
+        </executeclass>
+    </job>
+
+    <!-- domain.xml host-slave server execution -->
+    <job name="Starting domain slave">
+        <os family="unix" />
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--postinstall-script=${INSTALL_PATH}/bin/domain.sh</arg>
+            <arg>--attempts=10</arg>
+            <arg>--timeout=4</arg>
+            <arg>--host-config=host-slave</arg>
+	    <arg>--slave=true</arg>
+            <arg>ManagementRealm</arg>
+            <arg>${INSTALL_PATH}/</arg>
+        </executeclass>
+    </job>
+
+    <!-- domain.xml host-master server execution Windows -->
+    <job name="Starting domain slave">
+        <os family="windows" />
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--postinstall-script=${INSTALL_PATH}\bin\domain.bat</arg>
+            <arg>--attempts=10</arg>
+            <arg>--timeout=4</arg>
+            <arg>--host-config=host-slave</arg>
+	    <arg>--slave=true</arg>
+            <arg>ManagementRealm</arg>
+            <arg>${INSTALL_PATH}\</arg>
+        </executeclass>
+    </job>
+
+    <!-- domain Advanced Configuration -->
+    <!-- vault -->
+    <job name="Advanced Configuration - Vault"
+         condition="install.vault">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.CustomVault">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="Advanced Configuration - Vault"
+         condition="!install.vault">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.DefaultVault">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <!-- Ssl -->
+    <job name="Advanced Configuration - Ssl"
+         condition="install.ssl">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Ssl">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <!-- ldap -->
+    <job name="Advanced Configuration - Ldap"
+         condition="install.ldap">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.postinstallation.Ldap">
+            <arg>--xml-file=host.xml</arg>
+            <arg>--is-domain=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="Shutdown domain slave">
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>domain</arg>
+            <arg>--attemps=10</arg>
+	    <arg>--timeout=4</arg>
+        </executeclass>
+    </job>
+
+    <job name="Revert host-slave.xml">
+        <executeclass name="com.redhat.installer.installation.processpanel.TextReplacer">
+            <arg>--file=${INSTALL_PATH}/domain/configuration/host-slave.xml</arg>
+            <arg>--replace=host name="master" xmlns="urn:jboss:domain:1.6"</arg>
+            <arg>--text=host xmlns="urn:jboss:domain:1.6"</arg>
+        </executeclass>
+    </job>
+
+    <job name="Restoring Existing SSL/LDAP Configurations" condition="pre.existing.ssl|pre.existing.ldap">
+        <executeclass name="com.redhat.installer.layering.processpanel.PreExistingLdapSslHelper">
+            <arg>--restore=true</arg>
+        </executeclass>
+    </job>
+
+    <job name="Cleanup logging.properties">
+        <executeclass name="com.redhat.installer.asconfiguration.processpanel.PropertiesSetter">
+            <arg>${INSTALL_PATH}/standalone/configuration/logging.properties</arg>
+            <arg>handler.FILE.fileName=${org.jboss.boot.log.file:boot.log}</arg>
+        </executeclass>
+    </job>
+    <!--  The following two server shutdowns only run in the event of a failure in processes somewhere. -->
+
+    <!--  The following server shutdown only runs in the event of a failure in processes somewhere. -->
+
+     <job name="Onfail Server Shutdown Job" onfail="true">
+        <executeclass name="com.redhat.installer.asconfiguration.ascontroller.ServerManager">
+            <arg>--failmode=true</arg>
+        </executeclass>
+    </job>
+	
+    <!-- this job copies the server logs created by commands run in the installer for future reference. -->
+    <job name="Copy server logs" final="true">
+        <executeclass name="com.redhat.installer.installation.processpanel.FileMover">
+            <arg>--copy=true</arg>
+            <arg>--enable-messages=true</arg>
+            <arg>--source=${INSTALL_PATH}/standalone/log/server.log</arg>
+            <arg>--source=${INSTALL_PATH}/domain/log/host-controller.log</arg>
+            <arg>--source=${INSTALL_PATH}/domain/log/process-controller.log</arg>
+            <arg>--destination=${INSTALL_PATH}/installation/server-logs/</arg>
+        </executeclass>
+    </job>
+</processing>

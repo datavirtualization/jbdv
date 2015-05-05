@@ -1,0 +1,262 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jboss</groupId>
+        <artifactId>jboss-parent</artifactId>
+        <version>9</version>
+    </parent>
+
+    <groupId>org.modeshape</groupId>
+    <artifactId>modeshape-rhq-parent</artifactId>
+    <version>3.8.1.GA</version>
+    <packaging>pom</packaging>
+    <name>ModeShape RHQ Parent</name>
+    <description>The ModeShape RHQ plugin runs in RHQ and monitors and manages the Teiid server.</description>
+    <url>http://www.jboss.org/modshape</url>
+    <inceptionYear>2013</inceptionYear>
+
+    <organization>
+        <name>JBoss, a division of Red Hat</name>
+        <url>http://www.jboss.org</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License</name>
+            <url>http://repository.jboss.org/licenses/lgpl-2.1.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/modeshape/modeshape-rhq.git</connection>
+        <developerConnection>scm:git:git@github.com:modeshape/modeshape-rhq.git</developerConnection>
+        <url>http://github.com/modeshape/modeshape-rhq</url>
+    </scm>
+
+    <issueManagement>
+        <system>jira</system>
+        <url>http://issues.jboss.org/browse/MODE</url>
+    </issueManagement>
+
+   <developers>
+        <developer>
+            <name>Randall Hauch</name>
+            <id>randall</id>
+            <email>rhauch@redhat.com</email>
+            <organization>Red Hat</organization>
+            <roles>
+                <role>Project Lead</role>
+            </roles>
+            <timezone>-6</timezone>
+        </developer>
+
+        <developer>
+            <name>Ted Jones</name>
+            <id>ted</id>
+            <email>tejones@redhat.com</email>
+            <organization>Red Hat</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>-6</timezone>
+        </developer>
+
+        <developer>
+            <name>Daniel Florian</name>
+            <id>dan</id>
+            <email>dflorian@redhat.com</email>
+            <organization>Red Hat</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+    </developers>
+
+    <properties>
+        <apache.ant.version>1.7.0</apache.ant.version>
+        <commons.logging.version>1.1</commons.logging.version>
+        <commons.io.version>2.1</commons.io.version>
+        <eclipse.m2e.version>1.0.0</eclipse.m2e.version>
+        <javax.persistance.version>1.0</javax.persistance.version>
+        <jboss-embeddable-ejb3.version>1.0.0.Alpha9</jboss-embeddable-ejb3.version>
+        <jcr.version>2.0</jcr.version>
+        <jopr.jboss.as7.plugin.version>4.4.0</jopr.jboss.as7.plugin.version>
+        <junit.version>4.10</junit.version>
+        <maven.jar.version>2.4</maven.jar.version>
+        <maven.dependency.version>2.5.1</maven.dependency.version>
+        <modeshape.version>3.8.1.GA</modeshape.version>
+        <org.rhq.version>4.7.0</org.rhq.version>
+        <org.rhq.validator.version>1.0.1-SNAPSHOT</org.rhq.validator.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Below are the core modules that are required dependencies of all plugins -->
+            <dependency>
+                <groupId>org.rhq</groupId>
+                <artifactId>rhq-core-domain</artifactId>
+                <version>${org.rhq.version}</version>
+                <scope>provided</scope>
+                <!-- provided by the agent/plugin-container -->
+            </dependency>
+
+            <dependency>
+                <groupId>org.rhq</groupId>
+                <artifactId>rhq-core-plugin-api</artifactId>
+                <version>${org.rhq.version}</version>
+                <scope>provided</scope> <!-- provided by the agent/plugin-container -->
+            </dependency>
+
+            <dependency>
+                <groupId>org.rhq</groupId>
+                <artifactId>rhq-core-native-system</artifactId>
+                <version>${org.rhq.version}</version>
+                <scope>provided</scope> <!-- provided by the agent/plugin-container -->
+            </dependency>
+
+            <dependency>
+                <groupId>org.rhq</groupId>
+                <artifactId>rhq-jmx-plugin</artifactId>
+                <version>${org.rhq.version}</version>
+            </dependency>
+<!--
+            <dependency>
+                <groupId>org.rhq</groupId>
+                <artifactId>rhq-core-plugin-validator</artifactId>
+                <version>${org.rhq.version}</version>
+            </dependency>
+-->
+            <dependency>
+                <groupId>org.rhq</groupId>
+                <artifactId>rhq-core-util</artifactId>
+                <version>${org.rhq.version}</version>
+            </dependency>
+
+            <!--
+                Java Content Repository
+            -->
+            <dependency>
+                <groupId>javax.jcr</groupId>
+                <artifactId>jcr</artifactId>
+                <version>${jcr.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <!--
+                ModeShape
+            -->
+            <dependency>
+                <groupId>org.modeshape</groupId>
+                <artifactId>modeshape-jcr-api</artifactId>
+                <version>${modeshape.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mc4j</groupId>
+                <artifactId>org-mc4j-ems</artifactId>
+                <version>1.2.6</version>
+            </dependency>
+
+            <!-- TODO: This is a fix for the Javac bug requiring annotations to be 
+                available when compiling dependent classes; it is fixed in JDK 6. -->
+            <dependency>
+                <groupId>jboss.jboss-embeddable-ejb3</groupId>
+                <artifactId>hibernate-all</artifactId>
+                <version>${jboss-embeddable-ejb3.version}</version>
+                <scope>provided</scope> <!-- provided by the agent/plugin-container -->
+            </dependency>
+
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons.logging.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.rhq</groupId>
+                <artifactId>rhq-jboss-as-7-plugin</artifactId>
+                <version>${jopr.jboss.as7.plugin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.ant</groupId>
+                <artifactId>ant</artifactId>
+                <version>${apache.ant.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>persistence-api</artifactId>
+                <version>${javax.persistance.version}</version>
+                <scope>provided</scope> <!-- provided by the agent/plugin-container -->
+            </dependency>
+
+            <!-- Testing dependencies -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <scope>test</scope>
+                <version>${junit.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <instructions>
+                            <Export-Package>org.jboss.teiid.*</Export-Package>
+                        </instructions>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <!-- Specify the compiler options and settings -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>test-jar</id>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skipIfEmpty>true</skipIfEmpty>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,25 @@
+{
+    "name" : "repo",
+    "jndiName" : "",
+    "workspaces" : {
+        "predefined" : [],
+        "default" : "default",
+        "allowCreation" : true
+    },
+    "security" : {
+        "anonymous" : {
+            "roles" : ["readonly","readwrite","admin"],
+            "useOnFailedLogin" : false
+        },
+        "providers" : [
+            { "classname" : "servlet" }
+        ]
+    } ,
+    "query" : {
+        "indexing": {
+            "rebuildOnStartup": {
+                "includeSystemContent": true
+            }
+        }
+    }
+}

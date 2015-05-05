@@ -1,0 +1,252 @@
+<?xml version="1.0" ?>
+<conditions>
+    <condition type="variable" id="use.same.password">
+        <name>use.same.password</name>
+        <value>true</value>
+    </condition>
+    <condition type="not" id="not.use.same.password">
+        <condition type="ref" refid="use.same.password"/>
+    </condition>
+    <condition type="variable" id="add.admin.user">
+        <name>add.new.user</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="generate.client.keystores">
+        <name>generateClientKeystores</name>
+        <value>true</value>
+    </condition>
+	<condition type="variable" id="jdk.exists">
+		<name>izpack.jdk.exists</name>
+		<value>true</value>
+	</condition>
+	<condition type="variable" id="root.user">
+		<name>USER_NAME</name>
+		<value>root</value>
+	</condition>
+	<condition type="not" id="not.linux">
+		<condition type="ref" refid="izpack.linuxinstall" />
+	</condition>
+    <condition type="variable" id="add.user">
+		<name>addUser</name>
+		<value>true</value>
+	</condition>
+	<condition type="variable" id="install.ssl">
+		<name>installSsl</name>
+		<value>true</value>
+	</condition>
+	<condition type="variable" id="install.vault">
+		<name>installVault</name>
+		<value>true</value>
+	</condition>
+            <condition type="not" id="not.install.vault">
+                <condition type="ref" refid="install.vault"/>
+            </condition>
+	<condition type="variable" id="vault.preexisting">
+		<name>vault.preexisting</name>
+		<value>true</value>
+        </condition>
+        <condition type="not" id="not.vault.preexisting">
+            <condition type="ref" refid="vault.preexisting"/>
+        </condition>
+    <condition type="or" id="install.default.vault">
+        <condition type="ref" refid="dv.install"/>
+    </condition>
+	<condition type="variable" id="install.ldap">
+		<name>installLdap</name>
+		<value>true</value>
+	</condition>
+	<condition type="variable" id="install.securitydomain">
+		<name>installSecurityDomain</name>
+		<value>true</value>
+	</condition>
+	<condition type="variable" id="pre.existing.ssl">
+		<name>pre.existing.ssl</name>
+		<value>true</value>
+	</condition>
+    <condition type="variable" id="pre.existing.ldap">
+        <name>pre.existing.ldap</name>
+        <value>true</value>
+    </condition>
+	<condition type="not" id="not.pre.existing.ssl">
+        <condition type="ref" refid="pre.existing.ssl"/>
+	</condition>
+    <condition type="not" id="not.pre.existing.ldap">
+        <condition type="ref" refid="pre.existing.ldap"/>
+    </condition>
+    <condition type="variable" id="postinstall.dblogging.enabled">
+        <name>postinstall.dblogging.enabled</name>
+        <value>true</value>
+    </condition>
+	<condition type="and" id="postinstall.dblogging.enabled.and.postinstall">
+		<condition type="ref" refid="postinstall.dblogging.enabled"/>
+		<condition type="ref" refid="postinstall.server"/>
+	</condition>
+	<condition type="variable" id="install.jdbc">
+		<name>jdbc.driver.install</name>
+		<value>true</value>
+	</condition>
+	<condition type="variable" id="install.datasource">
+		<name>datasource.install</name>
+		<value>true</value>
+        </condition>
+	<condition type="variable" id="postinstall.server">
+		<name>postinstallServer</name>
+		<value>true</value>
+	</condition>
+	<condition type="variable" id="maven.settings">
+            <name>mavenSettings</name>
+            <value>on</value>
+	</condition>
+       <condition type="variable" id="securitydomain.add.jsse">
+               <name>securityDomainAddJsse</name>
+               <value>true</value>
+        </condition>
+       <condition type="variable" id="securitydomain.jsse.add.keystore">
+               <name>securityDomainJsseAddKeystore</name>
+               <value>true</value>
+        </condition>
+        <condition type="and" id="securitydomain.add.jsse.and.keystore">
+               <condition type="ref" refid="securitydomain.add.jsse" />
+                <condition type="ref" refid="securitydomain.jsse.add.keystore" />
+        </condition>
+        <condition type="and" id="securitydomain.add.jsse.keystoremanager">
+               <condition type="ref" refid="securitydomain.add.jsse" />
+                <condition type="ref" refid="securitydomain.jsse.add.keystoremanager" />
+        </condition>
+        <condition type="and" id="securitydomain.add.jsse.and.truststore">
+               <condition type="ref" refid="securitydomain.add.jsse" />
+                <condition type="ref" refid="securitydomain.jsse.add.truststore" />
+        </condition>
+        <condition type="and" id="securitydomain.add.jsse.truststoremanager">
+            <condition type="ref" refid="securitydomain.add.jsse" />
+            <condition type="ref" refid="securitydomain.jsse.add.truststoremanager" />
+        </condition>
+       <condition type="variable" id="securitydomain.jsse.add.keystoremanager">
+               <name>securityDomainJsseAddKeystoreManager</name>
+               <value>true</value>
+        </condition>
+       <condition type="variable" id="securitydomain.jsse.add.truststore">
+               <name>securityDomainJsseAddTruststore</name>
+               <value>true</value>
+       </condition>
+       <condition type="variable" id="securitydomain.jsse.add.truststoremanager">
+               <name>securityDomainJsseAddTruststoreManager</name>
+               <value>true</value>
+    </condition>
+    <!-- Required for ProccessPanel Spec. -->
+    <condition type="variable" id="is.dv">
+        <name>product.name</name>
+        <value>dv</value>
+    </condition>
+    <condition type="variable" id="eap.needs.install">
+        <name>eap.needs.install</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone.xml.org.modeshape.extension.exists">
+        <name>standalone.xml.org.modeshape.extension.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-ha.xml.org.modeshape.extension.exists">
+        <name>standalone-ha.xml.org.modeshape.extension.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-full.xml.org.modeshape.extension.exists">
+        <name>standalone-full.xml.org.modeshape.extension.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-full-ha.xml.org.modeshape.extension.exists">
+        <name>standalone-full-ha.xml.org.modeshape.extension.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-osgi.xml.org.modeshape.extension.exists">
+        <name>standalone-osgi.xml.org.modeshape.extension.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone.xml.org.jboss.as.messaging.extension.exists">
+        <name>standalone.xml.org.jboss.as.messaging.extension.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-ha.xml.org.jboss.as.messaging.extension.exists">
+        <name>standalone-ha.xml.org.jboss.as.messaging.extension.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-full.xml.org.jboss.as.messaging.extension.exists">
+        <name>standalone-full.xml.org.jboss.as.messaging.extension.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-full-ha.xml.org.jboss.as.messaging.extension.exists">
+        <name>standalone-full-ha.xml.org.jboss.as.messaging.extension.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-osgi.xml.org.jboss.as.messaging.extension.exists">
+        <name>standalone-osgi.xml.org.jboss.as.messaging.extension.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists">
+        <name>standalone.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-ha.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists">
+        <name>standalone-ha.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-full.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists">
+        <name>standalone-full.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-osgi.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists">
+        <name>standalone-osgi.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-full-ha.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists">
+        <name>standalone-full-ha.xml.urn:jboss:domain:modeshape:1.0.subsystem.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone.xml.modeshape.infinispan.exists">
+        <name>standalone.xml.modeshape.infinispan.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-ha.xml.modeshape.infinispan.exists">
+        <name>standalone-ha.xml.modeshape.infinispan.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-osgi.xml.modeshape.infinispan.exists">
+        <name>standalone-osgi.xml.modeshape.infinispan.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-full.xml.modeshape.infinispan.exists">
+        <name>standalone-full.xml.modeshape.infinispan.exists</name>
+        <value>true</value>
+    </condition>
+    <condition type="variable" id="standalone-full-ha.xml.modeshape.infinispan.exists">
+        <name>standalone-full-ha.xml.modeshape.infinispan.exists</name>
+        <value>true</value>
+    </condition>
+
+    <!--  Pack selection conditions -->
+    <condition type="packselection" id="fsw.install">
+        <packid>soa-switchyard</packid>
+    </condition>
+    <condition type="packselection" id="dv.install">
+        <packid>dv</packid>
+    </condition>
+    <condition type="packselection" id="teiid.install">
+        <packid>teiid</packid>
+    </condition>
+    <condition type="packselection" id="modeshape.install">
+        <packid>modeshape</packid>
+    </condition>
+    <!--  end of pack selection conditions -->
+    <!-- quick hack to allow dv to still work with no more changes to code -->
+    <!--  -->
+    <condition type="variable" id="pure.ipv6.machine">
+        <name>pureIPv6</name>
+        <value>true</value>
+    </condition>
+
+    <condition type="variable" id="new.postinstall.vault">
+        <name>new.postinstall.vault</name>
+        <value>true</value>
+    </condition>
+    <!-- Required for ProccessPanel Spec. END-->
+</conditions>

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ~ JBoss, Home of Professional Open Source. ~ Copyright 2011, Red Hat,
+    Inc., and individual contributors ~ as indicated by the @author tags. See
+    the copyright.txt file in the ~ distribution for a full listing of individual
+    contributors. ~ ~ This is free software; you can redistribute it and/or modify
+    it ~ under the terms of the GNU Lesser General Public License as ~ published
+    by the Free Software Foundation; either version 2.1 of ~ the License, or
+    (at your option) any later version. ~ ~ This software is distributed in the
+    hope that it will be useful, ~ but WITHOUT ANY WARRANTY; without even the
+    implied warranty of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU ~ Lesser General Public License for more details. ~ ~ You should
+    have received a copy of the GNU Lesser General Public ~ License along with
+    this software; if not, write to the Free ~ Software Foundation, Inc., 51
+    Franklin St, Fifth Floor, Boston, MA ~ 02110-1301 USA, or see the FSF site:
+    http://www.fsf.org. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.jboss.installer</groupId>
+    <artifactId>jboss-dv-installer</artifactId>
+    <version>6.1.0.redhat-3</version>
+    <name>Red Hat JBoss Data Virtualization Installer</name>
+    <packaging>jar</packaging>
+    <parent>
+        <groupId>org.jboss</groupId>
+        <artifactId>jboss-parent</artifactId>
+        <version>11</version>
+    </parent>
+
+    <properties>
+	<version.dv>6.1.0</version.dv>
+        <version.dv.build>${project.version}</version.dv.build>
+
+        <common.basedir>${basedir}/..</common.basedir>
+        <common.build.directory>${common.basedir}/target</common.build.directory>
+
+        <!-- Project related variables -->
+        <author.name>JBoss</author.name>
+        <platform.name>DV</platform.name>
+        <platform.name.lower>dv</platform.name.lower>
+
+    <!-- Required by install.xml -->
+        <common.product.name>eap</common.product.name>
+        <version.major>6</version.major>
+        <version.minor>3</version.minor>
+        <version.micro>2</version.micro>
+        <version.designation>GA</version.designation>
+        <release.version.short>${version.major}.${version.minor}</release.version.short>
+        <release.version.full>${release.version.short}.${version.micro}</release.version.full>
+        <common.eap.name>jboss-${common.product.name}-${release.version.short}</common.eap.name>
+
+        <eap.bin.dir>${basedir}/target/zips/eap-dist</eap.bin.dir>
+        <eap.bin.loc>${eap.bin.dir}/${common.eap.name}</eap.bin.loc>
+        <dv.bin.dir>${basedir}/target/zips/dv-dist</dv.bin.dir>
+        <dv.bin.loc>${dv.bin.dir}/${common.eap.name}</dv.bin.loc>
+
+
+    <!--COMMON -->
+        <installer.bin.dir>${basedir}/target/zips/installer-dist</installer.bin.dir>
+        <izpack.config.dir>${basedir}/installer</izpack.config.dir>
+        <izpack.singlefile.dir>${izpack.config.dir}/singlefile</izpack.singlefile.dir>
+        <izpack.config.dir.parsed>${basedir}/target/parsed</izpack.config.dir.parsed>
+
+        <common.loc>${installer.bin.dir}/common-files</common.loc>
+        <common.images.loc>${common.loc}/images</common.images.loc>
+        <common.icons.loc>${common.loc}/icons</common.icons.loc>
+
+        <shared.srcdir>${installer.bin.dir}/com/redhat</shared.srcdir>
+        <izpack.compiler.bin>${installer.bin.dir}/standalone-compiler.jar</izpack.compiler.bin>
+        <izpack.common.config>${common.loc}/izpack-config</izpack.common.config>
+
+    <!-- IzPack Localization -->
+        <izpack.localization>${izpack.config.dir}/localization</izpack.localization>
+        <izpack.langpacks.loc>${izpack.localization}/langpacks</izpack.langpacks.loc>
+        <izpack.unix.shortcuts.loc>${izpack.localization}/unix_shortcut</izpack.unix.shortcuts.loc>
+        <izpack.windows.shortcuts.loc>${izpack.localization}/windows_shortcut</izpack.windows.shortcuts.loc>
+
+    <!-- Izpack Parsed Files -->
+        <common.runtime.deps.loc>${common.loc}/runtime-dependencies</common.runtime.deps.loc>
+        <version.jboss.as.dist>7.4.3.Final-redhat-2</version.jboss.as.dist>
+
+    </properties>
+
+    <build>
+     <!-- Building the installer using izpack -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+        <!-- Get the eap-dist zip -->
+                <executions>
+                    <execution>
+                        <id>copyEap</id>
+                        <phase>validate</phase>
+                        <goals> <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.jboss.as</groupId>
+                                    <artifactId>jboss-as-dist</artifactId>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${eap.bin.dir}</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+          <!-- Get the dv-dist zip -->
+                    <execution>
+                        <id>copyDv</id>
+                        <phase>validate</phase>
+                        <goals>
+                           <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.jboss.dv</groupId>
+                                    <artifactId>jboss-dv</artifactId>
+                                    <type>zip</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${dv.bin.dir}</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+          <!-- Get installer-commons jar-->
+                    <execution>
+                        <id>copyCommonInstaller</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.jboss.installer</groupId>
+                                    <artifactId>installer-commons</artifactId>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${installer.bin.dir}</outputDirectory>
+                                   <destFileName>installer-commons.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                       </configuration>
+                   </execution>
+                   <!-- get standalone compiler -->
+                   <execution>
+                       <id>copy-standalone-compiler</id>
+                       <phase>validate</phase>
+                       <goals>
+                           <goal>copy</goal>
+                       </goals>
+                       <configuration>
+                           <artifactItems>
+                               <artifactItem>
+                                   <groupId>org.codehaus.izpack</groupId>
+                                   <artifactId>izpack-standalone-compiler</artifactId>
+                                   <type>jar</type>
+                                   <overWrite>true</overWrite>
+                                   <outputDirectory>${installer.bin.dir}</outputDirectory>
+                                   <destFileName>standalone-compiler.jar</destFileName>
+                               </artifactItem>
+                           </artifactItems>
+                       </configuration>
+                   </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-patch-plugin</artifactId>
+                <version>1.1.1</version>
+                <configuration>
+                    <backups>false</backups>
+                    <skipApplication>false</skipApplication>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>patch-eap</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                        <configuration>
+                            <targetDirectory>${eap.bin.loc}</targetDirectory>
+                            <patchDirectory>${izpack.config.dir}/patches</patchDirectory>
+                            <naturalOrderProcessing>true</naturalOrderProcessing>
+                            <optimizations>false</optimizations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.2</version>
+                <executions>
+                    <execution>
+                        <id>modify-teiid-database-logging-script</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>target/zips/dv-dist/**/cli-scripts/teiid-add-database-logger*</include>
+                            </includes>
+                            <replacements>
+                                <replacement>
+                                    <token>scripts</token>
+                                    <value>dataVirtualization/logging</value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
+                    </execution>
+                </executions>
+
+            </plugin>
+
+            <!-- Building the installer using izpack -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>izpack</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <taskdef name="IzPack" classpath="${izpack.compiler.bin}"
+                                    classname="com.izforge.izpack.ant.IzPackTask" />
+                                <IzPack input="${izpack.config.dir.parsed}/install.xml"
+                                    output="target/${project.artifactId}-${project.version}.jar"
+                                    installerType="standard" basedir="${izpack.config.dir.parsed}" />
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${basedir}/target/executables/" />
+                                <copy file="${basedir}/installer/scripts/runElevated/run.exe"
+                                      todir="${basedir}/target/executables/" />
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+        <!-- Files that need to be parsed by maven. The parsed files are placed
+            into the izpack.config.dir.parsed folder -->
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>${izpack.config.dir}</directory>
+                <includes>
+                    <include>install.xml</include>
+                    <include>variables.xml</include>
+                    <include>userInputSpec.xml</include>
+                    <include>ProcessPanel.Spec.xml</include>
+                    <include>core-packs.xml</include>
+                    <include>target-panel.xml</include>
+                    <include>extra-jobs.xml</include>
+                    <include>extra-guiprefs.xml</include>
+                    <include>layers-variables.xml</include>
+                    <include>uninstaller.xml</include>
+                    <include>conditions.xml</include>
+                    <include>resources.xml</include>
+                </includes>
+                <targetPath>${izpack.config.dir.parsed}</targetPath>
+            </resource>
+      <!-- General XML Files -->
+            <resource>
+                <filtering>true</filtering>
+                <!-- common unix shortcuts -->
+                <directory>${izpack.unix.shortcuts.loc}</directory>
+                <includes>
+                    <include>*.xml</include>
+                </includes>
+                <targetPath>${izpack.config.dir.parsed}/unix-shortcuts</targetPath>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <!-- common windows shortcuts -->
+                <directory>${izpack.windows.shortcuts.loc}</directory>
+                <includes>
+                    <include>*.xml</include>
+                </includes>
+                <targetPath>${izpack.config.dir.parsed}/windows-shortcuts</targetPath>
+            </resource>
+            <resource>
+                <filtering>true</filtering>
+                <!-- common langpacks -->
+                <directory>${izpack.langpacks.loc}</directory>
+                <includes>
+                    <include>*.xml</include>
+                </includes>
+                <targetPath>${izpack.config.dir.parsed}/langpacks</targetPath>
+            </resource>
+        </resources>
+    </build>
+
+    <!-- Dependency list. -->
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.izpack</groupId>
+            <artifactId>izpack-standalone-compiler</artifactId>
+            <version>4.3.15.redhat-1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-dist</artifactId>
+            <version>${version.jboss.as.dist}</version>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.dv</groupId>
+            <artifactId>jboss-dv</artifactId>
+            <version>${version.dv.build}</version>
+            <type>zip</type>
+        </dependency>
+            <dependency>
+            <groupId>org.jboss.installer</groupId>
+            <artifactId>installer-commons</artifactId>
+            <version>1.3.11.redhat-1</version>
+        </dependency>
+    </dependencies>
+</project>

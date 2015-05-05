@@ -1,0 +1,1249 @@
+<shortcuts>
+
+   <programGroup defaultName="JBoss Platform" location="applications"/>
+
+   <shortcut
+     name="Start Server (standalone)"
+     programGroup="yes"
+     desktop="no"
+     startup="no"
+     target="$INSTALL_PATH/${common.eap.name}/bin/standalone.sh"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-start.png"
+     description="Start the standalone server"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" />
+
+   <shortcut
+     name="Start Server (domain)"
+     programGroup="yes"
+     desktop="no"
+     startup="no"
+     target="$INSTALL_PATH/${common.eap.name}/bin/domain.sh"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-start.png"
+     description="Start the domain server"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" />
+
+   <shortcut
+     name="JBoss Administration Console (domain)"
+     programGroup="yes"
+     desktop="no"
+     startup="no"
+     target="xdg-open"
+     commandLine="http://localhost:${domain.http.number}/console"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-jmx.png"
+     description="Launch the JBoss Administration Console"
+     type="Application"
+     encoding="UTF-8"
+     terminal="false"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+   </shortcut>
+
+   <shortcut
+     name="JBoss Administration Console (standalone)"
+     programGroup="yes"
+     desktop="no"
+     startup="no"
+     target="xdg-open"
+     commandLine="http://localhost:${standalone.http.with-offset}/console"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-jmx.png"
+     description="Launch the JBoss Administration Console"
+     type="Application"
+     encoding="UTF-8"
+     terminal="false"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+   </shortcut>
+
+   <shortcut
+     name="Shutdown Server (standalone)"
+     programGroup="yes"
+     desktop="no"
+     startup="no"
+     target="$INSTALL_PATH/${common.eap.name}/bin/jboss-cli.sh"
+     commandLine="--connect command=:shutdown --controller=${standalone.native-management.with-offset}"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-stop.png"
+     description="Shutdown the application server"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" />
+
+   <shortcut
+     name="Shutdown Server (domain)"
+     programGroup="yes"
+     desktop="no"
+     startup="no"
+     target="$INSTALL_PATH/${common.eap.name}/bin/jboss-cli.sh"
+     commandLine="--connect command=/host=master:shutdown --controller=localhost:${domain.management-http.number}"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-stop.png"
+     description="Shutdown the application server"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" />
+
+   <shortcut
+     name="Uninstall Platform"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="$JAVA_HOME/bin/java"
+     commandLine="-jar &#34;$INSTALL_PATH/Uninstaller/uninstaller.jar&#34;"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-uninstall.png"
+     description="Uninstall the JBoss Platform"
+     type="Application"
+     encoding="UTF-8"
+     terminal="false"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" />
+
+   <!--<shortcut
+     name="Demo Bean-Validation"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/bean-validation&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the bean-validation quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Bmt"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/bmt&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the bmt quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Cdi-Injection"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/cdi-injection&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the cdi-injection quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Cmt"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/cmt&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the cmt quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Dist"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/dist&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the dist quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Ejb-In-Ear"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/ejb-in-ear&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the ejb-in-ear quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Ejb-In-War"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/ejb-in-war&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the ejb-in-war quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Ejb-Remote"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/ejb-remote&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the ejb-remote quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Ejb-Security"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/ejb-security&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the ejb-security quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Forge-From-Scratch"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/forge-from-scratch&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the forge-from-scratch quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Greeter"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/greeter&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the greeter quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Helloworld"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/helloworld&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the helloworld quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Helloworld-Errai"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/helloworld-errai&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the helloworld-errai quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Helloworld-Gwt"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/helloworld-gwt&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the helloworld-gwt quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Helloworld-Html5"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/helloworld-html5&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the helloworld-html5 quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Helloworld-Jms"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/helloworld-jms&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the helloworld-jms quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Helloworld-Jsf"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/helloworld-jsf&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the helloworld-jsf quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Helloworld-Mdb"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/helloworld-mdb&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the helloworld-mdb quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Helloworld-Osgi"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/helloworld-osgi&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the helloworld-osgi quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Helloworld-Singleton"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/helloworld-singleton&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the helloworld-singleton quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Helloworld-Rs"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/helloworld-rs&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the helloworld-rs quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Hibernate3"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/hibernate3&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the hibernate3 quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Hibernate4"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/hibernate4&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the hibernate4 quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Jax-Rs-Client"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/jax-rs-client&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the jax-rs-client quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Jta-Crash-Rec"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/jta-crash-rec&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the jta-crash-rec quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Jts"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/jts&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the jts quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Jts-Distributed-Crash-Rec"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/jts-distributed-crash-rec&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the jts-distributed-crash-rec quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Kitchensink"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/kitchensink&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the kitchensink quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Kitchensink-Ear"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/kitchensink-ear&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the kitchensink-ear quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Kitchensink-Html5-Mobile"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/kitchensink-html5-mobile&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the kitchensink-html5-mobile quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Kitchensink-Jsp"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/kitchensink-jsp&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the kitchensink-jsp quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Log4J"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/log4j&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the log4j quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Logging-Tools"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/logging-tools&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the logging-tools quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Mail"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/mail&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the mail quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+    <shortcut
+     name="Demo Numberguess"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/numberguess&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the numberguess quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Payment-Cdi-Evet"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/payment-cdi-event&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the payment-cdi-evet quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Rickfaces-Validation"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/richfaces-validation&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the rickfaces-validation quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+     <shortcut
+     name="Demo Servlet-Async"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/servlet-async&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the servlet-async quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Servlet-Filterlistener"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/servlet-filterlistener&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the servlet-filterlistener quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Servlet-Security"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/servlet-security&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the servlet-security quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Shopping-Cart"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/shopping-cart&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the shopping-cart quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Tasks"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/tasks&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the tasks quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Tasks-jsf"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/tasks-jsf&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the tasks-jsf quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Template"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/template&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the template quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Wicket-Ear"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/wicket-ear&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the wicket-ear quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Wicket-War"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/wicket-war&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the wicket-war quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Wsat-Simple"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/wsat-simple&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the wsat-simple quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Wsba-Coordinator-Completion-Simple"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/wsba-coordinator-completion-simple&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the wsba-coordinator-completion-simple quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Wsba-Participant-Completion-Simple"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/wsba-participant-completion-simple&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the wsba-participant-completion-simple quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Xml-Dom4j"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/xml-dom4j&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the xml-dom4j quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>
+
+   <shortcut
+     name="Demo Xml-Jaxp"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     iconIndex="0"
+     target="/bin/sh"
+     commandLine="-c 'cd &#34;$INSTALL_PATH/${jboss.quickstarts.dir}/xml-jaxp&#34; &#38;&#38; mvn package clean package jboss-as:deploy -s ../example-settings.xml'"
+     iconFile="$INSTALL_PATH/${common.eap.name}/icons/48-docs.png"
+     description="Demo the xml-jaxp quickstart"
+     type="Application"
+     encoding="UTF-8"
+     terminal="true"
+     KdeSubstUID="false"
+     initialState="normal"
+     categories=""
+     createForAll="true" >
+     <createForPack name="JBoss${platform.name} Quickstarts" />
+   </shortcut>-->
+
+</shortcuts>

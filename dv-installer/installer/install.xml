@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<!-- $Id: install.xml,v 1.1.2.70 2006/04/01 01:39:05 starksm Exp $ -->
+<installation version="1.0">
+
+    <info>
+        <appname>${project.name}</appname>
+        <appversion>${version.dv}</appversion>
+        <authors>
+            <author name="${author.name}" email=""/>
+        </authors> <url>http://www.jboss.org</url>
+        <javaversion>1.6</javaversion>
+        <summarylogfilepath>${INSTALL_PATH}/installation/InstallSummary.html</summarylogfilepath>
+        <writeinstallationinformation>no</writeinstallationinformation>
+        <run-privileged condition="izpack.windowsinstall"/>
+
+        <!-- Uninstaller is supported only on EAP, so we bring in XML to disable it if this isn't EAP. -->
+        <uninstaller write="no"></uninstaller>
+    </info>
+    <native type="izpack" name="ShellLink.dll">
+        <os family="windows"/>
+    </native>
+    <native type="izpack" name="ShellLink_x64.dll">
+        <os family="windows"/>
+    </native>
+    <native type="3rdparty" name="COIOSHelper.dll">
+        <os family="windows"/>
+    </native>
+    <native type="3rdparty" name="COIOSHelper_x64.dll">
+        <os family="windows"/>
+    </native>
+
+    <listeners>
+        <listener installer="SummaryLoggerInstallerListener" />
+        <listener installer="com.redhat.installer.asconfiguration.ascontroller.ServerManager"/>
+        <listener installer="com.redhat.installer.installation.action.AbortedInstallationCleanUp"/>
+    </listeners>
+
+    <jar src="${installer.bin.dir}/installer-commons.jar"/>
+
+    <variables xmlns:xi="http://www.w3.org/2001/XInclude">
+        <xi:include href="${izpack.config.dir.parsed}/variables.xml"/>
+    </variables>
+
+    <dynamicvariables>
+        <variable name="dblogging.default.enabled" value="false" condition="!teiid.install" checkonce="true"/>
+        <variable name="dblogging.default.enabled" value="true" condition="teiid.install" checkonce="true"/>
+    </dynamicvariables>
+
+    <guiprefs width="800" height="600" resizable="no">
+        <modifier key="useButtonIcons" value="yes" />
+        <modifier key="useLabelIcons" value="yes" />
+        <modifier key="useFlags" value="no" />
+        <modifier key="useHeadingPanel" value="yes"/>
+        <modifier key="headingImageOnLeft" value="yes"/>
+        <modifier key="headingImageBorderSize" value="0" />
+        <modifier key="langDisplayType" value="native" />
+        <modifier key="langDisplay" value="no" />
+	<modifier key="useMultiProgressBar" value="yes"/>
+        <laf name="looks">
+            <os family="unix"/>
+            <os family="windows"/>
+            <os family="mac"/>
+        </laf>
+    </guiprefs>
+
+    <locale>
+    <!--  Note: first langpack listed is also the default fallback for when strings are missing from other packs -->
+    	<langpack iso3="eng"/>
+    	<langpack iso3="chn"/>
+        <langpack iso3="deu"/>
+        <langpack iso3="fra"/>
+        <langpack iso3="jpn"/>
+        <langpack iso3="por"/>
+        <langpack iso3="spa"/>
+    </locale>
+
+
+    <!--The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.-->
+    <resources xmlns:xi="http://www.w3.org/2001/XInclude">
+        <xi:include href="resources.xml"/>
+    </resources>
+
+    <!-- The panels section - Order important  -->
+    <panels>
+
+        <panel classname="HTMLLicencePanel" id="HTMLLicencePanel">
+            <validator classname="com.redhat.installer.installation.validator.NoPortClashValidator"/>
+            <actions>
+                <action stage="postvalidate" classname="com.redhat.installer.installation.action.SetSolarisHPUXFlags"/>
+            </actions>
+        </panel>
+
+        <!-- Display a pack selection panel -->
+        <!--<panel classname="TreePacksPanel" id="TreePacksPanel"
+             delay=".75"/>-->
+
+        <panel classname="TargetPanel" id="DirectoryPanel">
+            <validator classname="com.redhat.installer.layering.validator.EapExistsValidator" id="eap.exists.validator" />
+            <validator classname="com.redhat.installer.layering.validator.IsSupportedPlatformValidator" id="supported.platform.validator" />
+            <validator classname="com.redhat.installer.installation.validator.DirectoryValidator"/>
+            <actions>
+                    <action stage="postvalidate" classname="com.redhat.installer.layering.action.SetCollisionsDefault"/>
+                    <action stage="postvalidate" classname="com.redhat.installer.layering.action.SetFswAdminUser"/>
+                    <action stage="postvalidate" classname="com.redhat.installer.layering.action.SetJdbcDefaults"/>
+                    <action stage="postvalidate" classname="com.redhat.installer.layering.action.SetLdapDefaults"/>
+                    <action stage="postvalidate" classname="com.redhat.installer.layering.action.SetOverlordSamlDefaults"/>
+                    <action stage="postvalidate" classname="com.redhat.installer.layering.action.SetSecurityDefaults"/>
+                    <action stage="postvalidate" classname="com.redhat.installer.layering.action.SetSecurityDomainDefault"/>
+                    <action stage="postvalidate" classname="com.redhat.installer.layering.action.SetSslDefaults"/>
+                    <action stage="postvalidate" classname="com.redhat.installer.layering.action.SetVaultDefaults"/>
+            </actions>
+        </panel>
+
+        <!-- Display a pack selection panel -->
+        <panel classname="TreePacksPanel" id="TreePacksPanel" delay=".75">
+        </panel>
+
+        <!-- Create Administrative User -->
+        <panel classname="UserInputPanel" id="security" order="0">
+            <actions>
+                <action stage="postvalidate" classname="com.redhat.installer.asconfiguration.vault.action.VaultMaskAdjuster" id="vault.adjustment"/>
+            </actions>
+            <validator classname="com.redhat.installer.layering.validator.user.MgmtRealmUserValidator" id="duplicate.user.check" />
+            <validator classname="com.redhat.installer.password.validator.SharedPasswordValidator" id="shared.password.check" />
+        </panel>
+
+        <panel classname="com.redhat.installer.installation.maven.panel.MavenCheckPanel" id="MavenSetup" />
+
+        <panel classname="UserInputPanel" id="pureIPv6" order="1"/>
+        <!-- Post-install Configuration -->
+        <panel classname="UserInputPanel" id="postinstall" order="2" delay=".75" displayHidden="true">
+            <actions>
+                <action stage="postvalidate" classname="com.redhat.installer.asconfiguration.action.PostInstallDefaultReset"/>
+            </actions>
+        </panel>
+    <!-- Vault security config -->
+        <panel classname="UserInputPanel" id="vaultsecurity" order="3" condition="install.vault+postinstall.server+not.vault.preexisting">
+	    <actions>
+                <action stage="postvalidate" classname="com.redhat.installer.asconfiguration.vault.action.VaultMaskAdjuster" id="vault.adjustment"/>
+	    </actions>
+            <validator classname="com.redhat.installer.asconfiguration.vault.validator.VaultValidator" id="vault.conditions.check"/>
+        </panel>
+        <panel classname="UserInputPanel" id="vaultsecuritypreexisting" order="4" condition="vault.preexisting">
+	    <actions>
+                <action stage="postvalidate" classname="com.redhat.installer.asconfiguration.vault.action.VaultMaskAdjuster" id="vault.adjustment"/>
+	    </actions>
+            <validator classname="com.redhat.installer.layering.validator.PreExistingVaultValidator" id="vault.conditions.check"/>
+        </panel>
+        <panel classname="UserInputPanel" id="vaultsecuritydefault" order="5" condition="not.install.vault+not.use.same.password+!vault.preexisting">
+	    <actions>
+                <action stage="postvalidate" classname="com.redhat.installer.asconfiguration.vault.action.VaultMaskAdjuster" id="vault.adjustment"/>
+	    </actions>
+	</panel>
+    <!-- SSL security information gathering -->
+        <panel classname="UserInputPanel" id="sslsecurity" order="6" condition="install.ssl+postinstall.server">
+            <validator classname="com.redhat.installer.asconfiguration.ssl.validator.SSLKeystoreValidator" id="ssl.keystore.check"/>
+        </panel>
+    <!-- LDAP information gathering -->
+        <panel classname="UserInputPanel" id="ldapsecurity" order="7" condition="install.ldap+postinstall.server"/>
+    <!-- LDAP information gathering 2 -->
+        <panel classname="UserInputPanel" id="ldapsecurity2" order="8" condition="install.ldap+postinstall.server"/>
+    <!-- security domain information gathering -->
+        <panel classname="com.redhat.installer.asconfiguration.securitydomain.panel.SecurityDomainPanel" id="Security Domain Panel" condition="install.securitydomain+postinstall.server" delay="0.25" displayHidden="true"/>
+        <panel classname="UserInputPanel" id="jsssecuritydomain" order="9" condition="install.securitydomain+postinstall.server" displayHidden="true">
+            <validator classname="com.redhat.installer.asconfiguration.keystore.validator.JSSEValidator" id="securitydomain.jss.check" />
+        </panel>
+
+        <panel classname="com.redhat.installer.asconfiguration.jdbc.panel.JBossJDBCDriverSetupPanel" id="jdbc.panel" condition="install.jdbc+postinstall.server">
+        </panel>
+        <panel classname="UserInputPanel" id="dblogging.panel" order="10" condition="postinstall.dblogging.enabled.and.postinstall+install.jdbc">
+            <actions>
+                <action stage="preactivate" classname="com.redhat.installer.asconfiguration.action.DatabaseLoggingDefaultsAction"/>
+                <action stage="postvalidate" classname="com.redhat.installer.asconfiguration.action.DatabaseLoggingDriverSetter"/>
+            </actions>
+        </panel>
+
+        <!--<panel classname="UserInputPanel" id="dblogging.panel" order="14" condition="postinstall.dblogging.enabled.and.postinstall+!install.jdbc">
+            <actions>
+                <action stage="preactivate" classname="com.redhat.installer.asconfiguration.action.DatabaseLoggingDefaultsAction"/>
+                <action stage="postvalidate" classname="com.redhat.installer.asconfiguration.action.DatabaseLoggingDriverSetter"/>
+            </actions>
+        </panel>-->
+
+        <!-- Display a summary of the packs to install -->
+        <panel classname="SummaryPanel" id="SummaryPanel" delay=".75">
+            <actions>
+                <action stage="postvalidate" classname="com.redhat.installer.layering.action.ExistingInstallationBackupAction"/>
+            </actions>
+        </panel>
+
+        <!-- Do the install -->
+        <panel classname="InstallPanel" id="InstallPanel"/>
+
+        <!-- ProcessPanel - start server script -->
+        <panel classname="ProcessPanel" id="ProcessPanel"/>
+
+        <!-- The normal finish panel   -->
+        <panel classname="FinishPanel" id="FinishPanel"/>
+    </panels>
+
+    <packs>
+        <refpack file="${izpack.config.dir.parsed}/core-packs.xml" />
+    </packs>
+</installation>

@@ -1,0 +1,786 @@
+/*
+ * JBoss, Home of Professional Open Source.
+ * See the COPYRIGHT.txt file distributed with this work for information
+ * regarding copyright ownership.  Some portions may be licensed
+ * to Red Hat, Inc. under one or more contributor license agreements.
+ * 
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ * 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ */
+
+package org.teiid.query.optimizer.relational;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.teiid.adminapi.impl.ModelMetaData;
+import org.teiid.adminapi.impl.VDBMetaData;
+import org.teiid.api.exception.query.QueryMetadataException;
+import org.teiid.api.exception.query.QueryPlannerException;
+import org.teiid.core.CoreConstants;
+import org.teiid.core.TeiidComponentException;
+import org.teiid.core.TeiidProcessingException;
+import org.teiid.core.TeiidRuntimeException;
+import org.teiid.core.id.IDGenerator;
+import org.teiid.core.util.Assertion;
+import org.teiid.metadata.FunctionMethod.Determinism;
+import org.teiid.query.QueryPlugin;
+import org.teiid.query.analysis.AnalysisRecord;
+import org.teiid.query.metadata.QueryMetadataInterface;
+import org.teiid.query.metadata.TempMetadataAdapter;
+import org.teiid.query.metadata.TempMetadataID;
+import org.teiid.query.optimizer.capabilities.CapabilitiesFinder;
+import org.teiid.query.optimizer.capabilities.SourceCapabilities;
+import org.teiid.query.optimizer.capabilities.SourceCapabilities.Capability;
+import org.teiid.query.optimizer.relational.plantree.NodeConstants;
+import org.teiid.query.optimizer.relational.plantree.NodeConstants.Info;
+import org.teiid.query.optimizer.relational.plantree.PlanNode;
+import org.teiid.query.optimizer.relational.rules.CapabilitiesUtil;
+import org.teiid.query.optimizer.relational.rules.FrameUtil;
+import org.teiid.query.optimizer.relational.rules.RuleAssignOutputElements;
+import org.teiid.query.optimizer.relational.rules.RuleChooseJoinStrategy;
+import org.teiid.query.processor.ProcessorPlan;
+import org.teiid.query.processor.RegisterRequestParameter;
+import org.teiid.query.processor.relational.*;
+import org.teiid.query.processor.relational.JoinNode.JoinStrategyType;
+import org.teiid.query.processor.relational.MergeJoinStrategy.SortOption;
+import org.teiid.query.processor.relational.SortUtility.Mode;
+import org.teiid.query.resolver.util.ResolverUtil;
+import org.teiid.query.sql.lang.*;
+import org.teiid.query.sql.lang.ObjectTable.ObjectColumn;
+import org.teiid.query.sql.lang.SetQuery.Operation;
+import org.teiid.query.sql.lang.SourceHint.SpecificHint;
+import org.teiid.query.sql.lang.XMLTable.XMLColumn;
+import org.teiid.query.sql.symbol.Constant;
+import org.teiid.query.sql.symbol.ElementSymbol;
+import org.teiid.query.sql.symbol.Expression;
+import org.teiid.query.sql.symbol.ExpressionSymbol;
+import org.teiid.query.sql.symbol.GroupSymbol;
+import org.teiid.query.sql.symbol.WindowFunction;
+import org.teiid.query.sql.util.SymbolMap;
+import org.teiid.query.sql.visitor.EvaluatableVisitor;
+import org.teiid.query.sql.visitor.EvaluatableVisitor.EvaluationLevel;
+import org.teiid.query.sql.visitor.GroupCollectorVisitor;
+import org.teiid.query.util.CommandContext;
+
+
+public class PlanToProcessConverter {
+	protected QueryMetadataInterface metadata;
+	private IDGenerator idGenerator;
+	private AnalysisRecord analysisRecord;
+	private CapabilitiesFinder capFinder;
+	
+	//state for detecting and reusing source queries
+	private Map<Command, AccessNode> sharedCommands = new HashMap<Command, AccessNode>();
+	private CommandContext context;
+	private static AtomicInteger sharedId = new AtomicInteger();
+	
+	public static class SharedStateKey {
+		int id;
+		int expectedReaders;
+	}
+	
+	public PlanToProcessConverter(QueryMetadataInterface metadata, IDGenerator idGenerator, AnalysisRecord analysisRecord, CapabilitiesFinder capFinder, CommandContext context) {
+		this.metadata = metadata;
+		this.idGenerator = idGenerator;
+		this.analysisRecord = analysisRecord;
+		this.capFinder = capFinder;
+		this.context = context;
+	}
+	
+    public RelationalPlan convert(PlanNode planNode)
+        throws QueryPlannerException, TeiidComponentException {
+    	try {
+	        boolean debug = analysisRecord.recordDebug();
+	        if(debug) {
+	            analysisRecord.println("\n============================================================================"); //$NON-NLS-1$
+	            analysisRecord.println("CONVERTING PLAN TREE TO PROCESS TREE"); //$NON-NLS-1$
+	        }
+	
+	        // Convert plan tree nodes into process tree nodes
+	        RelationalNode processNode;
+			try {
+				processNode = convertPlan(planNode);
+			} catch (TeiidProcessingException e) {
+				if (e instanceof QueryPlannerException) {
+					throw (QueryPlannerException)e;
+				}
+				throw new QueryPlannerException(e);
+			}
+	        if(debug) {
+	            analysisRecord.println("\nPROCESS PLAN = \n" + processNode); //$NON-NLS-1$
+	            analysisRecord.println("============================================================================"); //$NON-NLS-1$
+	        }
+	
+	        RelationalPlan processPlan = new RelationalPlan(processNode);
+	        return processPlan;
+    	} finally {
+    		sharedCommands.clear();
+    	}
+    }
+
+	private RelationalNode convertPlan(PlanNode planNode)
+		throws TeiidComponentException, TeiidProcessingException {
+
+		// Convert current node in planTree
+		RelationalNode convertedNode = convertNode(planNode);
+		
+		if(convertedNode == null) {
+		    Assertion.assertTrue(planNode.getChildCount() == 1);
+	        return convertPlan(planNode.getFirstChild());
+		}
+		
+		RelationalNode nextParent = convertedNode;
+		
+        // convertedNode may be the head of 1 or more nodes   - go to end of chain
+        while(nextParent.getChildren()[0] != null) {
+            nextParent = nextParent.getChildren()[0];
+        }
+		
+		// Call convertPlan recursively on children
+		for (PlanNode childNode : planNode.getChildren()) {
+			RelationalNode child = convertPlan(childNode);
+			if (planNode.getType() == NodeConstants.Types.SET_OP && nextParent instanceof UnionAllNode
+					&& childNode.getProperty(Info.SET_OPERATION) == childNode.getProperty(Info.SET_OPERATION)
+					&& childNode.getType() == NodeConstants.Types.SET_OP && childNode.hasBooleanProperty(Info.USE_ALL)) {
+				for (RelationalNode grandChild : child.getChildren()) {
+					if (grandChild != null) {
+						nextParent.addChild(grandChild);
+					}
+				}
+			} else {
+				nextParent.addChild(child);
+			}
+		}
+
+        // Return root of tree for top node
+		return convertedNode;
+	}
+
+    protected int getID() {
+        return idGenerator.nextInt();
+    }
+    
+	protected RelationalNode convertNode(PlanNode node)
+		throws TeiidComponentException, TeiidProcessingException {
+
+		RelationalNode processNode = null;
+
+		switch(node.getType()) {
+			case NodeConstants.Types.PROJECT:
+                GroupSymbol intoGroup = (GroupSymbol) node.getProperty(NodeConstants.Info.INTO_GROUP);
+                if(intoGroup != null) {
+                    try {
+                    	Insert insert = (Insert)node.getFirstChild().getProperty(Info.VIRTUAL_COMMAND);
+                        List<ElementSymbol> allIntoElements = insert.getVariables();
+                        
+                        Object groupID = intoGroup.getMetadataID();
+                        Object modelID = metadata.getModelID(groupID);
+                        String modelName = metadata.getFullName(modelID);
+                        if (metadata.isVirtualGroup(groupID)) {
+                        	InsertPlanExecutionNode ipen = new InsertPlanExecutionNode(getID(), metadata);
+                        	ipen.setProcessorPlan((ProcessorPlan)node.getFirstChild().getProperty(Info.PROCESSOR_PLAN));
+                        	ipen.setReferences(insert.getValues());
+                        	processNode = ipen;
+                        } else {
+	                        ProjectIntoNode pinode = new ProjectIntoNode(getID());
+	                        pinode.setIntoGroup(intoGroup);
+	                        pinode.setIntoElements(allIntoElements);
+	                        pinode.setModelName(modelName);
+	                        pinode.setConstraint((Criteria) node.getProperty(Info.CONSTRAINT));
+	                        processNode = pinode;
+                            SourceCapabilities caps = capFinder.findCapabilities(modelName);
+                            if (caps.supportsCapability(Capability.INSERT_WITH_ITERATOR)) {
+                            	pinode.setMode(org.teiid.query.processor.relational.ProjectIntoNode.Mode.ITERATOR);
+                            } else if (caps.supportsCapability(Capability.BATCHED_UPDATES)) {
+                            	pinode.setMode(org.teiid.query.processor.relational.ProjectIntoNode.Mode.BATCH);
+                            } else {
+                            	pinode.setMode(org.teiid.query.processor.relational.ProjectIntoNode.Mode.SINGLE);
+                            }
+                        }
+                    } catch(QueryMetadataException e) {
+                         throw new TeiidComponentException(QueryPlugin.Event.TEIID30247, e);
+                    }
+
+                } else {
+                    List<Expression> symbols = (List) node.getProperty(NodeConstants.Info.PROJECT_COLS);
+                    
+                    ProjectNode pnode = new ProjectNode(getID());
+                    pnode.setSelectSymbols(symbols);
+            		processNode = pnode;
+            		
+            		if (node.hasBooleanProperty(Info.HAS_WINDOW_FUNCTIONS)) {
+            			WindowFunctionProjectNode wfpn = new WindowFunctionProjectNode(getID());
+            			Set<WindowFunction> windowFunctions = RuleAssignOutputElements.getWindowFunctions(symbols);
+            			//TODO: check for selecting all window functions
+            			List<Expression> outputElements = new ArrayList<Expression>(windowFunctions);
+            			//collect the other projected expressions
+            			for (Expression singleElementSymbol : (List<Expression>)node.getFirstChild().getProperty(Info.OUTPUT_COLS)) {
+							outputElements.add(singleElementSymbol);
+						}
+            			wfpn.setElements(outputElements);
+            			wfpn.init();
+            			pnode.addChild(wfpn);
+            		}
+                }
+                break;
+
+			case NodeConstants.Types.JOIN:
+                JoinType jtype = (JoinType) node.getProperty(NodeConstants.Info.JOIN_TYPE);
+                JoinStrategyType stype = (JoinStrategyType) node.getProperty(NodeConstants.Info.JOIN_STRATEGY);
+
+                JoinNode jnode = new JoinNode(getID());
+                jnode.setJoinType(jtype);
+                jnode.setLeftDistinct(node.hasBooleanProperty(NodeConstants.Info.IS_LEFT_DISTINCT));
+                jnode.setRightDistinct(node.hasBooleanProperty(NodeConstants.Info.IS_RIGHT_DISTINCT));
+                List joinCrits = (List) node.getProperty(NodeConstants.Info.JOIN_CRITERIA);
+                String depValueSource = (String) node.getProperty(NodeConstants.Info.DEPENDENT_VALUE_SOURCE);
+                SortOption leftSort = (SortOption)node.getProperty(NodeConstants.Info.SORT_LEFT);
+                if(stype == JoinStrategyType.MERGE || stype == JoinStrategyType.ENHANCED_SORT) {
+                	MergeJoinStrategy mjStrategy = null;
+                	if (stype.equals(JoinStrategyType.ENHANCED_SORT)) { 
+                		EnhancedSortMergeJoinStrategy esmjStrategy = new EnhancedSortMergeJoinStrategy(leftSort, (SortOption)node.getProperty(NodeConstants.Info.SORT_RIGHT));
+                		esmjStrategy.setSemiDep(node.hasBooleanProperty(Info.IS_SEMI_DEP));
+                		mjStrategy = esmjStrategy;
+                	} else {
+                		mjStrategy = new MergeJoinStrategy(leftSort, (SortOption)node.getProperty(NodeConstants.Info.SORT_RIGHT), false);
+                	}
+                    jnode.setJoinStrategy(mjStrategy);
+                    List leftExpressions = (List) node.getProperty(NodeConstants.Info.LEFT_EXPRESSIONS);
+                    List rightExpressions = (List) node.getProperty(NodeConstants.Info.RIGHT_EXPRESSIONS);
+                    jnode.setJoinExpressions(leftExpressions, rightExpressions);
+                    joinCrits = (List) node.getProperty(NodeConstants.Info.NON_EQUI_JOIN_CRITERIA);
+                } else if (stype == JoinStrategyType.NESTED_TABLE) {
+                	NestedTableJoinStrategy ntjStrategy = new NestedTableJoinStrategy();
+                	jnode.setJoinStrategy(ntjStrategy);
+                	SymbolMap references = (SymbolMap)FrameUtil.findJoinSourceNode(node.getFirstChild()).getProperty(NodeConstants.Info.CORRELATED_REFERENCES);
+            		ntjStrategy.setLeftMap(references);
+                	references = (SymbolMap)FrameUtil.findJoinSourceNode(node.getLastChild()).getProperty(NodeConstants.Info.CORRELATED_REFERENCES);
+            		ntjStrategy.setRightMap(references);
+                } else {
+                    NestedLoopJoinStrategy nljStrategy = new NestedLoopJoinStrategy();
+                    jnode.setJoinStrategy(nljStrategy);
+                }
+                Criteria joinCrit = Criteria.combineCriteria(joinCrits);
+                jnode.setJoinCriteria(joinCrit);
+                               
+                processNode = jnode;
+                
+                jnode.setDependentValueSource(depValueSource);
+                
+				break;
+
+			case NodeConstants.Types.ACCESS:
+                ProcessorPlan plan = (ProcessorPlan) node.getProperty(NodeConstants.Info.PROCESSOR_PLAN);
+                if(plan != null) {
+                    
+                    PlanExecutionNode peNode = null;
+                    
+                    Criteria crit = (Criteria)node.getProperty(NodeConstants.Info.PROCEDURE_CRITERIA);
+                    
+                    if (crit != null) {
+                        List references = (List)node.getProperty(NodeConstants.Info.PROCEDURE_INPUTS);
+                        List defaults = (List)node.getProperty(NodeConstants.Info.PROCEDURE_DEFAULTS);
+                        
+                        peNode = new DependentProcedureExecutionNode(getID(), crit, references, defaults);                        
+                    } else {
+                        peNode = new PlanExecutionNode(getID());
+                    }
+                    
+                    peNode.setProcessorPlan(plan);
+                    processNode = peNode;
+
+                } else {
+                    AccessNode aNode = null;
+                    Command command = (Command) node.getProperty(NodeConstants.Info.ATOMIC_REQUEST);
+                    Object modelID = node.getProperty(NodeConstants.Info.MODEL_ID);
+                    if (modelID != null && !capFinder.isValid(metadata.getFullName(modelID))) {
+                    	//TODO: we ideally want to handle the partial resutls case here differently
+                    	//      by adding a null node / and a source warning
+                    	//      for now it's just as easy to say that the user needs to take steps to
+                    	//      return static capabilities
+                    	throw new QueryPlannerException(QueryPlugin.Event.TEIID30498, QueryPlugin.Util.gs(QueryPlugin.Event.TEIID30498, metadata.getFullName(modelID)));
+                    }
+                    EvaluatableVisitor ev = null;
+                    if(node.hasBooleanProperty(NodeConstants.Info.IS_DEPENDENT_SET)) {
+                        if (command instanceof StoredProcedure) {
+                            List references = (List)node.getProperty(NodeConstants.Info.PROCEDURE_INPUTS);
+                            List defaults = (List)node.getProperty(NodeConstants.Info.PROCEDURE_DEFAULTS);
+                            Criteria crit = (Criteria)node.getProperty(NodeConstants.Info.PROCEDURE_CRITERIA);
+                            
+                            DependentProcedureAccessNode depAccessNode = new DependentProcedureAccessNode(getID(), crit, references, defaults);
+                            processNode = depAccessNode;
+                            aNode = depAccessNode;
+                        } else {
+                            //create dependent access node
+                            DependentAccessNode depAccessNode = new DependentAccessNode(getID());
+                            
+                            if(modelID != null){
+                            	depAccessNode.setPushdown(CapabilitiesUtil.supports(Capability.DEPENDENT_JOIN, modelID, metadata, capFinder));
+                                depAccessNode.setMaxSetSize(CapabilitiesUtil.getMaxInCriteriaSize(modelID, metadata, capFinder));
+                                depAccessNode.setMaxPredicates(CapabilitiesUtil.getMaxDependentPredicates(modelID, metadata, capFinder));   
+                            }
+                            processNode = depAccessNode;
+                            aNode = depAccessNode;
+                        }
+                        aNode.setShouldEvaluateExpressions(true);
+                    } else {
+                        
+                        // create access node
+                        aNode = new AccessNode(getID());
+                        processNode = aNode;
+                                                
+                    }
+                    //-- special handling for system tables. currently they cannot perform projection
+                    try {
+                    	if (command instanceof Query) {
+                            processNode = correctProjectionInternalTables(node, aNode);
+                        }
+                    } catch (QueryMetadataException err) {
+                        throw new TeiidComponentException(QueryPlugin.Event.TEIID30248, err);
+                    }
+                    ev = EvaluatableVisitor.needsEvaluation(command, modelID, metadata, capFinder);
+                    aNode.setShouldEvaluateExpressions(ev.requiresEvaluation(EvaluationLevel.PROCESSING));
+                    setRoutingName(aNode, node, command);
+                    if (command instanceof QueryCommand) {
+	                    try {
+	                        command = (Command)command.clone();
+	                        boolean aliasGroups = modelID != null && (CapabilitiesUtil.supportsGroupAliases(modelID, metadata, capFinder) 
+	                        		|| CapabilitiesUtil.supports(Capability.QUERY_FROM_INLINE_VIEWS, modelID, metadata, capFinder));
+	                        boolean aliasColumns = modelID != null && (CapabilitiesUtil.supports(Capability.QUERY_SELECT_EXPRESSION, modelID, metadata, capFinder)
+	                        		|| CapabilitiesUtil.supports(Capability.QUERY_FROM_INLINE_VIEWS, modelID, metadata, capFinder));
+	                        AliasGenerator visitor = new AliasGenerator(aliasGroups, !aliasColumns);
+	                        SourceHint sh = command.getSourceHint();
+                        	if (sh != null && aliasGroups) {
+                        		VDBMetaData vdb = context.getDQPWorkContext().getVDB();
+                            	ModelMetaData model = vdb.getModel(aNode.getModelName());
+                            	List<String> sourceNames = model.getSourceNames();
+                            	SpecificHint sp = null;
+                            	if (sourceNames.size() == 1) {
+                            		sp = sh.getSpecificHint(sourceNames.get(0));
+                            	}
+	                        	if (sh.isUseAliases() || (sp != null && sp.isUseAliases())) {
+	                        		visitor.setAliasMapping(context.getAliasMapping());
+	                        	}
+	                        }
+							command.acceptVisitor(visitor);
+	                    } catch (QueryMetadataException err) {
+	                         throw new TeiidComponentException(QueryPlugin.Event.TEIID30249, err);
+	                    } catch (TeiidRuntimeException e) {
+	                    	if (e.getCause() instanceof QueryPlannerException) {
+	                    		throw (QueryPlannerException)e.getCause();
+	                    	}
+	                    	throw e;
+	                    }
+                    }
+                    aNode.setCommand(command);
+                    Map<GroupSymbol, PlanNode> subPlans = (Map<GroupSymbol, PlanNode>) node.getProperty(Info.SUB_PLANS);
+                    
+                    //it makes more sense to allow the multisource affect to be elevated above just access nodes
+                    if (aNode.getModelId() != null && metadata.isMultiSource(aNode.getModelId())) {
+                		VDBMetaData vdb = context.getVdb();
+                        aNode.setShouldEvaluateExpressions(true); //forces a rewrite
+                        aNode.setElements( (List) node.getProperty(NodeConstants.Info.OUTPUT_COLS) );
+                    	if (node.hasBooleanProperty(Info.IS_MULTI_SOURCE)) {
+                    		Expression ex = rewriteMultiSourceCommand(aNode.getCommand());
+                    		aNode.setConnectorBindingExpression(ex);
+                    		aNode.setMultiSource(true);
+                    	} else {
+                    		String sourceName = (String)node.getProperty(Info.SOURCE_NAME);
+                    		aNode.setConnectorBindingExpression(new Constant(sourceName));
+                    	}
+                    } else if (subPlans == null){
+	                    if (!aNode.isShouldEvaluate()) {
+	                    	aNode.minimizeProject(command);
+	                    }
+	                    //check if valid to share this with other nodes
+	                    if (ev != null && ev.getDeterminismLevel().compareTo(Determinism.COMMAND_DETERMINISTIC) >= 0 && command.areResultsCachable()) {
+	                    	checkForSharedSourceCommand(aNode);
+	                    }
+                    }
+    				if (subPlans != null) {
+    					QueryCommand qc = (QueryCommand)command;
+    					if (qc.getWith() == null) {
+    						qc.setWith(new ArrayList<WithQueryCommand>(subPlans.size()));
+    					}
+    					Map<GroupSymbol, RelationalPlan> plans = new LinkedHashMap<GroupSymbol, RelationalPlan>();
+    					for (Map.Entry<GroupSymbol, PlanNode> entry : subPlans.entrySet()) {
+    						RelationalPlan subPlan = convert(entry.getValue());
+    						List<ElementSymbol> elems = ResolverUtil.resolveElementsInGroup(entry.getKey(), metadata);
+    						subPlan.setOutputElements(elems);
+    						plans.put(entry.getKey(), subPlan);
+    						WithQueryCommand withQueryCommand = new WithQueryCommand(entry.getKey(), elems, null);
+							qc.getWith().add(withQueryCommand);
+    					}
+    					aNode.setSubPlans(plans);
+    				}
+                }
+                break;
+
+			case NodeConstants.Types.SELECT:
+
+				Criteria crit = (Criteria) node.getProperty(NodeConstants.Info.SELECT_CRITERIA);
+
+				SelectNode selnode = new SelectNode(getID());
+				selnode.setCriteria(crit);
+				//in case the parent was a source
+				selnode.setProjectedExpressions((List<Expression>) node.getProperty(NodeConstants.Info.PROJECT_COLS));
+				processNode = selnode;
+                
+				break;
+
+			case NodeConstants.Types.SORT:
+			case NodeConstants.Types.DUP_REMOVE:
+                SortNode sortNode = new SortNode(getID());
+                OrderBy orderBy = (OrderBy) node.getProperty(NodeConstants.Info.SORT_ORDER);
+				if (orderBy != null) {
+					sortNode.setSortElements(orderBy.getOrderByItems());
+				}
+				if (node.getType() == NodeConstants.Types.DUP_REMOVE) {
+					sortNode.setMode(Mode.DUP_REMOVE);
+				} else if (node.hasBooleanProperty(NodeConstants.Info.IS_DUP_REMOVAL)) {
+					sortNode.setMode(Mode.DUP_REMOVE_SORT);
+				}
+
+				processNode = sortNode;
+				break;
+			case NodeConstants.Types.GROUP:
+				GroupingNode gnode = new GroupingNode(getID());
+				gnode.setRollup(node.hasBooleanProperty(Info.ROLLUP));
+				SymbolMap groupingMap = (SymbolMap)node.getProperty(NodeConstants.Info.SYMBOL_MAP);
+				gnode.setOutputMapping(groupingMap);
+				gnode.setRemoveDuplicates(node.hasBooleanProperty(NodeConstants.Info.IS_DUP_REMOVAL));
+				List<Expression> gCols = (List) node.getProperty(NodeConstants.Info.GROUP_COLS);
+				orderBy = (OrderBy) node.getProperty(Info.SORT_ORDER);
+				if (orderBy == null) {
+			        if (gCols != null) {
+		                orderBy = new OrderBy(RuleChooseJoinStrategy.createExpressionSymbols(gCols));
+			        }
+				} else {
+			        for (int i = 0; i < gCols.size(); i++) {
+			        	if (i < orderBy.getOrderByItems().size()) {
+			        		OrderByItem orderByItem = orderBy.getOrderByItems().get(i);
+							Expression ex = SymbolMap.getExpression(orderByItem.getSymbol());
+				        	if (ex instanceof ElementSymbol) {
+			            		ex = groupingMap.getMappedExpression((ElementSymbol) ex);
+			            		orderByItem.setSymbol(new ExpressionSymbol("expr", ex)); //$NON-NLS-1$
+			            	}
+			        	} else {
+			        		orderBy.addVariable(new ExpressionSymbol("expr", gCols.get(i)), OrderBy.ASC); //$NON-NLS-1$
+			        	}
+			        }
+				}
+				if (orderBy != null) {
+			        gnode.setOrderBy(orderBy.getOrderByItems());
+				}
+				processNode = gnode;
+				break;
+
+			case NodeConstants.Types.SOURCE:
+				Object source = node.getProperty(NodeConstants.Info.TABLE_FUNCTION);
+				if (source instanceof XMLTable) {
+					XMLTable xt = (XMLTable)source;
+					XMLTableNode xtn = new XMLTableNode(getID());
+					//we handle the projection filtering once here rather than repeating the
+					//path analysis on a per plan basis
+					updateGroupName(node, xt);
+					Map<Expression, Integer> elementMap = RelationalNode.createLookupMap(xt.getProjectedSymbols());
+			        List cols = (List) node.getProperty(NodeConstants.Info.OUTPUT_COLS);
+					int[] projectionIndexes = RelationalNode.getProjectionIndexes(elementMap, cols);
+					ArrayList<XMLColumn> filteredColumns = new ArrayList<XMLColumn>(projectionIndexes.length);
+					for (int col : projectionIndexes) {
+						filteredColumns.add(xt.getColumns().get(col));
+					}
+					xt.getXQueryExpression().useDocumentProjection(filteredColumns, analysisRecord);
+					xtn.setProjectedColumns(filteredColumns);
+					xtn.setTable(xt);
+					processNode = xtn;
+					break;
+				}
+				if (source instanceof ObjectTable) {
+					ObjectTable ot = (ObjectTable)source;
+					ObjectTableNode otn = new ObjectTableNode(getID());
+					//we handle the projection filtering once here rather than repeating the
+					//path analysis on a per plan basis
+					updateGroupName(node, ot);
+					Map<Expression, Integer> elementMap = RelationalNode.createLookupMap(ot.getProjectedSymbols());
+			        List<Expression> cols = (List<Expression>) node.getProperty(NodeConstants.Info.OUTPUT_COLS);
+					int[] projectionIndexes = RelationalNode.getProjectionIndexes(elementMap, cols);
+					ArrayList<ObjectColumn> filteredColumns = new ArrayList<ObjectColumn>(projectionIndexes.length);
+					for (int col : projectionIndexes) {
+						filteredColumns.add(ot.getColumns().get(col));
+					}
+					otn.setProjectedColumns(filteredColumns);
+					otn.setTable(ot);
+					processNode = otn;
+					break;
+				}
+				if (source instanceof TextTable) {
+					TextTableNode ttn = new TextTableNode(getID());
+					TextTable tt = (TextTable)source;
+					updateGroupName(node, tt);
+					ttn.setTable(tt);
+					processNode = ttn;
+					break;
+				}
+				if (source instanceof ArrayTable) {
+					ArrayTableNode atn = new ArrayTableNode(getID());
+					ArrayTable at = (ArrayTable)source;
+					updateGroupName(node, at);
+					atn.setTable(at);
+					processNode = atn;
+					break;
+				}
+			    SymbolMap symbolMap = (SymbolMap) node.getProperty(NodeConstants.Info.SYMBOL_MAP);
+				if(symbolMap != null) {
+					PlanNode child = node.getLastChild();
+
+                	if (child.getType() == NodeConstants.Types.PROJECT
+                			|| child.getType() == NodeConstants.Types.SELECT) {
+                		//update the project cols based upon the original output
+                		child.setProperty(NodeConstants.Info.PROJECT_COLS, child.getProperty(NodeConstants.Info.OUTPUT_COLS));
+                	}
+                    child.setProperty(NodeConstants.Info.OUTPUT_COLS, node.getProperty(NodeConstants.Info.OUTPUT_COLS));
+				}
+				return null;
+    		case NodeConstants.Types.SET_OP:
+                Operation setOp = (Operation) node.getProperty(NodeConstants.Info.SET_OPERATION);
+                boolean useAll = ((Boolean) node.getProperty(NodeConstants.Info.USE_ALL)).booleanValue();
+                if(setOp == Operation.UNION) {
+                    RelationalNode unionAllNode = new UnionAllNode(getID());
+
+                    if(useAll) {
+                        processNode = unionAllNode;
+                    } else {
+                    	SortNode sNode = new SortNode(getID());
+                    	boolean onlyDupRemoval = node.hasBooleanProperty(NodeConstants.Info.IS_DUP_REMOVAL);
+                    	sNode.setMode(onlyDupRemoval?Mode.DUP_REMOVE:Mode.DUP_REMOVE_SORT);
+                        processNode = sNode;
+                        
+                        unionAllNode.setElements( (List) node.getProperty(NodeConstants.Info.OUTPUT_COLS) );
+                        processNode.addChild(unionAllNode);
+                    }
+                } else {
+                    JoinNode joinAsSet = new JoinNode(getID());
+                    joinAsSet.setJoinStrategy(new MergeJoinStrategy(SortOption.SORT_DISTINCT, SortOption.SORT_DISTINCT, true));
+                    //If we push these sorts, we will have to enforce null order, since nulls are equal here
+                    List leftExpressions = (List) node.getFirstChild().getProperty(NodeConstants.Info.OUTPUT_COLS);
+                    List rightExpressions = (List) node.getLastChild().getProperty(NodeConstants.Info.OUTPUT_COLS);
+                    joinAsSet.setJoinType(setOp == Operation.EXCEPT ? JoinType.JOIN_ANTI_SEMI : JoinType.JOIN_SEMI);
+                    joinAsSet.setJoinExpressions(leftExpressions, rightExpressions);
+                    processNode = joinAsSet;
+                }
+
+                break;
+
+            case NodeConstants.Types.TUPLE_LIMIT:
+                Expression rowLimit = (Expression)node.getProperty(NodeConstants.Info.MAX_TUPLE_LIMIT);
+                Expression offset = (Expression)node.getProperty(NodeConstants.Info.OFFSET_TUPLE_COUNT);
+                LimitNode ln = new LimitNode(getID(), rowLimit, offset);
+                ln.setImplicit(node.hasBooleanProperty(Info.IS_IMPLICIT_LIMIT));
+                processNode = ln;
+                break;
+                
+            case NodeConstants.Types.NULL:
+                processNode = new NullNode(getID());
+                break;
+
+			default:
+                 throw new QueryPlannerException(QueryPlugin.Event.TEIID30250, QueryPlugin.Util.gs(QueryPlugin.Event.TEIID30250, NodeConstants.getNodeTypeString(node.getType())));
+		}
+
+		if(processNode != null) {
+			processNode = prepareToAdd(node, processNode);
+		}
+
+		return processNode;
+	}
+	
+	private void checkForSharedSourceCommand(AccessNode aNode) {
+		//create a top level key to avoid the full command toString
+		String modelName = aNode.getModelName();
+		Command cmd = aNode.getCommand();
+		
+		//don't share full scans against internal sources, it's a waste of buffering
+		if (CoreConstants.SYSTEM_MODEL.equals(modelName) 
+				|| CoreConstants.SYSTEM_ADMIN_MODEL.equals(modelName) 
+				|| TempMetadataAdapter.TEMP_MODEL.getName().equals(modelName)) {
+			if (!(cmd instanceof Query)) {
+				return;
+			}
+			Query query = (Query)cmd;
+			if (query.getOrderBy() == null && query.getCriteria() == null) {
+				return;
+			}
+		}
+		
+		AccessNode other = sharedCommands.get(cmd);
+		if (other == null) {
+			sharedCommands.put(cmd, aNode);
+		} else {
+			if (other.info == null) {
+				other.info = new RegisterRequestParameter.SharedAccessInfo();
+				other.info.id = sharedId.getAndIncrement();
+			}
+			other.info.sharingCount++;
+			aNode.info = other.info;
+		}
+	}
+
+	private void updateGroupName(PlanNode node, TableFunctionReference tt) {
+		String groupName = node.getGroups().iterator().next().getName();
+		tt.getGroupSymbol().setName(groupName);
+		for (ElementSymbol symbol : tt.getProjectedSymbols()) {
+			symbol.setGroupSymbol(new GroupSymbol(groupName));
+		}
+	}
+
+    private RelationalNode correctProjectionInternalTables(PlanNode node,
+                                                                AccessNode aNode) throws QueryMetadataException,
+                                                                                                       TeiidComponentException {
+        if (node.getGroups().size() != 1) {
+            return aNode;
+        }
+        GroupSymbol group = node.getGroups().iterator().next();
+        if (!CoreConstants.SYSTEM_MODEL.equals(metadata.getFullName(metadata.getModelID(group.getMetadataID()))) 
+        		&& !CoreConstants.SYSTEM_ADMIN_MODEL.equals(metadata.getFullName(metadata.getModelID(group.getMetadataID())))) {
+            return aNode;
+        }
+        List projectSymbols = (List) node.getProperty(NodeConstants.Info.OUTPUT_COLS);
+        List<ElementSymbol> acutalColumns = ResolverUtil.resolveElementsInGroup(group, metadata);
+        if (projectSymbols.equals(acutalColumns)) {
+        	return aNode;
+        }
+        node.setProperty(NodeConstants.Info.OUTPUT_COLS, acutalColumns);
+        if (node.getParent() != null && node.getParent().getType() == NodeConstants.Types.PROJECT) {
+            //if the parent is already a project, just correcting the output cols is enough
+            return aNode;
+        }
+        ProjectNode pnode = new ProjectNode(getID());
+  
+        pnode.setSelectSymbols(projectSymbols);
+        aNode = (AccessNode)prepareToAdd(node, aNode);
+        node.setProperty(NodeConstants.Info.OUTPUT_COLS, projectSymbols);
+        pnode.addChild(aNode);
+        return pnode;
+    }
+
+    private RelationalNode prepareToAdd(PlanNode node,
+                                          RelationalNode processNode) {
+        // Set the output elements from the plan node
+        List cols = (List) node.getProperty(NodeConstants.Info.OUTPUT_COLS);
+
+        processNode.setElements(cols);
+        
+        // Set the Cost Estimates
+        Number estimateNodeCardinality = (Number) node.getProperty(NodeConstants.Info.EST_CARDINALITY);
+        processNode.setEstimateNodeCardinality(estimateNodeCardinality);
+        Number estimateNodeSetSize = (Number) node.getProperty(NodeConstants.Info.EST_SET_SIZE);
+        processNode.setEstimateNodeSetSize(estimateNodeSetSize);
+        Number estimateDepAccessCardinality = (Number) node.getProperty(NodeConstants.Info.EST_DEP_CARDINALITY);
+        processNode.setEstimateDepAccessCardinality(estimateDepAccessCardinality);
+        Number estimateDepJoinCost = (Number) node.getProperty(NodeConstants.Info.EST_DEP_JOIN_COST);
+        processNode.setEstimateDepJoinCost(estimateDepJoinCost);
+        Number estimateJoinCost = (Number) node.getProperty(NodeConstants.Info.EST_JOIN_COST);
+        processNode.setEstimateJoinCost(estimateJoinCost);
+       
+        return processNode;
+    }
+
+	private void setRoutingName(AccessNode accessNode, PlanNode node, Command command)
+		throws QueryPlannerException, TeiidComponentException {
+
+		// Look up connector binding name
+		try {
+			Object modelID = node.getProperty(NodeConstants.Info.MODEL_ID);
+			if(modelID == null || modelID instanceof TempMetadataID) {
+				if(command instanceof StoredProcedure){
+					modelID = ((StoredProcedure)command).getModelID();
+				}else if (!(command instanceof Create || command instanceof Drop)){
+					Collection<GroupSymbol> groups = GroupCollectorVisitor.getGroups(command, true);
+					GroupSymbol group = groups.iterator().next();
+
+					modelID = metadata.getModelID(group.getMetadataID());
+				}
+			}
+			String cbName = metadata.getFullName(modelID);
+			accessNode.setModelName(cbName);
+			accessNode.setModelId(modelID);
+			accessNode.setConformedTo((Set<Object>) node.getProperty(Info.CONFORMED_SOURCES));
+		} catch(QueryMetadataException e) {
+             throw new QueryPlannerException(QueryPlugin.Event.TEIID30251, e, QueryPlugin.Util.gs(QueryPlugin.Event.TEIID30251));
+		}
+	}
+	
+	private Expression rewriteMultiSourceCommand(Command command) throws TeiidComponentException {
+		Expression result = null;
+		if (command instanceof StoredProcedure) {
+			StoredProcedure obj = (StoredProcedure)command;
+			for (Iterator<SPParameter> params = obj.getMapOfParameters().values().iterator(); params.hasNext();) {
+				SPParameter param = params.next();
+				if (param.getParameterType() != SPParameter.IN) {
+					continue;
+				}
+			    if(metadata.isMultiSourceElement(param.getMetadataID())) {
+		        	Expression source = param.getExpression();
+		    		params.remove();
+		    		if (param.isUsingDefault() && source instanceof Constant && ((Constant)source).isNull()) {
+		    			continue;
+		    		}
+		    		result = source;
+		    		break;
+		        }
+			}
+		} if (command instanceof Insert) {
+			Insert obj = (Insert)command;
+			for (int i = 0; i < obj.getVariables().size(); i++) {
+				ElementSymbol elem = obj.getVariables().get(i);
+		        Object metadataID = elem.getMetadataID();            
+		        if(metadata.isMultiSourceElement(metadataID)) {
+		        	Expression source = (Expression)obj.getValues().get(i);
+		    		obj.getVariables().remove(i);
+		    		obj.getValues().remove(i);
+		    		result = source;
+		    		break;
+		        }
+			}
+		} else if (command instanceof FilteredCommand) {
+			for (Criteria c : Criteria.separateCriteriaByAnd(((FilteredCommand) command).getCriteria())) {
+				if (!(c instanceof CompareCriteria)) {
+					continue;
+				}
+				CompareCriteria cc = (CompareCriteria)c;
+	        	if (cc.getLeftExpression() instanceof ElementSymbol) {
+	        		ElementSymbol es = (ElementSymbol)cc.getLeftExpression();
+	        		if (metadata.isMultiSourceElement(es.getMetadataID()) && EvaluatableVisitor.willBecomeConstant(cc.getRightExpression())) {
+	        			if (result != null && !result.equals(cc.getRightExpression())) {
+	        				return Constant.NULL_CONSTANT;
+			    		}
+	        			result = cc.getRightExpression();
+	        		}
+	        	}
+			}
+		}
+		return result;
+	}
+	
+}

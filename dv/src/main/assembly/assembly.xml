@@ -1,0 +1,236 @@
+<!--
+  ~ JBoss, Home of Professional Open Source
+  ~ Copyright 2011 Red Hat Inc. and/or its affiliates and other contributors
+  ~ as indicated by the @author tags. All rights reserved.
+  ~ See the copyright.txt in the distribution for a
+  ~ full listing of individual contributors.
+  ~
+  ~ This copyrighted material is made available to anyone wishing to use,
+  ~ modify, copy, or redistribute it subject to the terms and conditions
+  ~ of the GNU Lesser General Public License, v. 2.1.
+  ~ This program is distributed in the hope that it will be useful, but WITHOUT A
+  ~ WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+  ~ PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+  ~ You should have received a copy of the GNU Lesser General Public License,
+  ~ v.2.1 along with this distribution; if not, write to the Free Software
+  ~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+  ~ MA  02110-1301, USA.
+  -->
+
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+    <id>dv</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <baseDirectory>${eap.version}</baseDirectory>
+
+    <fileSets>
+        <!-- Teiid -->
+        <fileSet>
+            <directory>${teiid.bundle.staging.dir}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+            <excludes>
+                <exclude>bin/**</exclude>
+                <exclude>dashboard/**</exclude>
+                <exclude>standalone/configuration/standalone-teiid.xml</exclude>
+                <exclude>modules/system/layers/base/**</exclude>
+            </excludes>
+        </fileSet>
+
+        <!-- Add teiid cli-scripts -->
+        <fileSet>
+            <directory>${teiid.bundle.staging.dir}/bin/scripts</directory>
+            <outputDirectory>/cli-scripts</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+        <!-- Add teiid database logging cli-scripts -->
+        <!-- skipped for https://bugzilla.redhat.com/show_bug.cgi?id=1192173 -->
+        <!--<fileSet>
+            <directory>${teiid.staging.dir}/extensions/bin/scripts/</directory>
+            <outputDirectory>/cli-scripts</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+            <excludes>
+                <exclude>database-service.jar</exclude>
+            </excludes>
+        </fileSet>-->
+
+        <fileSet>
+            <directory>${teiid.staging.dir}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+            <excludes>
+                <exclude>dataVirtualization/teiid-adminshell-${version.org.jboss.teiid}/**</exclude>
+                <exclude>quickstarts/**</exclude>
+                <exclude>extensions/**</exclude>
+            </excludes>
+        </fileSet>
+
+        <fileSet>
+            <directory>${teiid.staging.dir}/dataVirtualization/teiid-adminshell-${version.org.jboss.teiid}</directory>
+            <outputDirectory>/dataVirtualization/teiid-adminshell</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+            <excludes>
+                <exclude>**/*.sh</exclude>
+            </excludes>
+        </fileSet>
+
+        <fileSet>
+            <directory>${teiid.staging.dir}/quickstarts/teiid-quickstart-${version.org.jboss.teiid.quickstart}</directory>
+            <outputDirectory>/quickstarts</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+
+        <!-- Set permissions for .sh files -->
+        <fileSet>
+            <directory>${teiid.staging.dir}/dataVirtualization/teiid-adminshell-${version.org.jboss.teiid}</directory>
+            <outputDirectory>/dataVirtualization/teiid-adminshell</outputDirectory>
+            <includes>
+                <include>**/*.sh</include>
+            </includes>
+            <fileMode>755</fileMode>
+        </fileSet>
+
+        <!-- Add HAL Modules -->
+        <fileSet>
+            <directory>${hal.bundle.staging.dir}/modules/system/layers/web-interface</directory>
+            <outputDirectory>modules/system/layers/dv</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+
+        <!-- Workaround for files going to base layer from teiid assembly -->
+        <fileSet>
+            <directory>${teiid.bundle.staging.dir}/modules/system/layers/base</directory>
+            <outputDirectory>modules/system/layers/dv</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+            <excludes>
+                <exclude>**/cxf-rt-frontend-jaxrs-2.6.6.jar</exclude>
+            </excludes>
+        </fileSet>
+
+        <fileSet>
+            <directory>${teiid.staging.dir}/modules/system/layers/dv</directory>
+            <outputDirectory>modules/system/layers/dv</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+
+        <!-- Teiid database logging modules -->
+        <fileSet>
+            <directory>${teiid.staging.dir}/extensions/modules/system/layers/base</directory>
+            <outputDirectory>modules/system/layers/dv</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+
+        <!-- Teiid database logging deployments -->
+        <!-- removed from the assembly as per Van's comments in #soancl, July
+             31st, 16:30 EST -->
+        <!--<fileSet>
+            <directory>${teiid.staging.dir}/extensions/standalone/deployments</directory>
+            <outputDirectory>standalone/deployments</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>-->
+
+        <!-- Resource files -->
+        <fileSet>
+            <directory>${basedir}/src/main/resources</directory>
+            <outputDirectory>/</outputDirectory>
+            <fileMode>0644</fileMode>
+            <filtered>true</filtered>
+            <includes>
+                <include>modules/system/layers/dv/**</include>
+            </includes>
+        </fileSet>
+        <!-- Split these two up else the filtered copy affects the binary file -->
+        <fileSet>
+            <directory>${basedir}/src/main/resources</directory>
+            <outputDirectory>/</outputDirectory>
+            <fileMode>0644</fileMode>
+            <excludes>
+		<!-- remove exclusion since the teiid scripts in assembly are needed for 
+		     https://bugzilla.redhat.com/show_bug.cgi?id=1187194
+		     https://bugzilla.redhat.com/show_bug.cgi?id=1187196
+		     https://bugzilla.redhat.com/show_bug.cgi?id=1187191-->
+                <!--<exclude>cli-scripts/teiid-*</exclude>-->
+                <exclude>modules/system/layers/dv/**</exclude>
+            </excludes>
+        </fileSet>
+
+        <!-- Modeshape -->
+        <fileSet>
+            <directory>${bundle.staging.dir}/modeshape/modules</directory>
+            <outputDirectory>modules/system/layers/dv</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${bundle.staging.dir}/modeshape</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>standalone/**</include>
+                <include>domain/**</include>
+            </includes>
+            <excludes>
+                <exclude>standalone/configuration/standalone-modeshape-ha.xml</exclude>
+                <exclude>standalone/configuration/standalone-modeshape.xml</exclude>
+                <exclude>domain/configuration/domain-modeshape.xml</exclude>
+            </excludes>
+        </fileSet>
+
+        <!-- Custom Integration-Platform Console -->
+        <fileSet>
+            <directory>${bundle.staging.dir}/hal/modules/system/layers/web-interface</directory>
+            <outputDirectory>modules/system/layers/dv</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+
+        <!-- Add Netty override. -->
+        <fileSet>
+            <directory>${project.build.directory}/jboss-modules</directory>
+            <outputDirectory>modules/system/layers/dv</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+    <files>
+        <!-- custom teiid dashboard cli -->
+        <file>
+            <source>${teiid.bundle.staging.dir}/dashboard/teiid-cli/teiid-dashboard-add_datasource.cli</source>
+            <outputDirectory>/cli-scripts</outputDirectory>
+            <destName>teiid-dashboard-add_datasource.cli</destName>
+        </file>
+        <!-- Teiid database logging jar into deployments -->
+        <!-- not sure why the jar resides in bin/scripts/database-service.jar,
+             when it's a deployment -->
+        <file>
+            <source>${teiid.staging.dir}/extensions/bin/scripts/database-service.jar</source>
+            <outputDirectory>/dataVirtualization/logging</outputDirectory>
+            <destName>database-service.jar</destName>
+        </file>
+    </files>
+</assembly>

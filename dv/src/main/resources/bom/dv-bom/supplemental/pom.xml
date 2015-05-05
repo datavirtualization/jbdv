@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*
+* JBoss, Home of Professional Open Source
+* Copyright 2011 Red Hat Inc. and/or its affiliates and other contributors
+* as indicated by the @author tags. All rights reserved.
+* See the copyright.txt in the distribution for a
+* full listing of individual contributors.
+*
+* This copyrighted material is made available to anyone wishing to use,
+* modify, copy, or redistribute it subject to the terms and conditions
+* of the GNU Lesser General Public License, v. 2.1.
+* This program is distributed in the hope that it will be useful, but WITHOUT A
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+* PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.
+* You should have received a copy of the GNU Lesser General Public License,
+* v.2.1 along with this distribution; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+* MA  02110-1301, USA.
+*/
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.jboss.dv.component.management</groupId>
+        <artifactId>dv-dependency-management-aggregation</artifactId>
+        <version>${version.org.jboss.dv.component.management}</version>
+        <relativePath>../</relativePath>
+    </parent>
+
+    <artifactId>dv-dependency-management-supplemental</artifactId>
+    <packaging>pom</packaging>
+    <name>JBoss DV Dependency Management Supplemental BOM</name>
+
+    <description>Dependency Management for Supplemental Artifacts in DV.</description>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- Start of artifacts: org.apache.tika-tika -->
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika</artifactId>
+                <version>${version.org.tika}</version>
+                <type>xml</type>
+                <classifier>site</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika</artifactId>
+                <version>${version.org.tika}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-app</artifactId>
+                <version>${version.org.tika}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-app</artifactId>
+                <version>${version.org.tika}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-bundle</artifactId>
+                <version>${version.org.tika}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-bundle</artifactId>
+                <version>${version.org.tika}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-core</artifactId>
+                <version>${version.org.tika}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-core</artifactId>
+                <version>${version.org.tika}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-parent</artifactId>
+                <version>${version.org.tika}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-parsers</artifactId>
+                <version>${version.org.tika}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-parsers</artifactId>
+                <version>${version.org.tika}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-server</artifactId>
+                <version>${version.org.tika}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-server</artifactId>
+                <version>${version.org.tika}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-xmp</artifactId>
+                <version>${version.org.tika}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tika</groupId>
+                <artifactId>tika-xmp</artifactId>
+                <version>${version.org.tika}</version>
+                <type>pom</type>
+            </dependency>
+            <!-- End of artifacts: org.apache.tika-tika -->
+
+            <!-- Start of artifacts: org.odata4j-odata4j-parent -->
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-core</artifactId>
+                <version>${version.org.odata4j}</version>
+                <classifier>sources</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-core</artifactId>
+                <version>${version.org.odata4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-core</artifactId>
+                <version>${version.org.odata4j}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-cxf</artifactId>
+                <version>${version.org.odata4j}</version>
+                <classifier>sources</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-cxf</artifactId>
+                <version>${version.org.odata4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-cxf</artifactId>
+                <version>${version.org.odata4j}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-dist</artifactId>
+                <version>${version.org.odata4j}</version>
+                <classifier>bundle</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-dist</artifactId>
+                <version>${version.org.odata4j}</version>
+                <classifier>clientbundle</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-dist</artifactId>
+                <version>${version.org.odata4j}</version>
+                <classifier>core</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-dist</artifactId>
+                <version>${version.org.odata4j}</version>
+                <classifier>cxfbundle</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-dist</artifactId>
+                <version>${version.org.odata4j}</version>
+                <classifier>nojpabundle</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-dist</artifactId>
+                <version>${version.org.odata4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-dist</artifactId>
+                <version>${version.org.odata4j}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-examples</artifactId>
+                <version>${version.org.odata4j}</version>
+                <classifier>sources</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-examples</artifactId>
+                <version>${version.org.odata4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-examples</artifactId>
+                <version>${version.org.odata4j}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-fit</artifactId>
+                <version>${version.org.odata4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-fit</artifactId>
+                <version>${version.org.odata4j}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-jersey</artifactId>
+                <version>${version.org.odata4j}</version>
+                <classifier>sources</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-jersey</artifactId>
+                <version>${version.org.odata4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-jersey</artifactId>
+                <version>${version.org.odata4j}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.odata4j</groupId>
+                <artifactId>odata4j-parent</artifactId>
+                <version>${version.org.odata4j}</version>
+                <type>pom</type>
+            </dependency>
+            <!-- End of artifacts: org.odata4j-odata4j-parent -->
+
+            <dependency>
+                <groupId>jline</groupId>
+                <artifactId>jline</artifactId>
+                <version>${version.jline}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.lucene</groupId>
+                <artifactId>lucene-core</artifactId>
+                <version>${version.org.apache.lucene}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+</project>

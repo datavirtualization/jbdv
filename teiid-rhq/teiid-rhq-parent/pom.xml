@@ -1,0 +1,244 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+    	<groupId>org.jboss.integration-platform</groupId>
+    	<artifactId>jboss-integration-platform-parent</artifactId>
+    	<version>6.0.0.CR13</version>
+    	<relativePath></relativePath>	
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.jboss.teiid.rhq</groupId>
+	<artifactId>teiid-rhq-parent</artifactId>
+	<version>2.1.0</version>
+	<name>Teiid RHQ Parent</name>
+	<packaging>pom</packaging>
+	<url>http://www.jboss.org/teiid</url>
+	<description>The Teiid RHQ plugin runs in RHQ and monitors and manages the Teiid server.</description>
+	<inceptionYear>2013</inceptionYear>
+
+	<organization>
+		<name>JBoss, a division of Red Hat</name>
+		<url>http://www.jboss.org</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License</name>
+			<url>http://repository.jboss.org/licenses/lgpl-2.1.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:git://github.com/teiid/teiid-rhq.git</connection>
+		<developerConnection>scm:git:git@github.com:teiid/teiid-rhq.git</developerConnection>
+		<url>http://github.com/teiid/teiid-rhq</url>
+	</scm>
+
+	<issueManagement>
+		<system>jira</system>
+		<url>http://issues.jboss.org/browse/TEIIDRHQ</url>
+	</issueManagement>
+
+	<developers>
+		<developer>
+			<name>Ted Jones</name>
+			<id>ted</id>
+			<email>tejones@redhat.com</email>
+			<organization>Red Hat</organization>
+			<roles>
+				<role>Project Lead</role>
+			</roles>
+			<timezone>-6</timezone>
+		</developer>
+		<developer>
+			<name>Steve Hawkins</name>
+			<id>steve</id>
+			<email>shawkins@redhat.com</email>
+			<organization>Red Hat</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>-5</timezone>
+		</developer>
+		<developer>
+			<name>Ramesh Reddy</name>
+			<id>ramesh</id>
+			<email>rareddy@redhat.com</email>
+			<organization>Red Hat</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>-6</timezone>
+		</developer>
+		<developer>
+			<name>Van Halbert</name>
+			<id>van</id>
+			<email>vhalbert@redhat.com</email>
+			<organization>Red Hat</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>-6</timezone>
+		</developer>
+		
+	</developers>
+
+	<properties>
+        <version.org.jboss.integration-platform>6.0.0.CR13</version.org.jboss.integration-platform>
+        <version.org.jboss.as>7.4.0.Final-redhat-4</version.org.jboss.as>
+		<jopr.jboss.as7.plugin.version>4.4.0</jopr.jboss.as7.plugin.version>
+		<org.rhq.version>4.4.0</org.rhq.version>
+		<version.teiid>8.7.0.Final</version.teiid>
+		<jboss-embeddable-ejb3.version>1.0.0.Alpha9</jboss-embeddable-ejb3.version>
+
+	</properties>
+    
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>    
+
+	<dependencyManagement>
+		<dependencies>
+        <!-- Core BOM imports -->
+            <dependency>
+            	<groupId>org.jboss.integration-platform</groupId>
+            	<artifactId>jboss-integration-platform-bom</artifactId>
+            	<version>${version.org.jboss.integration-platform}</version>
+            	<scope>import</scope>
+            	<type>pom</type>
+          </dependency> 		
+         <dependency>
+             <groupId>org.jboss.as</groupId>
+             <artifactId>jboss-as-parent</artifactId>
+             <version>${version.org.jboss.as}</version>
+             <type>pom</type>
+             <scope>import</scope>
+          </dependency>                                          
+        
+			<!-- Below are the core modules that are required dependencies of all 
+				plugins -->
+			<dependency>
+				<groupId>org.rhq</groupId>
+				<artifactId>rhq-core-domain</artifactId>
+				<version>${org.rhq.version}</version>
+				<scope>provided</scope>
+				<!-- provided by the agent/plugin-container -->
+			</dependency>
+
+
+			<dependency>
+				<groupId>org.rhq</groupId>
+				<artifactId>rhq-core-plugin-api</artifactId>
+				<version>${org.rhq.version}</version>
+				<scope>provided</scope> <!-- provided by the agent/plugin-container -->
+			</dependency>
+
+			<dependency>
+				<groupId>org.rhq</groupId>
+				<artifactId>rhq-core-native-system</artifactId>
+				<version>${org.rhq.version}</version>
+				<scope>provided</scope> <!-- provided by the agent/plugin-container -->
+			</dependency>
+
+			<dependency>
+				<groupId>org.rhq</groupId>
+				<artifactId>rhq-jmx-plugin</artifactId>
+				<version>${org.rhq.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.rhq</groupId>
+				<artifactId>rhq-core-util</artifactId>
+				<version>${org.rhq.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>mc4j</groupId>
+				<artifactId>org-mc4j-ems</artifactId>
+				<version>1.2.6</version>
+			</dependency>
+
+			<!-- TODO: This is a fix for the Javac bug requiring annotations to be 
+				available when compiling dependent classes; it is fixed in JDK 6. -->
+                <!-- provided by the agent/plugin-container -->
+
+			<dependency>
+				<groupId>jboss.jboss-embeddable-ejb3</groupId>
+				<artifactId>hibernate-all</artifactId>
+				<version>${jboss-embeddable-ejb3.version}</version>
+				<scope>provided</scope>
+            </dependency>
+
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>${version.commons-logging}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.rhq</groupId>
+				<artifactId>rhq-jboss-as-7-plugin</artifactId>
+				<version>${jopr.jboss.as7.plugin.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.jboss.teiid</groupId>
+				<artifactId>teiid-jboss-integration</artifactId>
+				<version>${version.teiid}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-bundle-plugin</artifactId>
+					<extensions>true</extensions>
+					<configuration>
+						<instructions>
+							<Export-Package>org.jboss.teiid.*</Export-Package>
+						</instructions>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<!-- Specify the compiler options and settings -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>test-jar</id>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<skipIfEmpty>true</skipIfEmpty>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

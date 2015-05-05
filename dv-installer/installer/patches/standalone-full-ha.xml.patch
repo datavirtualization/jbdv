@@ -1,0 +1,18 @@
+--- standalone/configuration/standalone-full-ha.xml.orig	2014-08-07 15:38:39.542669080 -0400
++++ standalone/configuration/standalone-full-ha.xml	2014-08-07 15:44:51.679058759 -0400
+@@ -515,7 +515,7 @@
+         <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
+         <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9443}"/>
+         <socket-binding name="ajp" port="8009"/>
+-        <socket-binding name="http" port="8080"/>
++        <socket-binding name="http" port="${override.http.port}"/>
+         <socket-binding name="https" port="8443"/>
+         <socket-binding name="jacorb" interface="unsecure" port="3528"/>
+         <socket-binding name="jacorb-ssl" interface="unsecure" port="3529"/>
+@@ -535,4 +535,4 @@
+             <remote-destination host="localhost" port="25"/>
+         </outbound-socket-binding>
+     </socket-binding-group>
+-</server>
+\ No newline at end of file
++</server>

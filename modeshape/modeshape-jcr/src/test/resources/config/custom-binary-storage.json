@@ -1,0 +1,11 @@
+{
+    "name" : "Test Repository",
+    "storage" : {
+        "binaryStorage" : {
+            "type"  : "custom",
+            "classname" : "org.modeshape.jcr.value.binary.CustomBinaryStoreImpl",
+            "key" : "value"
+        }
+    }
+    
+}

@@ -1,0 +1,73 @@
+/*
+ * ModeShape (http://www.modeshape.org)
+ * See the COPYRIGHT.txt file distributed with this work for information
+ * regarding copyright ownership.  Some portions may be licensed
+ * to Red Hat, Inc. under one or more contributor license agreements.
+ * See the AUTHORS.txt file in the distribution for a full listing of
+ * individual contributors.
+ *
+ * ModeShape is free software. Unless otherwise indicated, all code in ModeShape
+ * is licensed to you under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * ModeShape is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
+package org.modeshape.web.jcr.rest.model;
+
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+/**
+ * A representation of an {@link Exception} which is used by the REST service to signal clients that a server-side exception
+ * has occurred.
+ *
+ * @author Horia Chiorean (hchiorea@redhat.com)
+ */
+public final class RestException implements JSONAble {
+    private final String message;
+    private final String stackTrace;
+
+    /**
+     * Creates a new exception, using only a message
+     *
+     * @param message a {@code non-null} string
+     */
+    public RestException( String message ) {
+        this.message = message;
+        this.stackTrace = null;
+    }
+
+    /**
+     * Creates a new exception, based on an existing {@link Throwable}
+     *
+     * @param t a {@code non-null} {@link Exception}
+     */
+    public RestException( Throwable t ) {
+        this.message = t.getMessage();
+        StringWriter stringWriter = new StringWriter();
+        t.printStackTrace(new PrintWriter(stringWriter));
+        this.stackTrace = stringWriter.toString();
+    }
+
+    @Override
+    public JSONObject toJSON() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("exception", message);
+        if (stackTrace != null) {
+            object.put("stacktrace", stackTrace);
+        }
+        return object;
+    }
+}

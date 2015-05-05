@@ -1,0 +1,11 @@
+{
+    "name" : "CNDSequencer Test Repository",
+    "sequencing" : {
+        "sequencers" : {
+            "CND Sequencer Same Location" : {
+                "classname" : "CNDSequencer",
+                "pathExpression" : "default://(*.cnd)/jcr:content[@jcr:data]"
+            }
+        }
+    }
+}

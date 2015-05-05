@@ -1,0 +1,10 @@
+--- bin/appclient.conf.orig	2015-02-02 17:21:21.811972388 -0500
++++ bin/appclient.conf	2015-02-02 17:23:57.175887851 -0500
+@@ -58,3 +58,6 @@
+ 
+ # Use JBoss Modules lockless mode
+ #JAVA_OPTS="$JAVA_OPTS -Djboss.modules.lockless=true"
++
++${appclient.conf.patch.bits-1}
++
+

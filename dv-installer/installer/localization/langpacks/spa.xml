@@ -1,0 +1,800 @@
+<langpack>
+<str id="usermsg.overwrite" txt="Sobreescribir"/>
+<str id="usermsg.skip" txt="Saltar"/>
+<str id="usermsg.cancel" txt="Cancelar"/>
+<str id="BrowseDialog.closeButton" txt="Cancelar"/>
+<str id="installer.cancel" txt="Cancelar"/>
+<str id="usermsg.continue" txt="Continuar"/>
+<str id="add.user.text" txt="Crear un usuario administrativo."/>
+<str id="add.user.choice.yes" txt="Crear un nuevo usuario administrativo."/>
+<str id="add.user.choice.no" txt="Saltar ka creación de un nuevo usuario administrativo."/>
+<str id="JBossJDBCDriverSetupPanel.info" txt="La plataforma de aplicaciones empresariales JBoss 6 soporta un número de controladores JDBC, los cuales convierten el código de la aplicación al lenguaje relevante de la base de datos. ¿No ve a su vendedor a continuación? Haga clic aquí."/>
+<str id="JBossJDBCDriverSetupPanel.dropdown.label" txt="Vendedor del controlador:"/>
+<str id="JBossJDBCDriverSetupPanel.dropdown.label.tooltip" txt="Seleccione el vendedor del controlador."/>
+<str id="JBossJDBCDriverSetupPanel.jdbcname.label" txt="Nombre JDBC:"/>
+<str id="JBossJDBCDriverSetupPanel.jdbcname.tooltip" txt="El nombre que se le dará a este controlador."/>
+<str id="JBossJDBCDriverSetupPanel.modulename.label" txt="Nombre del módulo:"/>
+<str id="JBossJDBCDriverSetupPanel.modulename.tooltip" txt="El módulo generado que este controlador utilizará. "/>
+<str id="JBossJDBCDriverSetupPanel.choice.yes" txt="Instalar el controlador JDBC"/>
+<str id="JBossJDBCDatasourceSetupPanel.choice.yes" txt="Instalar fuente de datos"/>
+<str id="JBossJDBCDriverSetupPanel.xaclassname.label" txt="Nombre de clase XA:"/>
+<str id="JBossJDBCDriverSetupPanel.xaclassname.tooltip" txt="El nombre de clase XA para este controlador."/>
+<str id="JBossJDBCDriverSetupPanel.dirstruct.label" txt="Estructura del directorio:"/>
+<str id="JBossJDBCDriverSetupPanel.dirstruct.tooltip" txt="El directorio en donde se encontrarán las jars y el module.xml generado."/>
+<str id="JBossJDBCDriverSetupPanel.nodefault" txt="No hay valor predeterminado."/>
+<str id="JBossJDBCDriverSetupPanel.summaryCaption" txt="Detalles del controlador JDBC"/>
+<str id="JBossJDBCDriverSetupPanel.headline" txt="Configuración del controlador JDBC"/>
+<str id="JBossJDBCDriverSetupPanel.dropdown.text" txt="Perfil del servidor a configurar:"/>
+<str id="config.dropdown.text" txt="Perfil del servidor a configurar:"/>
+<str id="JBossJDBCDriverSetupPanel.config.dropdown.1" txt="Autónomo"/>
+<str id="application-platform.standalone" txt="Autónomo"/>
+<str id="JBossJDBCDriverSetupPanel.config.dropdown.2" txt="Dominio"/>
+<str id="application-platform.domain" txt="Dominio"/>
+<str id="JBossJDBCDriverSetupPanel.jars.label" txt="Ubicaciones JAR controlador:"/>
+<str id="JBossJDBCDriverSetupPanel.jars.tooltip" txt="Ubicación de una jar a incluir con este controlador. Puede ser un archivo remoto o un archivo local."/>
+<str id="JBossJDBCDriverSetupPanel.jars.col1.label" txt="Ruta:"/>
+<str id="JBossJDBCDriverSetupPanel.jars.addone" txt="Agregar jar"/>
+<str id="JBossJDBCDriverSetupPanel.jars.removeone" txt="Borrar jar"/>
+<str id="JBossJDBCDriverSetupPanel.path.error" txt="El archivo %s no existe o es un directorio. Revise la ruta."/>
+<str id="JBossJDBCDriverSetupPanel.path.remote.error" txt="Hubo un error al tratar de alcanzar el archivo dado en %s. Verifique la url."/>
+<str id="JBossJDBCDriverSetupPanel.path.remote.nosupport" txt="El protocolo en %s no se soporta. Verifique la url."/>
+<str id="JBossJDBCDriverSetupPanel.path.notzip" txt="El archivo %s no es una jar. Verifique la ruta."/>
+<str id="JBossJDBCDriverSetupPanel.path.emptyzip" txt="El archivo jar %s no contiene entradas. Verifique la ruta."/>
+<str id="JBossJDBCDriverSetupPanel.path.nodriver" txt="Ninguna de las jars proporcionadas contenían la clase del controlador del controlador seleccionado: %s. ¿Desea continuar?"/>
+<str id="JBossJDBCDriverSetupPanel.path.changedriver" txt="¿Le gustaría volver a seleccionar el vendedor del controlador?"/>
+<str id="JBossJDBCDriverSetupPanel.path.nopaths" txt="Se requiere por lo menos una jar para el controlador JDBC."/>
+<str id="JBossJDBCDriverSetupPanel.profile.prompt" txt="Prompt del perfil"/>
+<str id="JBossDatasourceConfigPanel.info" txt="Configurar la fuente de datos para la plataforma de aplicaciones empresariales JBoss 6 a continuación."/>
+<str id="JBossDatasourceConfigPanel.question" txt="¿Le gustaría usar un dominio de seguridad para esta fuente de datos?"/>
+<str id="JBossDatasourceConfigPanel.console.summary" txt="Resumen de los detalles de la fuente de datos"/>
+<str id="JBossDatasourceConfigPanel.errorname" txt="El nombre de la fuente de datos no puede estar vacío."/>
+<str id="JBossDatasourceConfigPanel.errorjndi" txt="El nombre JNDI debe iniciar con java:/ o java:jboss/."/>
+<str id="JBossDatasourceConfigPanel.errornan" txt="Los campos grupo mín., grupo máx. y número de puerto deben ser numéricos y dentro de un rango válido."/>
+<str id="JBossDatasourceConfigPanel.errorsecurity" txt="Se debe proporcionar el dominio de seguridad o el nombre de usuario / contraseña."/>
+<str id="JBossDatasourceConfigPanel.warning.xaProperty" txt="Se debe proporcionar el dominio de seguridad o el nombre de usuario / contraseña."/>
+<str id="JBossDatasourceConfigPanel.name" txt="Nombre:"/>
+<str id="JBossDatasourceConfigPanel.xa.properties.col1.label" txt="Nombre:"/>
+<str id="JBossDatasourceConfigPanel.name.tooltip" txt="El nombre para esta fuente de datos."/>
+<str id="JBossDatasourceConfigPanel.jndi.name" txt="Nombre JNDI:"/>
+<str id="infinispan.jndiname.text" txt="Nombre JNDI:"/>
+<str id="JBossDatasourceConfigPanel.jndi.name.tooltip" txt="El nombre JNDI único para la fuente de datos. Debe empezar por &quot;java:/&quot; o &quot;java:jboss/&quot;."/>
+<str id="JBossDatasourceConfigPanel.security.domain" txt="Security-domain"/>
+<str id="JBossDatasourceConfigPanel.security.domain.tooltip" txt="El nombre del dominio de seguridad a utilizar para la autenticación."/>
+<str id="JBossDatasourceConfigPanel.username" txt="Nombre de usuario"/>
+<str id="adminUser" txt="Nombre de usuario"/>
+<str id="JBossDatasourceConfigPanel.username.tooltip" txt="El nombre de usuario utilizado para crear una nueva conexión."/>
+<str id="JBossDatasourceConfigPanel.password" txt="Contraseña"/>
+<str id="JBossDatasourceConfigPanel.password.tooltip" txt="La contraseña utilizada para crear una nueva conexión."/>
+<str id="JBossDatasourceConfigPanel.xads.name" txt="Clase de la fuente de datos XA:"/>
+<str id="JBossDatasourceConfigPanel.xads.name.tooltip" txt="El nombre completamente calificado de la implementación class javax.sql.XADataSource."/>
+<str id="JBossDatasourceConfigPanel.pool.min" txt="Tamaño mínimo del grupo:"/>
+<str id="JBossDatasourceConfigPanel.pool.min.tooltip" txt="El número mínimo de conexiones que un grupo mantiene."/>
+<str id="JBossDatasourceConfigPanel.pool.max" txt="Tamaño máximo del grupo:"/>
+<str id="JBossDatasourceConfigPanel.pool.max.tooltip" txt="El número máximo de conexiones que un grupo mantiene."/>
+<str id="JBossDatasourceConfigPanel.ds.type" txt="Tipo de la fuente de datos:"/>
+<str id="JBossDatasourceConfigPanel.ds.type.tooltip" txt="Especifica si la fuente de datos debe ser XA o no-XA."/>
+<str id="JBossDatasourceConfigPanel.url" txt="URL de conexión:"/>
+<str id="JBossDatasourceConfigPanel.url.tooltip" txt="La URL  de conexión del controlador JDBC."/>
+<str id="JBossDatasourceConfigPanel.xa.servername" txt="Nombre del servidor:"/>
+<str id="JBossDatasourceConfigPanel.xa.port" txt="Número del puerto:"/>
+<str id="JBossDatasourceConfigPanel.xa.databasename" txt="Nombre de la base de datos:"/>
+<str id="JBossDatasourceConfigPanel.xa.recoveryuser" txt="Usuario de recuperación:"/>
+<str id="JBossDatasourceConfigPanel.xa.recoverypass" txt="Pase de recuperación:"/>
+<str id="JBossDatasourceConfigPanel.xa.cursor" txt="Método de selección:"/>
+<str id="JBossDatasourceConfigPanel.xa.protocol" txt="Protocolo de red:"/>
+<str id="JBossDatasourceConfigPanel.xa.oracleurl" txt="URL Oracle:"/>
+<str id="JBossDatasourceConfigPanel.summaryCaption" txt="Detalles de la fuente de datos"/>
+<str id="JBossDatasourceConfigPanel.headline" txt="Configuración de la fuente de datos"/>
+<str id="JBossDatasourceConfigPanel.securitytype" txt="Tipo de seguridad:"/>
+<str id="JBossDatasourceConfigPanel.securitytype.tooltip" txt="Seleccione si quiere utilizar un dominio de seguridad o un nombre de usuario + contraseña."/>
+<str id="JBossDatasourceConfigPanel.mingtmax" txt="El valor mínimo del grupo no puede ser mayor que el valor máximo del grupo."/>
+<str id="JBossDatasourceConfigPanel.run.automated" txt="Ejecución automatizada"/>
+<str id="JBossDatasourceConfigPanel.pass.prompt" txt="Ingrese una contraseña por favor."/>
+<str id="JBossDatasourceConfigPanel.xa.properties.label" txt="Propiedades XA:"/>
+<str id="JBossDatasourceConfigPanel.xa.properties.label.console" txt="Propiedades XA adicionales: el formato es name=value."/>
+<str id="JBossDatasourceConfigPanel.xa.properties.col2.label" txt="Valor:"/>
+<str id="JBossDatasourceConfigPanel.xa.properties.addone" txt="Agregar propiedad"/>
+<str id="JBossDatasourceConfigPanel.xa.properties.removeone" txt="Borrar propiedad"/>
+<str id="JBossDatasourceConfigPanel.xa.error.duplicateProperty" txt="Una propiedad ha sido definida más de una vez. Por favor cambie el nombre de la propiedad."/>
+<str id="JBossDatasourceConfigPanel.xa.error.invalidChars" txt="Los nombres de las propiedades y los valores no pueden contener los siguientes caracteres: , {} []. Los valores tampoco pueden contener =."/>
+<str id="JBossDatasourceConfigPanel.xa.error.wrongFormat" txt="Las propiedades XA adicionales deben tener el formato nombre=valor."/>
+<str id="JBossDatasourceConfigPanel.xa.properties.tooltip" txt="Propiedades XA adicionales. Campos no-editables son dependientes del vendedor del controlador."/>
+<str id="MavenRepoCheckPanel.settings.error" txt="El settings.xml indicado no existe. ¿Quiere crear un settings.xml de ejemplo en ese lugar?"/>
+<str id="MavenRepoCheckPanel.info" txt="Especifique un repositorio maven a continuación indicando la ubicación del archivo settings.xml. La ubicación del repositorio puede ser local o remota (http). El archivo settings.xml indicado tendrá un nuevo perfil llamado jboss-eap6, agregado a este que tiene el repositorio dado configurado. Esto permite que los inicios rápidos se construyan frente a los mismos objetos que se utilizaron para construir la plataforma de aplicaciones empresariales JBoss 6. Esta opción de configuración es bastante útil para los desarrolladores pero se puede saltar en una configuración de producción."/>
+<str id="MavenRepoCheckPanel.option1" txt="Especificar la ruta (o URL) a un repositorio maven existente que contiene artefactos Red Hat y un archivo settings.xml válido."/>
+<str id="MavenRepoCheckPanel.option2" txt="Saltarse la configuración del repositorio maven"/>
+<str id="MavenRepoCheckPanel.prompt" txt="Especificar la ubicación del repositorio maven: "/>
+<str id="MavenRepoCheckPanel.warning" txt="Se requiere un repositorio maven válido con objetos de Red Hat para que los inicios rápidos operen. ¿Desea continuar la instalación de cualquier manera?"/>
+<str id="MavenRepoCheckPanel.path.error" txt="La ruta seleccionada no existe o no es un directorio."/>
+<str id="MavenRepoCheckPanel.settingsInfo" txt="Especifique la ubicación del settings.xml de maven: "/>
+<str id="MavenRepoCheckPanel.console.prompt" txt="Seleccione [1]"/>
+<str id="MavenRepoCheckPanel.headline" txt="Configuración del repositorio Maven"/>
+<str id="MavenRepoCheckPanel.summaryCaption" txt="Configuración del repositorio Maven"/>
+<str id="MavenRepoCheckPanel.xslt.default.success" txt="Se creó el xml de configuración predeterminado -&gt; "/>
+<str id="MavenRepoCheckPanel.xslt.default.failure" txt="Falló la creación del xml de configuración predeterminado."/>
+<str id="MavenRepoCheckPanel.xslt.profile.success" txt="Nuevo perfil creado con el id 'jboss6'."/>
+<str id="MavenRepoCheckPanel.xslt.profile.failure" txt="Ya se definió un perfil con el id 'jboss6'. No se tomó ninguna acción."/>
+<str id="MavenRepoCheckPanel.location" txt="Ubicación del repositorio:"/>
+<str id="MavenRepoCheckPanel.settings.location" txt="ubicación del settings.xml: "/>
+<str id="JDKCheckPanel.intro" txt="Se requiere un JDK de versión 1.6 o posteriores para poder usar todas las funcionalidades de la plataforma de aplicaciones empresariales JBoss 6."/>
+<str id="JDKCheckPanel.required" txt="Introdujo un directorio que no existe."/>
+<str id="JDKCheckPanel.notools" txt="El directorio dado no contiene un JDK válido. Sin el JDK, algunas funcionalidades de EAP 6 no están disponibles. ¿Desea continuar de todas maneras?"/>
+<str id="JDKCheckPanel.headline" txt="Verificar jdk"/>
+<str id="JDKCheckPanel.get.title" txt="Haga clic @aquí@ para obtener el JDK."/>
+<str id="JDKPathPanel.info" txt="Seleccione la ruta JDK:"/>
+<str id="JDKPathPanel.path.invalid" txt="no es una ruta válida."/>
+<str id="JDKPathPanel.badVersion1" txt="El JDK seleccionado tiene la versión equivocada (disponible):"/>
+<str id="JDKPathPanel.badVersion2" txt="requerido:"/>
+<str id="JDKPathPanel.badVersion3" txt=") ¿se debería utilizar este JDK de cualquier forma?"/>
+<str id="JDKPathPanel.summaryCaption" txt="Ruta JDK"/>
+<str id="JDKPathPanel.path.1" txt="Ruta"/>
+<str id="JDKPathPanel.path.2" txt="no es válido."/>
+<str id="JDKPathPanel.continue.anyway" txt="¿Continuar de todas maneras? [sí/no]"/>
+<str id="BrowseDialog.openButtonTT" txt="Abrir el archivo seleccionado."/>
+<str id="BrowseDialog.cancelButtonTT" txt="Cerrar la ventana para seleccionar el archivo."/>
+<str id="BrowseDialog.title" txt="Abrir"/>
+<str id="BrowseDialog.openButton" txt="OK"/>
+<str id="BrowseDialog.newButton" txt="Nueva carpeta"/>
+<str id="BrowseDialog.selectionText" txt="Selección:"/>
+<str id="BrowseDialog.homeButton" txt="Inicio"/>
+<str id="BrowseDialog.upButton" txt="Un nivel superior"/>
+<str id="BrowseDialog.listButton" txt="Lista"/>
+<str id="BrowseDialog.detailsButton" txt="Detalles"/>
+<str id="FieldNotEqualValidator.errorMsg" txt="El nombre de usuario y la contraseña no pueden ser iguales."/>
+<str id="DuplicateUsername.errorMsg" txt="No se puede sobreescribir el usuario %s existente %s"/>
+<str id="DuplicateUsername.warningMsg" txt="Ya existe un usuario con el nombre %s. ¿Está seguro de que quiere sobrescribir?"/>
+<str id="DuplicateUsername.console.options" txt="Presione 1 para sobrescribir, 2 para saltar, 3 para cambiar."/>
+<str id="DuplicateUsername.warning.title" txt="El usuario ya existe."/>
+<str id="installer.title" txt=" "/>
+<str id="installer.next" txt="Siguiente"/>
+<str id="installer.prev" txt="Previo"/>
+<str id="installer.quit" txt="Salir"/>
+<str id="installer.madewith" txt="Red Hat JBoss Middleware"/>
+<str id="installer.quit.title" txt="$APP_NAME $APP_VER"/>
+<str id="installer.quit.message" txt="¿Está seguro de que quiere salir? ¡Esto cancelará la instalación!"/>
+<str id="installer.warning" txt="Advertencia"/>
+<str id="installer.yes" txt="Sí"/>
+<str id="LicencePanel.yes" txt="Sí"/>
+<str id="ldap.recursive.2" txt="Sí"/>
+<str id="jdbc.driver.choice.yes" txt="Sí"/>
+<str id="quickstarts.choice.yes" txt="Sí"/>
+<str id="server.launch.choice.yes" txt="Sí"/>
+<str id="installer.no" txt="No"/>
+<str id="LicencePanel.no" txt="No"/>
+<str id="ldap.recursive.1" txt="No"/>
+<str id="jdbc.driver.choice.no" txt="No"/>
+<str id="quickstarts.choice.no" txt="No"/>
+<str id="server.launch.choice.no" txt="No"/>
+<str id="installer.error" txt="Error"/>
+<str id="UserInputPanel.error.caption" txt="Error"/>
+<str id="installer.Message" txt="Mensaje"/>
+<str id="uninstaller.warning" txt="Esto eliminará la(s) aplicación(es) instaladas."/>
+<str id="LicencePanel.info" txt="Por favor lea el siguiente acuerdo de licencia cuidadosamente:"/>
+<str id="LicencePanel.agree" txt="Acepto los términos del contrato de licencia."/>
+<str id="LicencePanel.notagree" txt="No acepto los términos de este acuerdo de licencia."/>
+<str id="HTMLLicence.Error" txt="Error: no se pudo cargar el texto de la licencia para el recurso definido."/>
+<str id="HTMLLicence.continue" txt="Presione Intro para continuar, X para salir."/>
+<str id="InfoPanel.info" txt="Por favor lea la siguiente información:"/>
+<str id="PathInputPanel.required" txt="${platform.name} requiere una distribución EAP. Por favor indique su ubicación."/>
+<str id="PathInputPanel.required.forModificationInstallation" txt="${platform.name} requiere una distribución EAP. Por favor indique su ubicación."/>
+<str id="TargetPanel.info" txt="Seleccione la ruta de instalación:"/>
+<str id="TargetPanel.browse" txt="Navegar"/>
+<str id="UserInputPanel.search.browse" txt="Navegar"/>
+<str id="TargetPanel.warn" txt="El directorio dado ya existe. ¿Quiere continuar?"/>
+<str id="TargetPanel.empty_target" txt="No ha especificado la ubicación de destino. ¿Esto es correcto?"/>
+<str id="TargetPanel.createdir" txt="Aquí se pondrá una instalación fresca para la plataforma de aplicaciones empresariales JBoss de Red Hat:"/>
+<str id="TargetPanel.nodir" txt="Este archivo no es un directorio. Escoja un directorio, por favor."/>
+<str id="TargetPanel.notwritable" txt="No se puede escribir este directorio. Escoja otro directorio por favor."/>
+<str id="TargetPanel.summaryCaption" txt="Ruta de Instalación "/>
+<str id="install.quickstarts.path" txt="Ruta de Instalación "/>
+<str id="TargetPanel.default.dir" txt="Se encontraron los dir de instalación en las variables"/>
+<str id="PacksPanel.info" txt="seleccione los paquetes que quiere instalar:"/>
+<str id="PacksPanel.tip" txt="Nota: los paquetes en gris se requieren o se configuraron anteriormente."/>
+<str id="PacksPanel.space" txt="Espacio Total Requerido:"/>
+<str id="PacksPanel.freespace" txt="Espacio disponible:"/>
+<str id="PacksPanel.description" txt="Descripción"/>
+<str id="PacksPanel.dependencyList" txt="El paquete seleccionado tiene las siguientes dependencias."/>
+<str id="PacksPanel.notEnoughSpace" txt="El espacio de disco requerido para la instalación excede el espacio de disco disponible."/>
+<str id="PacksPanel.notAscertainable" txt="no es tan seguro"/>
+<str id="PacksPanel.excludes" txt="Exceptúa:"/>
+<str id="PacksPanel.dependencies" txt="Dependencias: "/>
+<str id="PacksPanel.summaryCaption" txt="Paquetes de instalación escogidos"/>
+<str id="TreePacksPanel.summaryCaption" txt="Paquetes de instalación escogidos"/>
+<str id="PacksPanel.pack.modify" txt="Modificar la selección de paquetes."/>
+<str id="PacksPanel.pack.read" txt="Leer la lista de paquetes de la definición xml."/>
+<str id="PacksPanel.try" txt="Intentar en"/>
+<str id="PacksPanel.add" txt="agregar a"/>
+<str id="PacksPanel.remove" txt="borrar de"/>
+<str id="PacksPanel.selection" txt="selección"/>
+<str id="PacksPanel.pack" txt="Paquete"/>
+<str id="TreePacksPanel.headline" txt="Mostrar los paquetes para la selección"/>
+<str id="TreePacksPanel.no.packs" txt="No seleccionó ningún paquete."/>
+<str id="TreePacksPanel.continue.question" txt="¿Está seguro de que quiere continuar?"/>
+<str id="TreePacksPanel.already.selected" txt="[Ya se seleccionó]"/>
+<str id="TreePacksPanel.not.selected" txt="[No seleccionado]"/>
+<str id="TreePacksPanel.required" txt="[Requerido]"/>
+<str id="TreePacksPanel.unselectable" txt="[No seleccionable]"/>
+<str id="TreePacksPanel.confirm" txt="Presione 0 para confirmar sus selecciones"/>
+<str id="TreePacksPanel.number" txt="Ingrese un número por favor"/>
+<str id="TreePacksPanel.prompt" txt="Seleccione los paquetes que quiere instalar por favor"/>
+<str id="TreePacksPanel.invalid" txt="Opciones inválidas"/>
+<str id="TreePacksPanel.done" txt="Selección de paquete realizada"/>
+<str id="InstallPanel.info" txt="Haga clic en &quot;Instalar&quot;  para dar inicio al proceso de instalación."/>
+<str id="InstallPanel.install" txt="Instalar"/>
+<str id="InstallPanel.tip" txt="Progreso de la instalación del componente:"/>
+<str id="InstallPanel.finished" txt="[Terminado]"/>
+<str id="InstallPanel.progress" txt="Progreso de la instalación en general:"/>
+<str id="InstallPanel.overwrite.title" txt="El archivo ya existe."/>
+<str id="InstallPanel.overwrite.question" txt="El siguiente archivo ya existe. ¿Se debe remplazar?"/>
+<str id="InstallPanel.unpack.finish" txt="Se terminó de desempacar."/>
+<str id="InstallPanel.unpack.start" txt="Iniciando a desempacar"/>
+<str id="InstallPanel.pack.process" txt="Procesando el paquete"/>
+<str id="java.mismatch.error" txt="La aplicación que está tratando de instalar requiere una versión @@ o posteriores de la plataforma Java. Está ejecutando una versión @@ de la plataforma Java. Por favor actualice a una versión más reciente."/>
+<str id="FinishPanel.success" txt="La instalación se ha completado de manera exitosa. "/>
+<str id="FinishPanel.done" txt="Terminado"/>
+<str id="FinishPanel.fail" txt="La instalación falló."/>
+<str id="FinishPanel.uninst.info" txt="Se ha creado un programa de desinstalación en:"/>
+<str id="FinishPanel.auto" txt="Genera un script de instalación automático."/>
+<str id="FinishPanel.auto.tip" txt="Utilice este script para repetir la instalación en otros computadores."/>
+<str id="FinishPanel.autoxml.info" txt="Selecciona la ruta para el script de instalación automático:"/>
+<str id="FinishPanel.install" txt="Aplicación instalada en"/>
+<str id="FinishPanel.automatic.install" txt="¿Le gustaría generar un script de instalación automático?"/>
+<str id="FinishPanel.automatic.warning" txt="[ADVERTENCIA]: la contraseña se almacenaŕa en texto simple."/>
+<str id="FinishPanel.directory" txt="La ruta lleva a un directorio, no se especificó un archivo."/>
+<str id="FinishPanel.file.already.exists" txt="El archivo ya existe. ¿Desea sobreescribirlo?"/>
+<str id="FinishPanel.file.cannot.write" txt="No se puede escribir en esta ruta, por favor escoja otro lugar."/>
+<str id="FinishPanel.xml.success" txt="XML escrito de manera exitosa."/>
+<str id="FinishPanel.xml.no.success" txt="No se logró escribir el XML."/>
+<str id="ShortcutPanel.headline" txt="Atajos para la configuración"/>
+<str id="ShortcutPanel.regular.StartMenu:Start-Menu" txt="Menu de inicio"/>
+<str id="ShortcutPanel.regular.StartMenu:K-Menu" txt="Menú XDG "/>
+<str id="ShortcutPanel.regular.userIntro" txt="Crear un atajo para:"/>
+<str id="ShortcutPanel.regular.create" txt="Crear atajos en el Menú de inicio"/>
+<str id="ShortcutPanel.regular.currentUser" txt="Usuario actual"/>
+<str id="ShortcutPanel.regular.allUsers" txt="Todos los usuarios"/>
+<str id="ShortcutPanel.regular.list" txt="Seleccione un grupo de programas para los atajos"/>
+<str id="ShortcutPanel.regular.default" txt="Predeteminado"/>
+<str id="ShortcutPanel.shortcut.fail" txt="No se pudo crear la instancia del atajo"/>
+<str id="ShortcutPanel.spec.fail" txt="No se pudo leer las especificaciones del atajo"/>
+<str id="ShortcutPanel.done" txt="Listo"/>
+<str id="ShortcutPanel.shortcut.create" txt="Crear atajos"/>
+<str id="ShortcutPanel.shortcut.add" txt="Agregar atajos para el desinstalador"/>
+<str id="ProcessPanel.heading" txt="Procesamiento"/>
+<str id="ProcessPanel.start.process" txt="Iniciando el proceso "/>
+<str id="ProcessPanel.start.processing" txt="Iniciando el procesamiento"/>
+<str id="ProcessPanel.finish.processing" txt="Procesamiento terminado"/>
+<str id="SummaryPanel.info" txt="La plataforma de aplicaciones empresariales JBoss 6 está lista para instalar. Los puntos de datos importantes se listan a continuación. Haga clic en &quot;Siguiente&quot; para iniciar la instalación."/>
+<str id="UserInputPanel.failed" txt="Validación fallida. Por favor verifique su entrada."/>
+<str id="UserInputPanel.validation.error" txt="Error de validación."/>
+<str id="UserInputPanel.console.error" txt="Error de validación."/>
+<str id="UserInputPanel.console.error" txt="Error: no se encontró la consola."/>
+<str id="UserInputPanel.input.selection" txt="Selección de entrada"/>
+<str id="UserInputPanel.choice" txt="Introduzca 1 para seleccionar, 0 para deseleccionar:"/>
+<str id="UserInputPanel.collection.missing" txt="recolección de campos no implementada"/>
+<str id="UserInputPanel.spec.pass" txt="No hay especificaciones para la entrada de contraseña tipo"/>
+<str id="UserInputPanel.pass.pass" txt="No hay contraseña especificada en las especificaciones para la contraseña tipo"/>
+<str id="UserInputPanel.spec.check" txt="No hay especificaciones para la entrada de verificación de tipo"/>
+<str id="UserInputPanel.summaryCaption.0" txt="Usuario administrativo"/>
+<str id="UserInputPanel.summaryCaption.1" txt="Guías de inicio rápido"/>
+<str id="quickstarts.title" txt="Guías de inicio rápido"/>
+<str id="application-platform.quickstarts" txt="Guías de inicio rápido"/>
+<str id="UserInputPanel.summaryCaption.2" txt="Configuración RT-Gov"/>
+<str id="UserInputPanel.summaryCaption.3" txt="Configuración de puertos"/>
+<str id="UserInputPanel.summaryCaption.12" txt="Iniciar el servidor"/>
+<str id="UserInputPanel.summaryCaption.13" txt="Iniciando sesión"/>
+<str id="UserInputPanel.summaryCaption.14" txt="Configuración post-instalación"/>
+<str id="UserInputPanel.summaryCaption.15" txt="Válvula de contraseñas"/>
+<str id="UserInputPanel.summaryCaption.16" txt="SSL"/>
+<str id="UserInputPanel.summaryCaption.17" txt="LDAP"/>
+<str id="UserInputPanel.summaryCaption.18" txt="Dominio de seguridad"/>
+<str id="UserInputPanel.summaryCaption.19" txt="Infinispan"/>
+<str id="UserInputPanel.summaryCaption.20" txt="Dominio de seguridad"/>
+<str id="UserInputPanel.summaryCaption.21" txt="JSSE"/>
+<str id="installQuickStarts" txt="Instalación seleccionada"/>
+<str id="portDecision" txt="Puertos personalizados"/>
+<str id="configureStandalone" txt="Para standalone.xml"/>
+<str id="configureDomain" txt="Para domain.xml"/>
+<str id="portOffsetType" txt="Compensación"/>
+<str id="serverStartup" txt="Servidor seleccionado"/>
+<str id="browserStartup" txt="Lanzar el navegador"/>
+<str id="configureLog" txt="Configuración de registros"/>
+<str id="root-log-level" txt="Nivel de registro raíz"/>
+<str id="console-log-level" txt="Nivel de registro de la consola"/>
+<str id="postinstall.profile" txt="Perfil destino post-instalación."/>
+<str id="installVault" txt="Configuración de la válvula"/>
+<str id="vault.salt" txt="Salt"/>
+<str id="vault.itercount" txt="Conteo de iteraciones"/>
+<str id="vault.itercount.text" txt="Conteo de iteraciones"/>
+<str id="vault.encrdir" txt="Directorio de archivos codificado"/>
+<str id="vault.keystoreloc" txt="Ubicación del almacén de llaves"/>
+<str id="ssl.path" txt="Ubicación del almacén de llaves"/>
+<str id="vault.alias" txt="Alias de la válvula"/>
+<str id="installSsl" txt="Configuración SSL"/>
+<str id="installLdap" txt="Configuración LDAP seleccionada"/>
+<str id="ldap.name" txt="Nombre de la conexión"/>
+<str id="ldap.url" txt="Servidor de directorios"/>
+<str id="ldap.dn" txt="Nombre distinguido"/>
+<str id="ldap.realmname" txt="Nombre del dominio de seguridad"/>
+<str id="ldap.basedn" txt="DN base"/>
+<str id="ldap.recursive" txt="Búsqueda recursiva de directorios habilitada"/>
+<str id="ldap.filtertype.text" txt="Tipo de filtro:"/>
+<str id="ldap.filtertype" txt="Tipo de filtro"/>
+<str id="ldap.filter" txt="Filtro"/>
+<str id="ldap.filtertype.attribute" txt="Atributo nombre del usuario"/>
+<str id="ldap.filtertype.advanced" txt="Petición sintaxis LDAP"/>
+<str id="installSecurityDomain" txt="Instale security-domain"/>
+<str id="securitydomain.name" txt="Nombre del dominio de seguridad"/>
+<str id="securitydomain.cachetype" txt="Tipo de caché del dominio de seguridad"/>
+<str id="securityDomainAddAuthen" txt="Agregar elemento de autenticación"/>
+<str id="securitydomain.add.authen.text" txt="Agregar elemento de autenticación"/>
+<str id="securitydomain.authencode" txt="Código de autenticación"/>
+<str id="securitydomain.authenflag" txt="Etiqueta de autenticación"/>
+<str id="securitydomain.authenopts" txt="Opciones de autenticación"/>
+<str id="securityDomainAddAuthor" txt="Agregar elemento de autorización"/>
+<str id="securitydomain.add.author.text" txt="Agregar elemento de autorización"/>
+<str id="securitydomain.authorcode" txt="Código de autorización"/>
+<str id="securitydomain.authorflag" txt="Etiqueta de autorización"/>
+<str id="securitydomain.authoropts" txt="Opciones de autorización"/>
+<str id="securityDomainAddMapping" txt="Agregar elemento de mapeo"/>
+<str id="securitydomain.add.mapping.text" txt="Agregar elemento de mapeo"/>
+<str id="securitydomain.mappingcode" txt="Código de mapeo"/>
+<str id="securitydomain.mappingtype" txt="Tipo de mapeo"/>
+<str id="securitydomain.mappingopts" txt="Opciones de mapeo"/>
+<str id="securityDomainAddJsse" txt="Argegar elemento JSSE"/>
+<str id="securitydomain.ciphersuites" txt="Cipher-suites"/>
+<str id="securitydomain.protocols" txt="Protocolos"/>
+<str id="securitydomain.clientalias" txt="Alias cliente"/>
+<str id="securitydomain.serveralias" txt="Alias del servidor"/>
+<str id="securitydomain.authtoken" txt="Server-auth-token"/>
+<str id="securityDomainJsseAddKeystore" txt="Agregar el elemento almacén de llaves"/>
+<str id="securitydomain.jsse.add.keystore.text" txt="Agregar el elemento almacén de llaves"/>
+<str id="securitydomain.keystore.password" txt="Contraseña del almacén de llaves"/>
+<str id="securitydomain.keystore.provider" txt="Proveedor del almacén de llaves"/>
+<str id="securitydomain.keystore.providerargument" txt="Argumento del proveedor del almacén de llaves"/>
+<str id="securitydomain.keystore.type" txt="Tipo de almacén de llaves"/>
+<str id="securitydomain.keystore.url" txt="URL del almacén de llaves"/>
+<str id="securityDomainJsseAddKeystoreManager" txt="Agregar el elemento keystore-manager"/>
+<str id="securitydomain.keystoremanager.algorithm" txt="Algoritmo keystore-manager"/>
+<str id="securitydomain.keystoremanager.provider" txt="Proveedor keystore-manager"/>
+<str id="securityDomainJsseAddTruststore" txt="Agregar elemento del almacén de confianza"/>
+<str id="securitydomain.jsse.add.truststore.text" txt="Agregar elemento del almacén de confianza"/>
+<str id="securitydomain.truststore.password" txt="Contraseña del almacén de confianza"/>
+<str id="securitydomain.truststore.provider" txt="Proveedor del almacén de confianza"/>
+<str id="securitydomain.truststore.providerargument" txt="Argumento del proveedor del almacén de confianza"/>
+<str id="securitydomain.truststore.type" txt="Tipo de almacén de confianza"/>
+<str id="securitydomain.truststore.url" txt="URL del almacén de confianza"/>
+<str id="securityDomainJsseAddTruststoreManager" txt="Agregar el elemento truststore-manager"/>
+<str id="securitydomain.truststoremanager.algorithm" txt="Algoritmo Truststore-manager"/>
+<str id="securitydomain.truststoremanager.provider" txt="Proveedor Truststore-manager"/>
+<str id="installInfinispan" txt="Instalar el caché Infinispan"/>
+<str id="infinispan.container" txt="Nombre Infinispan"/>
+<str id="infinispan.jndiname" txt="Nombre JNDI Infinispan"/>
+<str id="infinispan.localcache" txt="Nombre del caché local"/>
+<str id="infinispan.transactionmode" txt="Modo de transacción"/>
+<str id="infinispan.evictionstrat" txt="Estrategia de eliminación"/>
+<str id="infinispan.evictionmax" txt="Entradas máxima de eliminación"/>
+<str id="infinispan.expirationmax" txt="Tiempo de expiración máximo inactivo"/>
+<str id="jdbc.driver.install" txt="Configuración JDBC seleccionada"/>
+<str id="security.title" txt="Creación de un usuario"/>
+<str id="security.text" txt="Cree un usuario administrativo. El usuario se agregará al ManagementRealm y por lo tanto se puede utilizar para acceder a la consola de administración así como cualquier otra aplicación asegurada utilizando el ManagementRealm. La contraseña debe tener no menos de 8 caracteres y debe contener por lo menos un número y un símbolo que no sea alfanumérico."/>
+<str id="username.text" txt="Nombre de usuario del administrador:"/>
+<str id="username.nameerror" txt="Ingrese su nombre de usuario por favor."/>
+<str id="username.alphanumeric" txt="El nombre de usuario debe ser alfanumérico."/>
+<str id="username.password.text" txt="Contraseña del administrador:"/>
+<str id="username.password.re.text" txt="Confirme la contraseña del administrador:"/>
+<str id="username.no.password" txt="Ingrese la contraseña por favor."/>
+<str id="username.no.match.password" txt="Ambas contraseñas deben coincidir."/>
+<str id="password.no.match.user" txt="El nombre de usuario no debe coincidir con la contraseña."/>
+<str id="password.min.eight.chars" txt="La contraseña debe tener por lo menos '8' caracteres"/>
+<str id="password.at.least.one.digit" txt="La contraseña debe tener por lo menos un dígito."/>
+<str id="password.at.least.one.non.alphanum" txt="La contraseña debe tener por lo menos un símbolo no alfanumérico."/>
+<str id="postinstall.title" txt="Configuración post-instalación"/>
+<str id="config.server.text" txt="Hay varias opciones adicionales para configurar la plataforma de aplicaciones empresariales JBoss ahora que el servidor se ha instalado. Cada opción se puede seleccionar individualmente y se configurarán en el orden presentado al presionar siguiente. ¿Le gustaría hacer esto ahora?"/>
+<str id="config.choice.no" txt="No realice una configuración post-instalación adicional"/>
+<str id="config.choice.yes" txt="Realizar una configuración post-instalación adicional"/>
+<str id="postinstall.processpanel.startingServer" txt="Iniciando el servidor de aplicaciones."/>
+<str id="postinstall.processpanel.serverStarted" txt="Servidor de aplicaciones iniciado exitosamente."/>
+<str id="postinstall.processpanel.checkingServer" txt="Chequeando si el servidor está listo...(%s/%s)."/>
+<str id="postinstall.processpanel.serverNotStarted" txt="No logró iniciar el servidor después de %s intentos."/>
+<str id="postinstall.processpanel.init.error" txt="No se logró iniciar el CommandContext."/>
+<str id="postinstall.processpanel.connect.error" txt="No se logró conectar el CommandContext al servidor."/>
+<str id="postinstall.processpanel.dircreation.error" txt="No se logró crear los directorios."/>
+<str id="postinstall.processpanel.dircreation.success" txt="Se creó exitosamente los directorios."/>
+<str id="postinstall.processpanel.jarcopy.error" txt="No se lograron copiar las jars. "/>
+<str id="postinstall.processpanel.jarcopy.success" txt="Jars copiadas correctamente."/>
+<str id="postinstall.processpanel.xmlcreation.error" txt="No se logró crear el XML:"/>
+<str id="postinstall.processpanel.xmlcreation.success" txt="Se creó exitosamente el XML:"/>
+<str id="postinstall.processpanel.batch.error" txt="La configuración post-instalación ha fallado. Vea el registro para ver una lista de los comandos que se ejecutaron. Estos se pueden ejecutar manualmente para lograr el mismo efecto que el proceso de instalación."/>
+<str id="postinstall.processpanel.batch.empty" txt="La configuración post-instalación ha terminado: no se necesita más configuración."/>
+<str id="postinstall.processpanel.unpacking.complete" txt="Desempaque completo."/>
+<str id="postinstall.processpanel.user.added" txt="Se agregó exitosamente una cuenta del usuario administrativo."/>
+<str id="postinstall.processpanel.batch.success" txt="Post-instalación completada exitosamente. Vea el registro para ver una lista de los comandos que se ejecutaron en su sistema. "/>
+<str id="postinstall.processpanel.log.error" txt="No se logró escribir el registro. Vea el rastro de la pila para obtener mayor información."/>
+<str id="postinstall.processpanel.log.success" txt="El registro se escribió exitosamente en:"/>
+<str id="postinstall.processpanel.management.connecting" txt="Tratando de conectarse a la interfaz de administración...(%s/%s)."/>
+<str id="postinstall.processpanel.management.connectSuccess" txt="Conectado a la interfaz de administración."/>
+<str id="postinstall.processpanel.management.connectFail" txt="No se logró conectar a la interfaz de administración después de %s intentos."/>
+<str id="postinstall.processpanel.management.postInstallFails" txt="El servidor o la interfaz de administración no están funcionando: no se puede completar la post-instalación."/>
+<str id="postinstall.processpanel.shutdown.error" txt="La configuración de post-instalación no logró apagar el servidor adecuadamente."/>
+<str id="postinstall.processpanel.shutdown.success" txt="Configuración post-instalación completada."/>
+<str id="ssl.title" txt="Seguridad SSL"/>
+<str id="ssl.text" txt="La seguridad SSL se puede habilitar para las interfaces de administración especificando la ubicación de un almacén de llaves y la contraseña para esta."/>
+<str id="ssl.path.text" txt="Ubicación del almacén de llaves:"/>
+<str id="vault.path.text" txt="Ubicación del almacén de llaves:"/>
+<str id="ssl.no.password" txt="Ingrese la contraseña."/>
+<str id="ssl.password.text" txt="Contraseña del almacén de llaves:"/>
+<str id="vault.password.text" txt="Contraseña del almacén de llaves:"/>
+<str id="securitydomain.jsse.keystore.password.text" txt="Contraseña del almacén de llaves:"/>
+<str id="ssl.password.re.text" txt="Confirme la contraseña del almacén de llaves:"/>
+<str id="ssl.choice.no" txt="No habilitar la seguridad SSL"/>
+<str id="ssl.choice.yes" txt="Habilitar la seguridad SSL"/>
+<str id="ssl.dropdown.text" txt="Especificar el perfil al cual agregar el almacén de llaves: "/>
+<str id="ssl.dropdown.1" txt="Modo autónomo"/>
+<str id="jdbc.driver.install.type.standalone" txt="Modo autónomo"/>
+<str id="server.launch.choice.standalone" txt="Modo autónomo"/>
+<str id="ssl.dropdown.2" txt="Modo de dominio"/>
+<str id="jdbc.driver.install.type.domain" txt="Modo de dominio"/>
+<str id="server.launch.choice.domain" txt="Modo de dominio"/>
+<str id="ssl.password.tooltip" txt="Ingrese la contraseña para el almacén de llaves proporcionado."/>
+<str id="ssl.path.tooltip" txt="Ingrese la ruta completa al almacén de llaves a utilizar."/>
+<str id="ldap.text" txt="La plataforma de aplicaciones empresariales JBoss 6 se puede configurar para permitirle utilizar un servidor LDAP como la autoridad de autenticación y autorización para la interfaz de administración y aplicaciones. Este es un proceso de dos pasos."/>
+<str id="ldap.title" txt="Configuración LDAP"/>
+<str id="ldap.choice.no" txt="No habilitar la autenticación LDAP"/>
+<str id="ldap.choice.yes" txt="Habilitar la autenticación LDAP"/>
+<str id="ldap.name.text" txt="Nombre de la conexión:"/>
+<str id="ldap.url.text" txt="Servidor de directorios:"/>
+<str id="ldap.dn.text" txt="Nombre distinguido (DN):"/>
+<str id="ldap.creds.text" txt="Contraseña DN:"/>
+<str id="ldap.password.text" txt="Contraseña DN:"/>
+<str id="ldap.factory.text" txt="Fábrica de contexto:"/>
+<str id="ldap.ic.error" txt="Una nueva conexión LDAP requiere un nombre de conexión, servidor de directorios, nombre distinguido (DN) y una contraseña DN. Se deben llenar los cuatro campos."/>
+<str id="ldap.password.re.text" txt="Confirme la contraseña DN:"/>
+<str id="ldap.name.tooltip" txt="El nombre por el cual se conocerá esta conexión habilitada para LDAP."/>
+<str id="ldap.url.tooltip" txt="El nombre de host del servidor LDAP al cual conectarse."/>
+<str id="ldap.dn.tooltip" txt="El nombre completamente distinguido (DN) del usuario en el servidor proporcionado que está autorizado a realizar búsquedas."/>
+<str id="ldap.creds.tooltip" txt="La contraseña del usuario proporcionado."/>
+<str id="ldap2.text" txt="Se agregará un nuevo dominio de seguridad con los siguientes atributos y utilizará la conexión saliente LDAP definida en el paso anterior. Este nuevo dominio de seguridad será asociado con las interfaces de administración. El valor para el filtro puede ser de la forma atributo=&quot;valor&quot;, en donde el valor es el nombre del atributo que mantiene el nombre de usuario o de la forma filtro=&quot;valor&quot;, en donde el valor es una peticióncon sintaxis LDAP estándard. Si usa una petición LDAP, escape &quot;&amp;&quot; con &quot;&amp;amp;&quot;"/>
+<str id="ldap.realmname.text" txt="Nombre del dominio de seguridad:"/>
+<str id="ldap.basedn.text" txt="DN base:"/>
+<str id="ldap.username.text" txt="Nombre de usuario LDAP:"/>
+<str id="ldap.recursive.text" txt="Búsqueda recursiva de directorios:"/>
+<str id="ldap.filter.text" txt="Filtro del nombre del usuario:"/>
+<str id="ldap2.ic.error" txt="Un nuevo dominio de seguridad LDAP requiere un nombre de dominio de seguridad, un nombre de usuario LDAP y un nombre distinguido base (DN base). Se deben llenar los tres campos."/>
+<str id="ldap.realmname.tooltip" txt="El nombre por el cual se conocerá este dominio de seguridad habilitado para LDAP."/>
+<str id="ldap.basedn.tooltip" txt="El nombre distinguido del contexto para empezar a buscar el usuario."/>
+<str id="ldap.filtertype.tooltip" txt="El tipo de filtro seleccionado determina la manera en que se interpreta el valor del filtro del nombre del usuario. El atributo del nombre de usuario indica que el valor proporcionado es el atributo LDAP, el cual contiene el nombre de usuario."/>
+<str id="ldap.filter.tooltip" txt="Este contiene el atributo LDAP que tiene el nombre de usuario para las búsquedas o una petición de sintaxis LDAP."/>
+<str id="ldap.recursive.tooltip" txt="Indique si la búsqueda debe o no ser recursiva a través del árbol de directorios LDAP."/>
+<str id="vault.title" txt="Configuración de la bóveda de contraseñas"/>
+<str id="vault.text" txt="La plataforma de aplicaciones empresariales JBoss de Red Hat 6 se puede configurar para enmascarar contraseñas utilizadas en descriptores de archivos usando un almacén de llaves codificado. Usando los valores a continuación, el instalador inicializará la bóveda y enmascarará cualquier otra contraseña utilizada en otras partes del proceso de post-instalación."/>
+<str id="vault.alias.text" txt="Alias de la válvula:"/>
+<str id="vault.salt.text" txt="Sal (8 caracteres)"/>
+<str id="vault.salt.not.eight.chars" txt="La sal de la bóveda debe ser exactamente 8 dígitos de longitud."/>
+<str id="vault.password.re.text" txt="Vuelva a ingresar la contraseña del almacén de llaves:"/>
+<str id="vault.no.password" txt="No ingresó ninguna contraseña."/>
+<str id="vault.encrdir.text" txt="Directorio de archivos codificado:"/>
+<str id="vault.choice.yes" txt="Instalar bóveda de contraseñas"/>
+<str id="vault.ic.error" txt="Una nueva bóveda de contraseñas requiere un alias de bóveda, un valor sal, un valor de conteo de iteraciones, una contraseña del almacén de llaves, la ubicación del almacén de llaves y un directorio en donde se pondrán los archivos codificados. Se requieren todos los campos."/>
+<str id="vault.alias.tooltip" txt="El alias dado al almacén de llaves a utilizar en la bóveda."/>
+<str id="vault.salt.tooltip" txt="El valor sal para la bóveda. Este valor se utiliza con el conteo de iteraciones para crear el valor hash de la bóveda de contraseñas."/>
+<str id="vault.itercount.tooltip" txt="El conteo de iteraciones. Este número se utiliza con el valor sal para crear el valor hash para la bóveda de contraseñas. "/>
+<str id="vault.password.tooltip" txt="La contraseña para el almacén de llaves proporcionado."/>
+<str id="securitydomain.jsse.keystore.password.tooltip" txt="La contraseña para el almacén de llaves proporcionado."/>
+<str id="vault.password.re.tooltip" txt="Confirme la contraseña para el almacén de llaves proporcionado."/>
+<str id="vault.path.tooltip" txt="La ruta completa al almacén de llaves que la bóveda debe utilizar."/>
+<str id="vault.encrdir.tooltip" txt="El directorio en donde los archivos codificados se almacenarán. Este directorio debe ser asegurado de manera razonable pero que JBoss EAP lo pueda acceder."/>
+<str id="infinispan.title" txt="Configuración Infinispan"/>
+<str id="infinispan.text" txt="Especifique la información a continuación para crear un caché infinispan."/>
+<str id="infinispan.container.text" txt="Nombre Infinispan:"/>
+<str id="infinispan.localcache.text" txt="Nombre del caché local:"/>
+<str id="infinispan.transactionmode.text" txt="Modo de transacción:"/>
+<str id="infinispan.evictionstrat.text" txt="Estrategia de eliminación:"/>
+<str id="infinispan.evictionmax.text" txt="Entradas máximas de eliminación:"/>
+<str id="infinispan.expirationmax.text" txt="Tiempo de expiración máximo inactivo:"/>
+<str id="infinispan.choice.yes" txt="Instalar el caché Infinispan"/>
+<str id="infinispan.container.tooltip" txt="El nombre para este caché Infinispan."/>
+<str id="infinispan.jndiname.tooltip" txt="El nombre JNDI a asociar con este caché."/>
+<str id="infinispan.localcache.tooltip" txt="El nombre del caché local para este caché."/>
+<str id="infinispan.transactionmode.tooltip" txt="El modo de transacción para este caché."/>
+<str id="infinispan.evictionstrat.tooltip" txt="La estrategia de eliminación para este caché."/>
+<str id="infinispan.evictionmax.tooltip" txt="La cantidad máxima de entradas de eliminación para este caché."/>
+<str id="infinispan.expirationmax.tooltip" txt="La cantidad máxima de tiempo inactivo para la expiración del caché."/>
+<str id="jmsqueue.title" txt="Configuración de la cola JMS"/>
+<str id="jmsqueue.text" txt="Agregue una cola JMS proporcionando la información requerida a continuación."/>
+<str id="jmsqueue.name.text" txt="Nombre de cola JMS:"/>
+<str id="jmsqueue.entries.text" txt="Entradas:"/>
+<str id="jmsqueue.durable.text" txt="Cola durable:"/>
+<str id="jmsqueue.choice.yes" txt="Instalar una cola JMS"/>
+<str id="securitydomain.title" txt="Configuración del dominio de seguridad"/>
+<str id="securitydomain.text" txt="Configure un dominio de seguridad usando los campos a continuación. El único campo requerido es el nombre del dominio de seguridad. El resto de los campos son opcionales. La mayoría de los campos tienen una lista predefinida de valores válidos."/>
+<str id="securitydomain.name.text" txt="Nombre del dominio de seguridad:"/>
+<str id="securitydomain.cachetype.text" txt="Tipo de caché del dominio de seguridad:"/>
+<str id="securitydomain.add.jsse.text" txt="Argegar elemento jsse"/>
+<str id="securitydomain.authencode.text" txt="Código de autenticación:"/>
+<str id="securitydomain.authorcode.text" txt="Código de autorización:"/>
+<str id="securitydomain.mappingcode.text" txt="Código de mapeo:"/>
+<str id="securitydomain.authenflag.text" txt="Etiqueta de autenticación:"/>
+<str id="securitydomain.authorflag.text" txt="Etiqueta de autorización:"/>
+<str id="securitydomain.mappingtype.text" txt="Tipo de mapeo:"/>
+<str id="securitydomain.authenopts.text" txt="Opciones de autenticación:"/>
+<str id="securitydomain.authoropts.text" txt="Opciones de autorización:"/>
+<str id="securitydomain.mappingopts.text" txt="Opciones de mapeo:"/>
+<str id="securitydomain.choice.yes" txt="Agregar un dominio de seguridad"/>
+<str id="securitydomain.jsse.keystore.password.re.text" txt="Confirme la contraseña del almacén de llaves:"/>
+<str id="securitydomain.jsse.keystore.password.empty" txt="La contraseña del almacén de llaves no puede estar vacía."/>
+<str id="securitydomain.jsse.keystore.password.nomatch" txt="Las contraseñas del almacén de llaves deben coincidir."/>
+<str id="securitydomain.jsse.keystore.provider.text" txt="Proveedor del almacén de llaves:"/>
+<str id="securitydomain.jsse.keystore.providerargument.text" txt="Argumento del proveedor:"/>
+<str id="securitydomain.jsse.truststore.providerargument.text" txt="Argumento del proveedor:"/>
+<str id="securitydomain.jsse.keystore.type.text" txt="Tipo de almacén de llaves:"/>
+<str id="securitydomain.jsse.keystore.url.text" txt="URL del almacén de llaves:"/>
+<str id="securitydomain.jsse.no.keystore.url" txt="El campor de la URL del almacén de llaves no puede estar vacío."/>
+<str id="securitydomain.jsse.add.keystoremanager.text" txt="Agregar elemento administrador del almacén de llaves"/>
+<str id="securitydomain.jsse.keystoremanager.algorithm.text" txt="Algoritmo KeyManagerFactory:"/>
+<str id="securitydomain.jsse.keystoremanager.provider.text" txt="Proveedor KeyManagerFactory:"/>
+<str id="securitydomain.jsse.truststore.password.text" txt="Contraseña del almacén de confianza:"/>
+<str id="securitydomain.jsse.truststore.password.re.text" txt="Confirme la contraseña del almacén de confianza:"/>
+<str id="securitydomain.jsse.truststore.password.empty" txt="La contraseña del almacén de confianza no puede estar vacía."/>
+<str id="securitydomain.jsse.truststore.password.nomatch" txt="Las contraseñas del almacén de confianza deben coincidir."/>
+<str id="securitydomain.jsse.truststore.provider.text" txt="Proveedor del almacén de confianza:"/>
+<str id="securitydomain.jsse.truststore.type.text" txt="Tipo de almacén de confianza:"/>
+<str id="securitydomain.jsse.truststore.url.text" txt="URL del almacén de confianza:"/>
+<str id="securitydomain.jsse.no.truststore.url" txt="El campo de la URL del almacén de confianza no puede estar vacío."/>
+<str id="securitydomain.jsse.add.truststoremanager.text" txt="Agregar elemento del administrador de confianza"/>
+<str id="securitydomain.jsse.truststoremanager.algorithm.text" txt="Algoritmo TrustManagerFactory:"/>
+<str id="securitydomain.jsse.truststoremanager.provider.text" txt="Proveedor TrustManagerFactory:"/>
+<str id="securitydomain.jsse.ciphersuites.text" txt="Suites de cifras utilizadas por SSLContext:"/>
+<str id="securitydomain.jsse.protocols.text" txt="Protocolos utilizados por SSLContext:"/>
+<str id="securitydomain.jsse.clientalias.text" txt="Alias del almacén de confianza del lado del cliente:"/>
+<str id="securitydomain.jsse.serveralias.text" txt="Alias del almacén de confianza del lado del servidor:"/>
+<str id="securitydomain.jsse.authtoken.text" txt="Token de validación de terceros:"/>
+<str id="securitydomain.ic.error" txt="Asegúrese de que todos los campos requeridos estén completos."/>
+<str id="securitydomain.jsse.text" txt="Configure un elemento JSSE. El elemento JSSE requiere configurar un almacén de llaves o un almacén de confianza."/>
+<str id="securitydomain.jsse.requirements" txt="El elemento JSSE requiere un almacén de llaves o un almacén de confianza."/>
+<str id="securitydomain.jsse.keystore.reqs" txt="El almacén de llaves requiere que se configuren los campos de la contraseña y la URL."/>
+<str id="securitydomain.jsse.truststore.reqs" txt="El almacén de confianza requiere que se configuren los campos de la contraseña y la URL."/>
+<str id="securitydomain.name.tooltip" txt="El nombre único para este dominio de seguridad."/>
+<str id="securitydomain.cachetype.tooltip" txt="El tipo de caché de autenticación a utilizar con este dominio. Por defecto usa un caché basado en mapas de manera simple. Infinispan usa el subsistema infinispan."/>
+<str id="securitydomain.authencode.tooltip" txt="Seleccione la clase de implementación del elemento de autenticación."/>
+<str id="securitydomain.authenflag.tooltip" txt="Seleccione etiqueta JAAS para el elemento de autenticación."/>
+<str id="securitydomain.authenopts.tooltip" txt="Las opciones de módulo para el elemento de autenticación. Consiste de una lista de entradas llave=valor."/>
+<str id="securitydomain.authorcode.tooltip" txt="Seleccione la clase de implementación del elemento de autorización."/>
+<str id="securitydomain.authorflag.tooltip" txt="Seleccione etiqueta JAAS para el elemento de autorización."/>
+<str id="securitydomain.authoropts.tooltip" txt="Las opciones de módulo para el elemento de autorización. Consiste de una lista de entradas llave=valor."/>
+<str id="securitydomain.mappingcode.tooltip" txt="Seleccione la clase de implementación del elemento de mapeo."/>
+<str id="securitydomain.mappingtype.tooltip" txt="Este atributo refleja el tipo de mapeo del proveedor."/>
+<str id="securitydomain.mappingopts.tooltip" txt="Las opciones de módulo para el elemento de mapeo. Consiste de una lista de entradas llave=valor."/>
+<str id="securitydomain.jsse.ciphersuites.tooltip" txt="Una lista de suites de cifras utilizadas por un SSLContext."/>
+<str id="securitydomain.jsse.protocols.tooltip" txt="Una lista de protocolos SSL a utilizar por parte de un SSLContext."/>
+<str id="securitydomain.jsse.clientalias.tooltip" txt="El alias del almacén de llaves a utilizar al crear sockets SSL del lado del cliente."/>
+<str id="securitydomain.jsse.serveralias.tooltip" txt="El alias del almacén de llaves a utilizar al crear sockets SSL del lado del servidor."/>
+<str id="securitydomain.jsse.authtoken.tooltip" txt="Una etiqueta que indica si el socket SSL del lado del servidor debe requerir autenticación del cliente."/>
+<str id="securitydomain.jsse.keystore.provider.tooltip" txt="El proveedor del almacén de llaves. SE utiliza el proveedor JDK predeterminado para el tipo de almacén de llaves si este atributo está en blanco."/>
+<str id="securitydomain.jsse.keystore.providerargument.tooltip" txt="Cdena que se puede paar como el argumento del constructor proveedor del almacén de llaves."/>
+<str id="securitydomain.jsse.keystore.type.tooltip" txt="El tipo del almacén de llaves."/>
+<str id="securitydomain.jsse.keystore.url.tooltip" txt="La URL del almacén de llaves. Puede ser local o remota."/>
+<str id="securitydomain.jsse.keystoremanager.algorithm.tooltip" txt="El algoritmo del KeyManagerFactory. Se utiliza el algoritmo JDK predeterminado del KeyManagerFactory si este atributo están en blanco."/>
+<str id="securitydomain.jsse.keystoremanager.provider.tooltip" txt="El proveedor del KeyManagerFactory. Se utiliza el proveedor JDK predeterminado del KeyManagerFactory si este atributo están en blanco."/>
+<str id="securitydomain.jsse.truststore.password.tooltip" txt="La contraseña del almacén de confianza proporcionado."/>
+<str id="securitydomain.jsse.truststore.provider.tooltip" txt="El proveedor del almacén de confianza. Se utiliza el proveedor JDK predeterminado para el tipo de almacén de llaves si este atributo está en blanco."/>
+<str id="securitydomain.jsse.truststore.providerargument.tooltip" txt="Cdena que se puede pasar como el argumento del constructor proveedor del almacén de confianza."/>
+<str id="securitydomain.jsse.truststore.type.tooltip" txt="El tipo del almacén de confianza."/>
+<str id="securitydomain.jsse.truststore.url.tooltip" txt="La URL del almacén de confianza. Puede ser local o remota."/>
+<str id="securitydomain.jsse.truststoremanager.algorithm.tooltip" txt="El algoritmo del TrustManagerFactory. Se utiliza el algoritmo JDK predeterminado del TrustManagerFactory si este atributo están en blanco."/>
+<str id="securitydomain.jsse.truststoremanager.provider.tooltip" txt="El proveedor del TrustManagerFactory. Se utiliza el proveedor JDK predeterminado delTrustManagerFactory si este atributo está en blanco."/>
+<str id="jdbc.driver.install.info" txt="&lt;html&gt;La plataforma de aplicaciones empresariales JBoss 6 soporta un número de controladores JDBC, los cuales convierten el código de la aplicación al lenguaje relevante de la base de datos. Es posible seleccionar múltiples JARs para el controlador.&lt;/html&gt;"/>
+<str id="jdbc.driver.install.choice.text" txt="Quiere configurar un controlador JDBC? El controlador se instalará como un módulo central de ${platform.name} JBoss. Se generará un archivo module.xml en el directorio de módulos y se realizarán las entradas apropiadas en los archivos standalone.xml/domain.xml."/>
+<str id="jdbc.driver.path.text" txt="Especificar la ubicación del controlador jar: "/>
+<str id="jdbc.driver.name.text" txt="Nombre del controlador JDBC:"/>
+<str id="jdbc.driver.module.name.text" txt="Nombre del módulo para el controlador JDBC:"/>
+<str id="jdbc.driver.xads.name.text" txt="Nombre de la clase de la fuente de datos XA:"/>
+<str id="jdbc.driver.dir.struct.text" txt="Los archivos se pondrán en este directorio:"/>
+<str id="jdbc.driver.install.type.text" txt="Incluir el módulo JDBC en modo autónomo, modo de dominio o ambos:"/>
+<str id="jdbc.driver.install.type.both" txt="Ambos"/>
+<str id="jdbc.driver.oracle.warning" txt="Se debe aplicar la siguiente confiuración para el usuario que acceda una fuente de datos Oracle XA con el fin de que la recuperación XA opere correctamente:"/>
+<str id="UserPathPanel.info" txt="Seleccione la ruta de instalación para el inicio rápido."/>
+<str id="quickstarts.install.text" txt="La plataforma de aplicaciones empresariales JBoss 6 viene junto con una serie de ejemplos de inicio rápido diseñados para ayudar a los usuarios a empezar a escribir aplicaciones usando la tecnología Java EE 6. ¿Quisiera instalar los inicios rápidos?"/>
+<str id="quickstarts.path.text" txt="Seleccione la ruta de instalación de inicio rápido:"/>
+<str id="rtgov.title" txt="Servidor RT-Gov"/>
+<str id="rtgov.text" txt="Ingrese la URL del servidor RT-Gov."/>
+<str id="rtgov.username.text" txt="Nombre de usuario del RT-Gov:"/>
+<str id="rtgov.password.text" txt="Contraseña del RT-Gov:"/>
+<str id="rtgov.password.re.text" txt="Confirme la contraseña del RT-Gov:"/>
+<str id="rtgov.url.text" txt="Ubicación del servidor RT-Gov:"/>
+<str id="rtgov.loc" txt="Ubicación del servidor RT-Gov:"/>
+<str id="rtgov.url.error" txt="Por favor ingrese una ubicación del servidor RT-Gov:"/>
+<str id="port.setup.title" txt="Enlaces de sockets "/>
+<str id="port.setup.choice.text" txt="Seleccione la configuración del puerto:"/>
+<str id="port.setup.choice.default" txt="Use los enlaces de puerto predeterminados para los modos de dominio y autónomo."/>
+<str id="port.setup.choice.assisted" txt="Configure un offset para todos los enlaces de puerto predeterminados."/>
+<str id="port.setup.choice.custom" txt="Configure los enlaces de puertos personalizados."/>
+<str id="port.setup.config.standalone" txt="Configurar los puertos para el modo autónomo"/>
+<str id="port.setup.config.domain" txt="Configurar los puertos para el modo dominio"/>
+<str id="port.setup.desc" txt="Configurar los enlaces de socket para la plataforma de aplicaciones empresariales JBoss 6."/>
+<str id="port.setup.offset.specifyInput" txt="Valor offset:"/>
+<str id="port.setup.offset.choice.plus1" txt="+1"/>
+<str id="port.setup.offset.choice.plus100" txt="+100"/>
+<str id="port.setup.offset.choice.text" txt="Seleccione el tipo de offset"/>
+<str id="port.setup.offset.choice.specify" txt="Especifique el offset"/>
+<str id="offset.posInt" txt="El valor offset debe ser un número entero positivo."/>
+<str id="offset.valid" txt="El valor de offset es muy grande. El máximo offset posible es @@"/>
+<str id="port.intro" txt="Puerto"/>
+<str id="property.header" txt="Propiedad del sistema (opcional)"/>
+<str id="port.header" txt="Valor predeterminado"/>
+<str id="port.standalone.title" txt="Enlace de sockets (autónomo)"/>
+<str id="port.standalone.h.title" txt="Enlace de sockets (ha-autónomo)"/>
+<str id="port.standalone.f.title" txt="Enlace de sockets (autónomo completamente)"/>
+<str id="port.standalone.fa.title" txt="Enlace de sockets (autónomo completamente -ha)"/>
+<str id="port.domain.title" txt="Enlace de sockets (dominio)"/>
+<str id="port.domain.h.title" txt="Enlace de socket (dominio ha)"/>
+<str id="port.domain.f.title" txt="Enlace de socket (dominio completo)"/>
+<str id="port.domain.fa.title" txt="Enlace de socket (full-ha-domain)"/>
+<str id="UserInputPanel.tooltip.adminUser" txt="El nombre de usuario solo puede tener caracteres alfanuméricos."/>
+<str id="UserInputPanel.tooltip.adminPwd" txt="La contraseña debe tener por lo menos ocho caracteres, por lo menos un dígito y por lo menos un caracter especial."/>
+<str id="UserInputPanel.tooltip.offset" txt="Esta opción modificará los puertos estándares con el valor dado."/>
+<str id="UserInputPanel.tooltip.offsetSpecify" txt="Esta opción le permite especificar su propio valor offset de puerto."/>
+<str id="UserInputPanel.tooltip.installVault" txt="Seleccione esta casilla para instalar una bóveda de contraseñas."/>
+<str id="UserInputPanel.tooltip.installSsl" txt="Seleccione esta casilla para asegurar las interfaces de administración con SSL."/>
+<str id="UserInputPanel.tooltip.installLdap" txt="Seleccione esta casilla para habilitar la autenticación LDAP en las interfaces de administración."/>
+<str id="UserInputPanel.tooltip.installInfinispan" txt="Seleccione esta casilla para crear un nuevo caché Infinispan."/>
+<str id="UserInputPanel.tooltip.installSecurityDomain" txt="Seleccione esta casilla para crear un nuevo dominio de seguridad."/>
+<str id="UserInputPanel.tooltip.installJdbcDriver" txt="Seleccione esta casilla para instalar un controlador JDBC y una fuente de datos utilizando este controlador."/>
+<str id="server.launch.title" txt="Lanzar el servidor"/>
+<str id="server.launch.choice.text" txt="Seleccione el modo de inicio del servidor: "/>
+<str id="server.launch.choice.no.start" txt="No inicie el servidor"/>
+<str id="server.launch.browser" txt="Lanzar el navegador después de iniciar el servidor"/>
+<str id="log-level.title" txt="Opciones de registro"/>
+<str id="configure-log-level.choice.text" txt="¿Configurar los niveles de registro para la plataforma de aplicaciones empresariales JBoss 6?"/>
+<str id="root-log-level.choice.text" txt="Nivel de registro para el registrador raíz:"/>
+<str id="console-log-level.choice.text" txt="Nivel de registro para la consola:"/>
+<str id="${platform.edition}-core" txt="${platform.edition}-core"/>
+<str id="${platform.edition}-core.description" txt="${platform.name} núcleo de plataforma."/>
+<str id="application-platform.appclient" txt="AppClient"/>
+<str id="application-platform.appclient.description" txt="Carpeta AppClient."/>
+<str id="application-platform.bin.unix" txt="Bin"/>
+<str id="application-platform.bin.windows" txt="Bin"/>
+<str id="application-platform.bin.unix.description" txt="Scripts shell UNIX ${platform.name} JBoss."/>
+<str id="application-platform.bin.windows.description" txt="Scripts de agrupación Windows ${platform.name} JBoss."/>
+<str id="application-platform.bundles" txt="Paquetes"/>
+<str id="application-platform.bundles.description" txt="Paquetes OSGi."/>
+<str id="application-platform.docs" txt="Documentos"/>
+<str id="application-platform.docs.description" txt="Archivos de definición del esquema XML. "/>
+<str id="application-platform.domain.description" txt="Archivos de configuración, contenido de implementación y áreas de escritura utilizadas por los procesos de modo de dominio."/>
+<str id="jboss-shell.domain" txt="Archivos ejecutables shell modo de Dominio"/>
+<str id="jboss-shell.domain.description" txt="Scripts shell UNIX del modo de dominio ${platform.name} JBoss."/>
+<str id="jboss-batch.domain" txt="Archivos de lote modo de Dominio"/>
+<str id="jboss-batch.domain.description" txt="Scripts de agrupación del modo de dominio ${platform.name} JBoss."/>
+<str id="application-platform.modules" txt="Módulos"/>
+<str id="application-platform.modules.description" txt="Módulos del servidor."/>
+<str id="application-platform.standalone.description" txt="Archivos de configuración, contenido de implementación y áreas de escritura utilizadas por los procesos de modo  autónomo."/>
+<str id="jboss-shell.standalone" txt="Archivos ejecutables shell modo Independiente"/>
+<str id="jboss-shell.standalone.description" txt="Scripts shell UNIX autónomos para JBoss ${platform.name}."/>
+<str id="jboss-batch.standalone" txt="Archivos de lote modo Independiente"/>
+<str id="jboss-batch.standalone.description" txt="Scripts de agrupación autónomos para JBoss ${platform.name}."/>
+<str id="application-platform.welcome-content" txt="Contenido de Bienvenida"/>
+<str id="application-platform.welcome-content.description" txt="Contenido predeterminado de la página de bienvenida."/>
+<str id="application-platform.quickstarts.description" txt="Aplicaciones de ejemplo ${platform.name} de JBoss."/>
+<str id="application-platform.maven" txt="Binario Apache Maven "/>
+<str id="application-platform.maven.description" txt="Apache Maven ${maven.version}."/>
+<str id="application-platform.icons" txt="Iconos"/>
+<str id="application-platform.icons.description" txt="Iconos utilizados como atajos."/>
+<str id="${platform.edition}-native" txt="${platform.name} Nativos"/>
+<str id="application-platform.native.rhel5.i386" txt="Código nativo RHEL5 i386"/>
+<str id="application-platform.native.rhel5.i386.description" txt="Binarios nativos para RHEL5 i386."/>
+<str id="application-platform.native.rhel5.x86_64" txt="Código nativo RHEL5 x86_64"/>
+<str id="application-platform.native.rhel5.x86_64.description" txt="Binarios nativos para RHEL5 x86_64."/>
+<str id="application-platform.native.utils.rhel5.i386" txt="Utilidades nativas RHEL5 i386"/>
+<str id="application-platform.native.utils.rhel5.i386.description" txt="Binarios Utils nativos para RHEL5 i386."/>
+<str id="application-platform.native.utils.rhel5.x86_64" txt="Utilidades nativas RHEL5 x86_64"/>
+<str id="application-platform.native.utils.rhel5.x86_64.description" txt="Binarios Utils nativos para RHEL5 x86_64."/>
+<str id="application-platform.native.webserver.rhel5.i386" txt="Servidor web nativo RHEL5 i386"/>
+<str id="application-platform.native.webserver.rhel5.i386.description" txt="Binarios conectores del servidor web nativo para RHEL5 i386."/>
+<str id="application-platform.native.webserver.rhel5.x86_64" txt="Servidor web nativo RHEL5 x86_64"/>
+<str id="application-platform.native.webserver.rhel5.x86_64.description" txt="Binarios conectores nativos del servidor web para RHEL5 x86_64"/>
+<str id="application-platform.native.rhel6.i386" txt="Código nativo RHEL6 i386"/>
+<str id="application-platform.native.rhel6.i386.description" txt="Binarios nativos para RHEL6 i386."/>
+<str id="application-platform.native.rhel6.x86_64" txt="Código nativo RHEL6 x86_64"/>
+<str id="application-platform.native.rhel6.x86_64.description" txt="Binarios nativos para RHEL6 x86_64."/>
+<str id="application-platform.native.utils.rhel6.i386" txt="Utilidades nativas RHEL6 i386"/>
+<str id="application-platform.native.utils.rhel6.i386.description" txt="Binarios Utils nativos para RHEL6 i386."/>
+<str id="application-platform.native.utils.rhel6.x86_64" txt="Utilidades nativas RHEL6 x86_64"/>
+<str id="application-platform.native.utils.rhel6.x86_64.description" txt="Binarios Utils nativos para RHEL6 x86_64."/>
+<str id="application-platform.native.webserver.rhel6.i386" txt="Servidor web nativo RHEL6 i386"/>
+<str id="application-platform.native.webserver.rhel6.i386.description" txt="Binarios conectores nativos del servidor web para RHEL6 i386."/>
+<str id="application-platform.native.webserver.rhel6.x86_64" txt="Servidor web nativo RHEL6 x86_64"/>
+<str id="application-platform.native.webserver.rhel6.x86_64.description" txt="Binarios conectores nativos del servidor web para RHEL6 x86_64."/>
+<str id="application-platform.native.windows.i386" txt="Código nativo Windows i386"/>
+<str id="application-platform.native.windows.i386.description" txt="Binarios nativos para Windows i386."/>
+<str id="application-platform.native.windows.x86_64" txt="Código nativo Windows  x86_64"/>
+<str id="application-platform.native.windows.x86_64.description" txt="Binarios nativos para Windows x86_64."/>
+<str id="application-platform.native.utils.windows.i386" txt="Utilidades nativas Windows i386"/>
+<str id="application-platform.native.utils.windows.i386.description" txt="Binarios Utils nativos para Windows i386."/>
+<str id="application-platform.native.utils.windows.x86_64" txt="Utilidades nativas Windows x86_64"/>
+<str id="application-platform.native.utils.windows.x86_64.description" txt="Binarios Utils nativos para Windows x86_64."/>
+<str id="application-platform.native.webserver.windows.i386" txt="Servidor web nativo Windows i386"/>
+<str id="application-platform.native.webserver.windows.i386.description" txt="Binarios conectores nativos del servidor web para Windows i386."/>
+<str id="application-platform.native.webserver.windows.x86_64" txt="Servidor web nativo Windows x86_64"/>
+<str id="application-platform.native.webserver.windows.x86_64.description" txt="Binarios conectores nativos del servidor web para Windows x86_64."/>
+<str id="application-platform.native.sun.i386" txt="Código nativo Solaris 10/11 i386"/>
+<str id="application-platform.native.sun.i386.description" txt="Binarios nativos para Solaris 10/11 i386."/>
+<str id="application-platform.native.sun.x86_64" txt="Código nativo Solaris 10/11 x86_64"/>
+<str id="application-platform.native.sun.x86_64.description" txt="Binarios nativos para Solaris 10/11 x86_64."/>
+<str id="application-platform.native.sun.sparc64" txt="Código nativo Solaris 10/11 sparc64"/>
+<str id="application-platform.native.sun.sparc64.description" txt="Binarios nativos para Solaris 10/11 sparc64."/>
+<str id="application-platform.native.utils.sun.i386" txt="Utilidades nativas Solaris 10/11 i386"/>
+<str id="application-platform.native.utils.sun.i386.description" txt="Binarios Utils nativos para Solaris 10/11 i386."/>
+<str id="application-platform.native.utils.sun.x86_64" txt="Utilidades nativas Solaris 10/11 x86_64"/>
+<str id="application-platform.native.utils.sun.x86_64.description" txt="Binarios Utils nativos para Solaris 10/11 x86_64."/>
+<str id="application-platform.native.utils.sun.sparc64" txt="Utilidades nativas Solaris 10/11 sparc64"/>
+<str id="application-platform.native.utils.sun.sparc64.description" txt="Binarios Utils nativos para Solaris 10/11 sparc64."/>
+<str id="application-platform.native.webserver.sun.i386" txt="Servidor web nativo Solaris 10/11 i386"/>
+<str id="application-platform.native.webserver.sun.i386.description" txt="Binarios conectores nativos del servidor web para Solaris 10/11 i386."/>
+<str id="application-platform.native.webserver.sun.x86_64" txt="Servidor web nativo Solaris 10/11 x86_64"/>
+<str id="application-platform.native.webserver.sun.x86_64.description" txt="Binarios conectores nativos del servidor web para Solaris 10/11 x86_64."/>
+<str id="application-platform.native.webserver.sun.sparc64" txt="Servidor web nativo Solaris 10/11 sparc64"/>
+<str id="application-platform.native.webserver.sun.sparc64.description" txt="Binarios conectores nativos del servidor web para Solaris 10/11 sparc64."/>
+<str id="console.ask" txt="presione 1 para continuar, 2 para salir, 3 para volver a ver."/>
+<str id="port.template" txt="Número del puerto @@"/>
+<str id="multicast-port.template" txt="Puerto multicast @@"/>
+<str id="multicast-address.template" txt="Dirección multicast @@"/>
+<str id="validator.template" txt="Por favor ingrese un número de puerto para @@."/>
+<str id="multicast-address-validator.template" txt="Por favor ingrese un número de puerto para la dirección multicast @@"/>
+<str id="multicast-port-validator.template" txt="Por favor ingrese un número de puerto para el puerto multicast @@."/>
+<str id="verify-address-validator.template" txt="La dirección no cumple con los requerimientos de IPv4 / IPv6. Por favor verifique la dirección para @@."/>
+<str id="range-validator.template" txt="Número del puerto para @@ debe ser un entero dentro del rango 1-65535."/>
+<str id="port.collision.check.template" txt="Por favor especifique diferentes números de puerto para evitar colisiones."/>
+<str id="ConsoleInstaller.panel.fail" txt="La instalación de la consola falló para el panel."/>
+<str id="ConsoleInstaller.done" txt="Instalación de la consola completada"/>
+<str id="ConsoleInstaller.fail" txt="¡Instalación de la consola FALLIDA!"/>
+<str id="WebRepositoryAccessor.download.fail" txt="al tratar de descargar"/>
+<str id="WebRepositoryAccessor.write.fail" txt="al tratar de escribir el archivo temporal:"/>
+<str id="WebRepositoryAccessor.warn.parse" txt="ADVERTENCIA: no se puede analizar sintácticamente"/>
+<str id="AutomatedInstaller.file.missing" txt="No se encontró el archivo."/>
+<str id="AutomatedInstaller.xml.prompt" txt="Por favor especifique un archivo XML correcto."/>
+<str id="AutomatedInstaller.uninstaller.write" txt="Escribiendo los datos del desinstalador ..."/>
+<str id="AutomatedInstaller.installation.start" txt="Iniciando la instalación automática."/>
+<str id="AutomatedInstaller.installation.done" txt="Instalación automatizada completada"/>
+<str id="AutomatedInstaller.installation.fail" txt="¡Instalación automatizada FALLIDA!"/>
+<str id="AutomatedInstaller.user.skip" txt="El nombre de usuario proporcionado ya existe en los archivos de configuración instalados anteriormente. Saltando la creación del usuario."/>
+<str id="Unix_Shortcut.backup.fail" txt="No se puede crear el archivo de copia de seguridad"/>
+<str id="Unix_Shortcut.main.test" txt="Probar el programa principal"/>
+<str id="Unix_Shortcut.done" txt="LISTO."/>
+<str id="UnixHelper.wrote" txt="Escribió"/>
+<str id="UnixHelper.write.fail" txt="No pudo escribir"/>
+<str id="Log.record.messages" txt="Los siguientes canales de depuración registraron mensajes"/>
+<str id="Console.error" txt="Error en por lo menos uno de los siguientes"/>
+<str id="Console.exec.error" txt="Error durante la ejecución"/>
+<str id="Console.start.error" txt="Error durante la ejecución"/>
+<str id="FileSpanningInputStream.eof" txt="Fin del archivo."/>
+<str id="CompileWorker.parse.error" txt="Error al analizar sintácticamente la especificación XML para la compilación."/>
+<str id="Unpacker.file.unfound" txt="No se encontró el archivo"/>
+<str id="Unpacker.file.unfound2" txt="No pudo encontrar el archivo enlazado ligeramente:"/>
+<str id="Unpacker.install.cancel" txt="Instalación cancelada"/>
+<str id="Unpacker.install.corrupt" txt="Final inesperado del flujo (¿instalador corrupto?)"/>
+<str id="Installer.file.invalid" txt="Archivo inválido."/>
+<str id="Installer.xml.prompt" txt="Por favor especifique el archivo XML correcto."/>
+<str id="ValidatorContainer.fail" txt="Constructor ValidatorContainer falló"/>
+<str id="PasswordKeystoreValidator.validate.skip" txt="SkipValidation"/>
+<str id="PasswordKeystoreValidator.validate.no" txt="Almacén de llaves no validando"/>
+<str id="PasswordKeystoreValidator.keystore.null" txt="Parámetro keystorePassword nulo, usando la contraseña del validador para el almacén de llaves"/>
+<str id="PasswordKeystoreValidator.keystore.empty" txt="Parámetro keystorePassword vacío, usando la contraseña del validador para el almacén de llaves"/>
+<str id="PasswordKeystoreValidatorar.alias.null" txt="Parámetro aliasPassword nulo, usando la contraseña del validador para la llave"/>
+<str id="PasswordKeystoreValidatorar.alias.empty" txt="Parámetro aliasPassword vacío, usando la contraseña del validador para la llave"/>
+<str id="PasswordKeystoreValidator.keystore.nulld" txt="Parámetro keystoreType nulo, usando el valor predeterminado de JKS"/>
+<str id="PasswordKeystoreValidator.keystore.emptyd" txt="Parámetro keystoreType vacío, usando el valor predeterminado de JKS"/>
+<str id="PasswordKeystoreValidator.open.attempt" txt="Tratando de abrir el almacén de llaves:"/>
+<str id="PasswordKeystoreValidator.password.validated" txt="Contraseña del almacén de llaves validada"/>
+<str id="PasswordKeystoreValidator.keystore.alias" txt="Alias del almacén de llaves"/>
+<str id="PasswordKeystoreValidator.retrive.try" txt="tratando de recuperar"/>
+<str id="PasswordKeystoreValidator.validated" txt="validado"/>
+<str id="PasswordKeystoreValidator.validate.fail" txt="Validación del alias del almacén de llaves fallido"/>
+<str id="PasswordKeystoreValidator.not.found" txt="no se encontró"/>
+<str id="PasswordKeystoreValidator.keystore.unprovided" txt="No se proporcionó el parámetro KeystoreFile"/>
+<str id="PasswordKeystoreValidator.params.unprovided" txt="No se proporcionaron parámetros"/>
+<str id="PostInstallUser.user.add" txt="Se agregó usuario post-instalación."/>
+<str id="PostInstallUser.user.fail" txt="No pudo agregar el usuario post-instalación."/>
+<str id="RollBackInstaller.deleted" txt="Eliminado"/>
+<str id="RollBackInstaller.deleted.reason" txt="ya que no había una copia de seguridad disponible."/>
+<str id="BackupCreator.backup" txt="Realizando copia de seguridad"/>
+<str id="BackupCreator.to" txt="en"/>
+</langpack>

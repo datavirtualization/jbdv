@@ -1,0 +1,17 @@
+--- bin/standalone.conf.orig	2015-01-28 16:26:56.213219933 -0500
++++ bin/standalone.conf	2015-01-28 16:28:06.993123571 -0500
+@@ -47,7 +47,7 @@
+ # Specify options to pass to the Java VM.
+ #
+ if [ "x$JAVA_OPTS" = "x" ]; then
+-   JAVA_OPTS="-Xms1303m -Xmx1303m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true"
++   JAVA_OPTS="-Xms1302m -Xmx1302m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true"
+    JAVA_OPTS="$JAVA_OPTS -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS -Djava.awt.headless=true"
+    JAVA_OPTS="$JAVA_OPTS -Djboss.modules.policy-permissions=true"
+ else
+@@ -65,4 +65,4 @@
+ 
+ # Uncomment to gather JBoss Modules metrics
+ #JAVA_OPTS="$JAVA_OPTS -Djboss.modules.metrics=true"
+-
++${standalone.conf.patch.bits-1}

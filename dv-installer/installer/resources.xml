@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<!-- 
+      The resources section.
+      The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
+-->
+<xfragment>
+    <res id="conditions.xml" src="${izpack.config.dir.parsed}/conditions.xml"/>
+    <!-- common images for the background and language selection logo -->
+    <res id="Installer.background" src="${izpack.config.dir}/images/background.png"/>
+    <!-- installer specific splash / headline graphics -->
+    <res id="Installer.splash" src="${izpack.config.dir}/images/splash.png" duration="2000"/>
+    <res id="userInputSpec.xml" src="${izpack.config.dir.parsed}/userInputSpec.xml"/>
+    <res id="Heading.image" src="${izpack.config.dir}/images/heading.png"/>
+    <res id="ProcessPanel.Spec.xml" src="${izpack.config.dir.parsed}/ProcessPanel.Spec.xml"/>
+    <res id="HTMLLicencePanel.licence" src="${izpack.config.dir}/jboss_eula.html"/>
+
+<!-- xxxxxxxxx --> 
+<!-- Langpacks/Icons -->
+<!-- xxxxxxxxx --> 
+<!-- Note that we redirect CustomLangpack.xml and userInputLang.xml to eng.xml, which contains all strings -->
+
+<!-- English (reference) --> 
+    <res id="CustomLangpack.xml_eng" src="${izpack.config.dir.parsed}/langpacks/eng.xml"/>
+    <res src="${izpack.config.dir.parsed}/windows-shortcuts/en_default.xml"
+         id="shortcutSpec.xml"/>
+     <res src="${izpack.config.dir.parsed}/unix-shortcuts/en_default.xml"
+         id="Unix_shortcutSpec.xml"/>
+
+<!-- Chinese (Simplified) --> 
+    <res id="CustomLangpack.xml_chn" src="${izpack.config.dir.parsed}/langpacks/chn.xml"/>
+    <res src="${izpack.config.dir.parsed}/windows-shortcuts/zh-CN.xml"
+         id="shortcutSpec.xml_chn"/>
+    <res src="${izpack.config.dir.parsed}/unix-shortcuts/zh-CN.xml"
+         id="Unix_shortcutSpec.xml_chn"/>
+
+<!-- German --> 
+    <res id="CustomLangpack.xml_deu" src="${izpack.config.dir.parsed}/langpacks/deu.xml"/>
+    <res src="${izpack.config.dir.parsed}/windows-shortcuts/de.xml"
+         id="shortcutSpec.xml_deu"/>
+    <res src="${izpack.config.dir.parsed}/unix-shortcuts/de.xml"
+         id="Unix_shortcutSpec.xml_deu"/>
+
+<!-- French --> 
+    <res id="CustomLangpack.xml_fra" src="${izpack.config.dir.parsed}/langpacks/fra.xml"/>
+    <res src="${izpack.config.dir.parsed}/windows-shortcuts/fr.xml"
+         id="shortcutSpec.xml_fra"/>
+    <res src="${izpack.config.dir.parsed}/unix-shortcuts/fr.xml"
+         id="Unix_shortcutSpec.xml_fra"/>
+
+<!-- Japanese --> 
+    <res id="CustomLangpack.xml_jpn" src="${izpack.config.dir.parsed}/langpacks/jpn.xml"/>
+    <res src="${izpack.config.dir.parsed}/windows-shortcuts/ja.xml"
+         id="shortcutSpec.xml_jpn"/>
+    <res src="${izpack.config.dir.parsed}/unix-shortcuts/ja.xml"
+         id="Unix_shortcutSpec.xml_jpn"/>
+
+<!-- Portugese (Brazillian) --> 
+    <res id="CustomLangpack.xml_por" src="${izpack.config.dir.parsed}/langpacks/por.xml"/>
+    <res src="${izpack.config.dir.parsed}/windows-shortcuts/pt-BR.xml"
+         id="shortcutSpec.xml_por"/>
+    <res src="${izpack.config.dir.parsed}/unix-shortcuts/pt-BR.xml"
+         id="Unix_shortcutSpec.xml_por"/>
+
+<!-- Spanish --> 
+    <res id="CustomLangpack.xml_spa" src="${izpack.config.dir.parsed}/langpacks/spa.xml"/>
+    <res src="${izpack.config.dir.parsed}/windows-shortcuts/es.xml"
+         id="shortcutSpec.xml_spa"/>
+    <res src="${izpack.config.dir.parsed}/unix-shortcuts/es.xml"
+         id="Unix_shortcutSpec.xml_spa"/>
+
+</xfragment>

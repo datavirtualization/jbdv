@@ -1,0 +1,11 @@
+--- standalone/configuration/standalone-full.xml.orig	2014-08-07 15:26:33.743611390 -0400
++++ standalone/configuration/standalone-full.xml	2014-08-07 15:26:54.093304589 -0400
+@@ -424,7 +424,7 @@
+         <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
+         <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9443}"/>
+         <socket-binding name="ajp" port="8009"/>
+-        <socket-binding name="http" port="8080"/>
++        <socket-binding name="http" port="${override.http.port}"/>
+         <socket-binding name="https" port="8443"/>
+         <socket-binding name="jacorb" interface="unsecure" port="3528"/>
+         <socket-binding name="jacorb-ssl" interface="unsecure" port="3529"/>

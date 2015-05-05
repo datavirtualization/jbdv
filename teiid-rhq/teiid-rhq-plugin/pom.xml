@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>org.jboss.teiid.rhq</groupId>
+		<artifactId>teiid-rhq-parent</artifactId>
+		<version>2.1.0</version>
+		<relativePath>../teiid-rhq-parent/pom.xml</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>teiid-rhq-plugin</artifactId>
+	<name>Teiid RHQ Plugin</name>
+	<description>This project is for the RHQ plugin that supports the TEIID Console </description>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.rhq</groupId>
+			<artifactId>rhq-core-domain</artifactId>
+			<scope>provided</scope>
+			<!-- provided by the agent/plugin-container -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.rhq</groupId>
+			<artifactId>rhq-core-plugin-api</artifactId>
+			<scope>provided</scope> <!-- provided by the agent/plugin-container -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.rhq</groupId>
+			<artifactId>rhq-core-native-system</artifactId>
+			<scope>provided</scope> <!-- provided by the agent/plugin-container -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.rhq</groupId>
+			<artifactId>rhq-jmx-plugin</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.rhq</groupId>
+			<artifactId>rhq-core-util</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.rhq</groupId>
+			<artifactId>rhq-jboss-as-7-plugin</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>jboss.jboss-embeddable-ejb3</groupId>
+			<artifactId>hibernate-all</artifactId>
+		</dependency>
+
+		<!-- Testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<outputDirectory>target/classes</outputDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+
+
+</project>

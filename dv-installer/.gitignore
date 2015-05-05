@@ -1,0 +1,15 @@
+target
+jboss-eap-*.zip
+apache-maven.zip
+output
+standalone-compiler.jar
+zip
+izpack
+*.swp
+*.class
+*-dist/
+.classpath
+.project
+parsed/
+dependency-reduced-pom.xml
+zips/

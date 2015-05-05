@@ -1,0 +1,30 @@
+{
+    "name" : "Federated repository",
+    "workspaces" : {
+        "predefined" : ["ws1", "ws2"],
+        "default" : "default",
+        "allowCreation" : true
+    },
+    "query" : {
+        "enabled" : true,
+        "indexStorage" : {
+            "type" : "ram"
+        }
+    },
+    "externalSources" : {
+        "mock-source" : {
+            "classname" : "org.modeshape.connector.mock.MockConnector",
+            "cacheTtlSeconds" : 1
+        },
+        "mock-source-non-queryable" : {
+            "classname" : "org.modeshape.connector.mock.MockConnector",
+            "cacheTtlSeconds" : 1,
+            "queryable" : false
+        },
+        "mock-source-readonly" : {
+            "classname" : "org.modeshape.connector.mock.MockConnector",
+            "cacheTtlSeconds" : 1,
+            "readonly" : true
+        }
+    }
+}

@@ -1,0 +1,22 @@
+#!/bin/sh
+
+if [ "$#" -lt 1 ]
+then
+    echo "Usage: ./run (eap|fsw|dv|bpms|brms) [-console|autoinstall file]";
+    exit 1
+fi
+
+installer=$(ls -t target/*.jar | grep $1-installer | head -1)
+
+if [ -z $installer ]
+then
+    echo "No $1 installer found in target."
+    exit 1
+fi
+
+echo "[ Killing existing servers. ]"
+./stopJboss.sh
+
+echo "[ Running latest $1 installer jar ]"
+java -jar $installer $2;
+

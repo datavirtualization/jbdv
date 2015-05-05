@@ -1,0 +1,3 @@
+/profile=default/subsystem=web/virtual-server=default-host:write-attribute(name=enable-welcome-root,value=false)
+/profile=ha/subsystem=web/virtual-server=default-host:write-attribute(name=enable-welcome-root,value=false)
+/profile=full-ha/subsystem=web/virtual-server=default-host:write-attribute(name=enable-welcome-root,value=false)

@@ -1,0 +1,21 @@
+{
+    "name" : "Test Repository",
+    "transactionMode" : "none",
+    "workspaces" : {
+        "predefined" : ["otherWorkspace"],
+        "default" : "default",
+        "allowCreation" : true
+    },
+    "security" : {
+        "anonymous" : {
+            "roles" : ["readonly","readwrite","admin"],
+            "useOnFailedLogin" : false
+        },
+        "providers" : [
+            {
+                "classname" : "JAAS",
+                "policyName" : "modeshape-jcr"
+            }
+        ]
+    }
+}

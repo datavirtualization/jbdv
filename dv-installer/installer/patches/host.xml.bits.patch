@@ -1,0 +1,11 @@
+--- domain/configuration/host.xml.orig	2014-08-01 15:03:09.406783971 -0400
++++ domain/configuration/host.xml	2014-08-01 14:59:23.116168077 -0400
+@@ -77,7 +77,7 @@
+           <heap size="64m" max-size="256m"/>
+           <permgen size="256m" max-size="256m"/>
+             <jvm-options>
+-                <option value="-server"/>
++                <option value="-server"/>${host.option.bits.value}
+             </jvm-options>
+        </jvm>
+  	</jvms>

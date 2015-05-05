@@ -1,0 +1,800 @@
+<langpack>
+<str id="usermsg.overwrite" txt="覆盖"/>
+<str id="usermsg.skip" txt="跳过"/>
+<str id="usermsg.cancel" txt="取消"/>
+<str id="BrowseDialog.closeButton" txt="取消"/>
+<str id="installer.cancel" txt="取消"/>
+<str id="usermsg.continue" txt="继续"/>
+<str id="add.user.text" txt="创建管理性用户"/>
+<str id="add.user.choice.yes" txt="创建新的管理性用户"/>
+<str id="add.user.choice.no" txt="跳过创建新的管理性用户"/>
+<str id="JBossJDBCDriverSetupPanel.info" txt="JBoss EAP 6 支持大量的 JDBC 驱动，它们将应用程序代码转换为相关的数据库语言。没找到你的驱动供应商？请点击这里。"/>
+<str id="JBossJDBCDriverSetupPanel.dropdown.label" txt="驱动供应商："/>
+<str id="JBossJDBCDriverSetupPanel.dropdown.label.tooltip" txt="选择驱动供应商。"/>
+<str id="JBossJDBCDriverSetupPanel.jdbcname.label" txt="JDBC 名称："/>
+<str id="JBossJDBCDriverSetupPanel.jdbcname.tooltip" txt="这个驱动将被赋予的名称。"/>
+<str id="JBossJDBCDriverSetupPanel.modulename.label" txt="模块名称："/>
+<str id="JBossJDBCDriverSetupPanel.modulename.tooltip" txt="这个驱动将使用的生成的模块。"/>
+<str id="JBossJDBCDriverSetupPanel.choice.yes" txt="安装 JDBC 驱动"/>
+<str id="JBossJDBCDatasourceSetupPanel.choice.yes" txt="安装数据源"/>
+<str id="JBossJDBCDriverSetupPanel.xaclassname.label" txt="XA 类名："/>
+<str id="JBossJDBCDriverSetupPanel.xaclassname.tooltip" txt="这个驱动的 XA 类名。"/>
+<str id="JBossJDBCDriverSetupPanel.dirstruct.label" txt="目录结构："/>
+<str id="JBossJDBCDriverSetupPanel.dirstruct.tooltip" txt="JAR 和生成的 module.xml 所在的目录。"/>
+<str id="JBossJDBCDriverSetupPanel.nodefault" txt="没有默认值。"/>
+<str id="JBossJDBCDriverSetupPanel.summaryCaption" txt="JDBC 驱动细节"/>
+<str id="JBossJDBCDriverSetupPanel.headline" txt="JDBC 驱动设置"/>
+<str id="JBossJDBCDriverSetupPanel.dropdown.text" txt="要配置的服务器配置集"/>
+<str id="config.dropdown.text" txt="要配置的服务器配置集"/>
+<str id="JBossJDBCDriverSetupPanel.config.dropdown.1" txt="独立模式"/>
+<str id="application-platform.standalone" txt="独立模式"/>
+<str id="JBossJDBCDriverSetupPanel.config.dropdown.2" txt="域"/>
+<str id="application-platform.domain" txt="域"/>
+<str id="JBossJDBCDriverSetupPanel.jars.label" txt="驱动 JAR 的位置："/>
+<str id="JBossJDBCDriverSetupPanel.jars.tooltip" txt="包含这个驱动的 JAR 的位置。它可以是远程文件或本地文件。"/>
+<str id="JBossJDBCDriverSetupPanel.jars.col1.label" txt="路径："/>
+<str id="JBossJDBCDriverSetupPanel.jars.addone" txt="添加 JAR"/>
+<str id="JBossJDBCDriverSetupPanel.jars.removeone" txt="删除 JAR"/>
+<str id="JBossJDBCDriverSetupPanel.path.error" txt="这个文件 %s 不存在或不是目录。请复核这个路径。"/>
+<str id="JBossJDBCDriverSetupPanel.path.remote.error" txt="访问 %s 里的文件出错。请复核这个 URL。"/>
+<str id="JBossJDBCDriverSetupPanel.path.remote.nosupport" txt="%s 里的协议是不被支持的。请复核这个 URL。"/>
+<str id="JBossJDBCDriverSetupPanel.path.notzip" txt="这个文件 %s 不是一个 JAR。请复核这个路径。"/>
+<str id="JBossJDBCDriverSetupPanel.path.emptyzip" txt="JAR 文件 %s 没有包含任何条目。请复核这个路径。"/>
+<str id="JBossJDBCDriverSetupPanel.path.nodriver" txt="所提供的 JAR 都没有包含所选的驱动的驱动类 %s。你要继续吗？"/>
+<str id="JBossJDBCDriverSetupPanel.path.changedriver" txt="你要重新选择驱动供应商吗？"/>
+<str id="JBossJDBCDriverSetupPanel.path.nopaths" txt="JDBC 驱动至少要求一个 JAR 文件。"/>
+<str id="JBossJDBCDriverSetupPanel.profile.prompt" txt="配置集提示"/>
+<str id="JBossDatasourceConfigPanel.info" txt="为下面的 JBoss EAP 6 配置数据源。"/>
+<str id="JBossDatasourceConfigPanel.question" txt="你要为这个数据源使用安全域吗？"/>
+<str id="JBossDatasourceConfigPanel.console.summary" txt="数据源细节概要"/>
+<str id="JBossDatasourceConfigPanel.errorname" txt="数据源名称不能为空。"/>
+<str id="JBossDatasourceConfigPanel.errorjndi" txt="JNDI 名称必须以 java:/ 或 java:jboss/ 开始。"/>
+<str id="JBossDatasourceConfigPanel.errornan" txt="min pool、max pool 和 port number 字段必须是数字的且处于有效的范围之内。"/>
+<str id="JBossDatasourceConfigPanel.errorsecurity" txt="你必须提供安全域或用户名/密码的其中一个。"/>
+<str id="JBossDatasourceConfigPanel.warning.xaProperty" txt="你必须提供安全域或用户名/密码的其中一个。"/>
+<str id="JBossDatasourceConfigPanel.name" txt="名称："/>
+<str id="JBossDatasourceConfigPanel.xa.properties.col1.label" txt="名称："/>
+<str id="JBossDatasourceConfigPanel.name.tooltip" txt="这个数据源的名称。"/>
+<str id="JBossDatasourceConfigPanel.jndi.name" txt="JNDI 名称："/>
+<str id="infinispan.jndiname.text" txt="JNDI 名称："/>
+<str id="JBossDatasourceConfigPanel.jndi.name.tooltip" txt="数据源的唯一 JNDI 名称，它必须以 &quot;java:/&quot; 或 &quot;java:jboss/&quot; 开始。"/>
+<str id="JBossDatasourceConfigPanel.security.domain" txt="安全域"/>
+<str id="JBossDatasourceConfigPanel.security.domain.tooltip" txt="用于验证的安全域的名称。"/>
+<str id="JBossDatasourceConfigPanel.username" txt="用户名"/>
+<str id="adminUser" txt="用户名"/>
+<str id="JBossDatasourceConfigPanel.username.tooltip" txt="用于创建新连接的用户名。"/>
+<str id="JBossDatasourceConfigPanel.password" txt="密码"/>
+<str id="JBossDatasourceConfigPanel.password.tooltip" txt="用于创建新连接的密码。"/>
+<str id="JBossDatasourceConfigPanel.xads.name" txt="XA 数据源类："/>
+<str id="JBossDatasourceConfigPanel.xads.name.tooltip" txt="javax.sql.XADataSource 的实现类的全限定名称。"/>
+<str id="JBossDatasourceConfigPanel.pool.min" txt="池的最小容量："/>
+<str id="JBossDatasourceConfigPanel.pool.min.tooltip" txt="池里可以保留的连接的最小数量。"/>
+<str id="JBossDatasourceConfigPanel.pool.max" txt="池的最大容量："/>
+<str id="JBossDatasourceConfigPanel.pool.max.tooltip" txt="池里可以保留的连接的最大数量。"/>
+<str id="JBossDatasourceConfigPanel.ds.type" txt="数据源类型："/>
+<str id="JBossDatasourceConfigPanel.ds.type.tooltip" txt="指定数据源类型是 XA 或 Non-XA。"/>
+<str id="JBossDatasourceConfigPanel.url" txt="连接 URL："/>
+<str id="JBossDatasourceConfigPanel.url.tooltip" txt="JDBC 驱动连接 URL。"/>
+<str id="JBossDatasourceConfigPanel.xa.servername" txt="服务器名称："/>
+<str id="JBossDatasourceConfigPanel.xa.port" txt="端口号："/>
+<str id="JBossDatasourceConfigPanel.xa.databasename" txt="数据库名称："/>
+<str id="JBossDatasourceConfigPanel.xa.recoveryuser" txt="恢复用户名："/>
+<str id="JBossDatasourceConfigPanel.xa.recoverypass" txt="恢复密码："/>
+<str id="JBossDatasourceConfigPanel.xa.cursor" txt="选择方法："/>
+<str id="JBossDatasourceConfigPanel.xa.protocol" txt="网络协议："/>
+<str id="JBossDatasourceConfigPanel.xa.oracleurl" txt="Oracle URL:"/>
+<str id="JBossDatasourceConfigPanel.summaryCaption" txt="数据源细节"/>
+<str id="JBossDatasourceConfigPanel.headline" txt="数据源设置"/>
+<str id="JBossDatasourceConfigPanel.securitytype" txt="安全类型："/>
+<str id="JBossDatasourceConfigPanel.securitytype.tooltip" txt="选择是否使用安全域还是用户名+密码。"/>
+<str id="JBossDatasourceConfigPanel.mingtmax" txt="min pool 的值不能比 max pool 的值大。"/>
+<str id="JBossDatasourceConfigPanel.run.automated" txt="自动运行"/>
+<str id="JBossDatasourceConfigPanel.pass.prompt" txt="请输入密码。"/>
+<str id="JBossDatasourceConfigPanel.xa.properties.label" txt="XA 属性："/>
+<str id="JBossDatasourceConfigPanel.xa.properties.label.console" txt="其他的 XA 属性：格式是 name=value。"/>
+<str id="JBossDatasourceConfigPanel.xa.properties.col2.label" txt="值："/>
+<str id="JBossDatasourceConfigPanel.xa.properties.addone" txt="添加属性"/>
+<str id="JBossDatasourceConfigPanel.xa.properties.removeone" txt="删除属性"/>
+<str id="JBossDatasourceConfigPanel.xa.error.duplicateProperty" txt="属性已经被多次定义，请修改这个属性的名称。"/>
+<str id="JBossDatasourceConfigPanel.xa.error.invalidChars" txt="属性名称或值不能包含下列字符：‘, {} []’，值也不能包含 ‘=’。"/>
+<str id="JBossDatasourceConfigPanel.xa.error.wrongFormat" txt="其他的 XA 属性的格式必须是 name=value。"/>
+<str id="JBossDatasourceConfigPanel.xa.properties.tooltip" txt="其他的 XA 属性。非可编辑的字段取决于驱动供应商。"/>
+<str id="MavenRepoCheckPanel.settings.error" txt="指定的 settings.xml 不存在，要在这个位置创建 settings.xml 示例吗？"/>
+<str id="MavenRepoCheckPanel.info" txt="通过定义 settings.xml 文件的位置来指定 maven-repository。资料库的位置可以是本地或远程的（http）。指定的 settings.xml 将具有新的配置集 jboss-eap6。这允许 quickstarts 根据与建 JBoss EAP 6 相同的 artifact 来构建。这个配置选项对于开发人员很有用，但在产品设置里可以跳过。"/>
+<str id="MavenRepoCheckPanel.option1" txt="指定现有的包含红帽 artifacts 的本地 Maven 库的路径（或 URL），以及有效的 settings.xml。"/>
+<str id="MavenRepoCheckPanel.option2" txt="跳过 maven-repository 设置"/>
+<str id="MavenRepoCheckPanel.prompt" txt="指定 maven 库的位置："/>
+<str id="MavenRepoCheckPanel.warning" txt="Quickstarts 的允许需要带有红帽 artifacts 的有效 maven 库。你要继续安装吗？"/>
+<str id="MavenRepoCheckPanel.path.error" txt="选择的路径不存在或不是一个目录。"/>
+<str id="MavenRepoCheckPanel.settingsInfo" txt="指定 maven settings.xml 的位置："/>
+<str id="MavenRepoCheckPanel.console.prompt" txt="请选择 [1]"/>
+<str id="MavenRepoCheckPanel.headline" txt="Maven Repository 的设置"/>
+<str id="MavenRepoCheckPanel.summaryCaption" txt="Maven Repository 的设置"/>
+<str id="MavenRepoCheckPanel.xslt.default.success" txt="创建的默认 settings xml -&gt; "/>
+<str id="MavenRepoCheckPanel.xslt.default.failure" txt="创建默认 settings xml 失败。"/>
+<str id="MavenRepoCheckPanel.xslt.profile.success" txt="创建了 ID 为 'jboss6' 的配置集"/>
+<str id="MavenRepoCheckPanel.xslt.profile.failure" txt="已经定义了 ID 为 'jboss6' 的配置集，无需采取行动。"/>
+<str id="MavenRepoCheckPanel.location" txt="Repository 的位置："/>
+<str id="MavenRepoCheckPanel.settings.location" txt="settings.xml 的位置："/>
+<str id="JDKCheckPanel.intro" txt="要使用全部的 JBoss EAP 6 的功能，需要 JDK 1.6 或更高版本。"/>
+<str id="JDKCheckPanel.required" txt="你输入的目录不存在。"/>
+<str id="JDKCheckPanel.notools" txt="提供的目录里没有包含有效的 JDK。如没有 JDK，EAP 6 的一些功能将不可用。要继续吗？"/>
+<str id="JDKCheckPanel.headline" txt="检查 JDK"/>
+<str id="JDKCheckPanel.get.title" txt="点击 @here@ 来获取 JDK。"/>
+<str id="JDKPathPanel.info" txt="选择 JDK 路径："/>
+<str id="JDKPathPanel.path.invalid" txt="不是有效的路径。"/>
+<str id="JDKPathPanel.badVersion1" txt="所选择的 JDK 是错误的版本（可用："/>
+<str id="JDKPathPanel.badVersion2" txt="要求："/>
+<str id="JDKPathPanel.badVersion3" txt="无论如何这个 JDK 都应该被使用吗？"/>
+<str id="JDKPathPanel.summaryCaption" txt="JDK 路径"/>
+<str id="JDKPathPanel.path.1" txt="路径"/>
+<str id="JDKPathPanel.path.2" txt="是无效的。"/>
+<str id="JDKPathPanel.continue.anyway" txt="无论如何要继续吗？[y/n]"/>
+<str id="BrowseDialog.openButtonTT" txt="打开所选的文件。"/>
+<str id="BrowseDialog.cancelButtonTT" txt="中止文件选择对话框。"/>
+<str id="BrowseDialog.title" txt="打开"/>
+<str id="BrowseDialog.openButton" txt="确定"/>
+<str id="BrowseDialog.newButton" txt="新的文件夹"/>
+<str id="BrowseDialog.selectionText" txt="选择："/>
+<str id="BrowseDialog.homeButton" txt="主目录"/>
+<str id="BrowseDialog.upButton" txt="上一级目录"/>
+<str id="BrowseDialog.listButton" txt="列表"/>
+<str id="BrowseDialog.detailsButton" txt="细节"/>
+<str id="FieldNotEqualValidator.errorMsg" txt="用户名和密码不能相同。"/>
+<str id="DuplicateUsername.errorMsg" txt="无法覆盖现有的 %s 用户 %s"/>
+<str id="DuplicateUsername.warningMsg" txt="目录 %s 已经存在。你确定要覆盖它吗？"/>
+<str id="DuplicateUsername.console.options" txt="按 1 覆盖、2 跳过、3 修改。"/>
+<str id="DuplicateUsername.warning.title" txt="用户已经存在。"/>
+<str id="installer.title" txt=" "/>
+<str id="installer.next" txt="下一步"/>
+<str id="installer.prev" txt="上一步"/>
+<str id="installer.quit" txt="退出"/>
+<str id="installer.madewith" txt="红帽 JBoss 中间件"/>
+<str id="installer.quit.title" txt="$APP_NAME $APP_VER"/>
+<str id="installer.quit.message" txt="你确定要退出吗？这将取消安装！"/>
+<str id="installer.warning" txt="警告"/>
+<str id="installer.yes" txt="是"/>
+<str id="LicencePanel.yes" txt="是"/>
+<str id="ldap.recursive.2" txt="是"/>
+<str id="jdbc.driver.choice.yes" txt="是"/>
+<str id="quickstarts.choice.yes" txt="是"/>
+<str id="server.launch.choice.yes" txt="是"/>
+<str id="installer.no" txt="否"/>
+<str id="LicencePanel.no" txt="否"/>
+<str id="ldap.recursive.1" txt="否"/>
+<str id="jdbc.driver.choice.no" txt="否"/>
+<str id="quickstarts.choice.no" txt="否"/>
+<str id="server.launch.choice.no" txt="否"/>
+<str id="installer.error" txt="错误"/>
+<str id="UserInputPanel.error.caption" txt="错误"/>
+<str id="installer.Message" txt="消息"/>
+<str id="uninstaller.warning" txt="这将删除已安装的应用程序。"/>
+<str id="LicencePanel.info" txt="请仔细阅读下面的许可证协议："/>
+<str id="LicencePanel.agree" txt="我接受这个许可证协议的条款。"/>
+<str id="LicencePanel.notagree" txt="我不接受这个许可证协议的条款。"/>
+<str id="HTMLLicence.Error" txt="错误：无法为定义的资源加载许可证文本。"/>
+<str id="HTMLLicence.continue" txt="按 Enter 继续，X 退出。"/>
+<str id="InfoPanel.info" txt="请阅读下面的信息："/>
+<str id="PathInputPanel.required" txt="${platform.name} 要求 EAP 版本。请指定它的位置。"/>
+<str id="PathInputPanel.required.forModificationInstallation" txt="${platform.name} 要求 EAP 版本。请指定它的位置。"/>
+<str id="TargetPanel.info" txt="选择安装路径："/>
+<str id="TargetPanel.browse" txt="浏览"/>
+<str id="UserInputPanel.search.browse" txt="浏览"/>
+<str id="TargetPanel.warn" txt="这个目录已经存在。你确定要继续吗？"/>
+<str id="TargetPanel.empty_target" txt="你没有指定目标位置。这是正确的吗？"/>
+<str id="TargetPanel.createdir" txt="全新的红帽企业级 JBoss EAP 将安装在这里："/>
+<str id="TargetPanel.nodir" txt="这个文件不是目录。请选择一个目录。"/>
+<str id="TargetPanel.notwritable" txt="这个目录不可以写入。请选择其他目录。"/>
+<str id="TargetPanel.summaryCaption" txt="安装路径"/>
+<str id="install.quickstarts.path" txt="安装路径"/>
+<str id="TargetPanel.default.dir" txt="在变量里找到默认的安装目录"/>
+<str id="PacksPanel.info" txt="选择你想安装的软件包："/>
+<str id="PacksPanel.tip" txt="注意：灰色标注的软件包是必需的，或者是在之前的面板里已经进行了配置。"/>
+<str id="PacksPanel.space" txt="总共需要的空间："/>
+<str id="PacksPanel.freespace" txt="可用空间："/>
+<str id="PacksPanel.description" txt="描述"/>
+<str id="PacksPanel.dependencyList" txt="所选择的软件包有下面的依赖关系。"/>
+<str id="PacksPanel.notEnoughSpace" txt="安装所要求的磁盘空间超过了可用的磁盘空间。"/>
+<str id="PacksPanel.notAscertainable" txt="不可查明的"/>
+<str id="PacksPanel.excludes" txt="不包括："/>
+<str id="PacksPanel.dependencies" txt="附庸: "/>
+<str id="PacksPanel.summaryCaption" txt="所选择的安装包"/>
+<str id="TreePacksPanel.summaryCaption" txt="所选择的安装包"/>
+<str id="PacksPanel.pack.modify" txt="修改软件包的选择"/>
+<str id="PacksPanel.pack.read" txt="从 XML 定义里读取软件包列表"/>
+<str id="PacksPanel.try" txt="试图"/>
+<str id="PacksPanel.add" txt="添加至"/>
+<str id="PacksPanel.remove" txt="删除"/>
+<str id="PacksPanel.selection" txt="选择"/>
+<str id="PacksPanel.pack" txt="打包"/>
+<str id="TreePacksPanel.headline" txt="显示树型软件包以供选择"/>
+<str id="TreePacksPanel.no.packs" txt="你还没有选择任何软件包。"/>
+<str id="TreePacksPanel.continue.question" txt="你真的要继续吗？"/>
+<str id="TreePacksPanel.already.selected" txt="[已经选择]"/>
+<str id="TreePacksPanel.not.selected" txt="[没有选择]"/>
+<str id="TreePacksPanel.required" txt="[必需的]"/>
+<str id="TreePacksPanel.unselectable" txt="[不可选择的]"/>
+<str id="TreePacksPanel.confirm" txt="按 0 来确认你的选择"/>
+<str id="TreePacksPanel.number" txt="请输入一个数字"/>
+<str id="TreePacksPanel.prompt" txt="选择你想安装的软件包"/>
+<str id="TreePacksPanel.invalid" txt="无效的选项"/>
+<str id="TreePacksPanel.done" txt="软件包选择完成"/>
+<str id="InstallPanel.info" txt="点击&quot;Install&quot; 来开始安装过程。"/>
+<str id="InstallPanel.install" txt="安装"/>
+<str id="InstallPanel.tip" txt="组件安装进度："/>
+<str id="InstallPanel.finished" txt="[完成]"/>
+<str id="InstallPanel.progress" txt="总体安装进度："/>
+<str id="InstallPanel.overwrite.title" txt="文件已经存在。"/>
+<str id="InstallPanel.overwrite.question" txt="下们的文件已经存在。要覆盖它吗？"/>
+<str id="InstallPanel.unpack.finish" txt="解压已完成。"/>
+<str id="InstallPanel.unpack.start" txt="开始解压"/>
+<str id="InstallPanel.pack.process" txt="处理软件包"/>
+<str id="java.mismatch.error" txt="你试图安装的应用程序要求 @@ 或更高版本的 Java。你运行的是 @@ 版本的 Java。请先升级到更新的版本。"/>
+<str id="FinishPanel.success" txt="已经全部安装成功。"/>
+<str id="FinishPanel.done" txt="完成"/>
+<str id="FinishPanel.fail" txt="安装已经失败。"/>
+<str id="FinishPanel.uninst.info" txt="uninstaller 程序已经被创建在："/>
+<str id="FinishPanel.auto" txt="生成自动的安装脚本。"/>
+<str id="FinishPanel.auto.tip" txt="使用这个脚本来在其他机器上重复这个安装。"/>
+<str id="FinishPanel.autoxml.info" txt="选择生成安装脚本的路径："/>
+<str id="FinishPanel.install" txt="安装的应用程序"/>
+<str id="FinishPanel.automatic.install" txt="你要生成一个自动安装脚本吗？"/>
+<str id="FinishPanel.automatic.warning" txt="[警告] : 密码将以明文存储。"/>
+<str id="FinishPanel.directory" txt="路径是一个目录，没有指定文件。"/>
+<str id="FinishPanel.file.already.exists" txt="文件已经存在，你要覆盖它吗？"/>
+<str id="FinishPanel.file.cannot.write" txt="无法写入到路径，请选择其他的位置。"/>
+<str id="FinishPanel.xml.success" txt="写入 XML 成功"/>
+<str id="FinishPanel.xml.no.success" txt="写入 XML 不成功。"/>
+<str id="ShortcutPanel.headline" txt="设置快捷方式 "/>
+<str id="ShortcutPanel.regular.StartMenu:Start-Menu" txt="开始－菜单"/>
+<str id="ShortcutPanel.regular.StartMenu:K-Menu" txt="XDG 菜单"/>
+<str id="ShortcutPanel.regular.userIntro" txt="创建快捷键："/>
+<str id="ShortcutPanel.regular.create" txt="在开始菜单里创建快捷键"/>
+<str id="ShortcutPanel.regular.currentUser" txt="当前用户"/>
+<str id="ShortcutPanel.regular.allUsers" txt="所有用户"/>
+<str id="ShortcutPanel.regular.list" txt="为快捷键选择 Program Group："/>
+<str id="ShortcutPanel.regular.default" txt="缺省配置"/>
+<str id="ShortcutPanel.shortcut.fail" txt="无法创建快捷键实例"/>
+<str id="ShortcutPanel.spec.fail" txt="无法读取快捷键规格"/>
+<str id="ShortcutPanel.done" txt="完成"/>
+<str id="ShortcutPanel.shortcut.create" txt="创建快捷键"/>
+<str id="ShortcutPanel.shortcut.add" txt="在卸载程序里添加快捷键"/>
+<str id="ProcessPanel.heading" txt="处理中"/>
+<str id="ProcessPanel.start.process" txt="开始处理"/>
+<str id="ProcessPanel.start.processing" txt="开始处理"/>
+<str id="ProcessPanel.finish.processing" txt="处理完成"/>
+<str id="SummaryPanel.info" txt="JBoss EAP 6 可以开始安装了。重要的数据如下所示。按 &quot;下一步&quot; 来开始安装。"/>
+<str id="UserInputPanel.failed" txt="检验失败，请验证你的输入。"/>
+<str id="UserInputPanel.validation.error" txt="检验错误。"/>
+<str id="UserInputPanel.console.error" txt="检验错误。"/>
+<str id="UserInputPanel.console.error" txt="错误：未找到控制台。"/>
+<str id="UserInputPanel.input.selection" txt="输入选择"/>
+<str id="UserInputPanel.choice" txt="输入 1 进行选择，0 取消选择："/>
+<str id="UserInputPanel.collection.missing" txt="字段收集未实施"/>
+<str id="UserInputPanel.spec.pass" txt="没有为类型密码指定规格"/>
+<str id="UserInputPanel.pass.pass" txt="在类型密码的规格里没有指定密码"/>
+<str id="UserInputPanel.spec.check" txt="没有为类型检查指定规格"/>
+<str id="UserInputPanel.summaryCaption.0" txt="管理性用户"/>
+<str id="UserInputPanel.summaryCaption.1" txt="Quickstarts"/>
+<str id="quickstarts.title" txt="Quickstarts"/>
+<str id="application-platform.quickstarts" txt="Quickstarts"/>
+<str id="UserInputPanel.summaryCaption.2" txt="RT-Gov 配置"/>
+<str id="UserInputPanel.summaryCaption.3" txt="端口配置"/>
+<str id="UserInputPanel.summaryCaption.12" txt="服务器启动"/>
+<str id="UserInputPanel.summaryCaption.13" txt="日志"/>
+<str id="UserInputPanel.summaryCaption.14" txt="Post-Install 配置"/>
+<str id="UserInputPanel.summaryCaption.15" txt="密码库"/>
+<str id="UserInputPanel.summaryCaption.16" txt="SSL"/>
+<str id="UserInputPanel.summaryCaption.17" txt="LDAP"/>
+<str id="UserInputPanel.summaryCaption.18" txt="安全区"/>
+<str id="UserInputPanel.summaryCaption.19" txt="Infinispan"/>
+<str id="UserInputPanel.summaryCaption.20" txt="安全域"/>
+<str id="UserInputPanel.summaryCaption.21" txt="JSSE"/>
+<str id="installQuickStarts" txt="所选的安装"/>
+<str id="portDecision" txt="自定义端口"/>
+<str id="configureStandalone" txt="对于 standalone.xml"/>
+<str id="configureDomain" txt="对于 domain.xml"/>
+<str id="portOffsetType" txt="偏移量"/>
+<str id="serverStartup" txt="所选的服务器"/>
+<str id="browserStartup" txt="浏览器启动"/>
+<str id="configureLog" txt="日志配置"/>
+<str id="root-log-level" txt="根日志级别"/>
+<str id="console-log-level" txt="控制台日志级别"/>
+<str id="postinstall.profile" txt="Post-installation 的目标配置集"/>
+<str id="installVault" txt="库配置"/>
+<str id="vault.salt" txt="Salt"/>
+<str id="vault.itercount" txt="迭代计数"/>
+<str id="vault.itercount.text" txt="迭代计数"/>
+<str id="vault.encrdir" txt="加密的文件目录"/>
+<str id="vault.keystoreloc" txt="密钥库的位置"/>
+<str id="ssl.path" txt="密钥库的位置"/>
+<str id="vault.alias" txt="库别名"/>
+<str id="installSsl" txt="SSL 配置"/>
+<str id="installLdap" txt="所选的 LDAP 配置"/>
+<str id="ldap.name" txt="连接名称"/>
+<str id="ldap.url" txt="目录服务器"/>
+<str id="ldap.dn" txt="标识名"/>
+<str id="ldap.realmname" txt="安全域名称"/>
+<str id="ldap.basedn" txt="基础 DN"/>
+<str id="ldap.recursive" txt="启用了递归目录搜索"/>
+<str id="ldap.filtertype.text" txt="过滤器类型："/>
+<str id="ldap.filtertype" txt="过滤器类型"/>
+<str id="ldap.filter" txt="过滤器"/>
+<str id="ldap.filtertype.attribute" txt="Username 属性"/>
+<str id="ldap.filtertype.advanced" txt="LDAP 语法查询"/>
+<str id="installSecurityDomain" txt="安装安全域"/>
+<str id="securitydomain.name" txt="安全域名称"/>
+<str id="securitydomain.cachetype" txt="安全域的缓存类型"/>
+<str id="securityDomainAddAuthen" txt="添加 authentication 元素"/>
+<str id="securitydomain.add.authen.text" txt="添加 authentication 元素"/>
+<str id="securitydomain.authencode" txt="验证代码"/>
+<str id="securitydomain.authenflag" txt="验证标记"/>
+<str id="securitydomain.authenopts" txt="验证选项"/>
+<str id="securityDomainAddAuthor" txt="添加 authorization 元素"/>
+<str id="securitydomain.add.author.text" txt="添加 authorization 元素"/>
+<str id="securitydomain.authorcode" txt="授权代码"/>
+<str id="securitydomain.authorflag" txt="授权标记"/>
+<str id="securitydomain.authoropts" txt="授权选项"/>
+<str id="securityDomainAddMapping" txt="添加 mapping 元素"/>
+<str id="securitydomain.add.mapping.text" txt="添加 mapping 元素"/>
+<str id="securitydomain.mappingcode" txt="映射代码"/>
+<str id="securitydomain.mappingtype" txt="映射类型"/>
+<str id="securitydomain.mappingopts" txt="映射选项"/>
+<str id="securityDomainAddJsse" txt="添加 JSSE 元素"/>
+<str id="securitydomain.ciphersuites" txt="Cipher-suites"/>
+<str id="securitydomain.protocols" txt="协议"/>
+<str id="securitydomain.clientalias" txt="客户别名"/>
+<str id="securitydomain.serveralias" txt="服务器别名"/>
+<str id="securitydomain.authtoken" txt="Server-auth-token"/>
+<str id="securityDomainJsseAddKeystore" txt="添加 keystore 元素"/>
+<str id="securitydomain.jsse.add.keystore.text" txt="添加 keystore 元素"/>
+<str id="securitydomain.keystore.password" txt="密钥库密码"/>
+<str id="securitydomain.keystore.provider" txt="密钥库供应商"/>
+<str id="securitydomain.keystore.providerargument" txt="密钥库供应商参数"/>
+<str id="securitydomain.keystore.type" txt="密钥库类型"/>
+<str id="securitydomain.keystore.url" txt="密钥库 URL"/>
+<str id="securityDomainJsseAddKeystoreManager" txt="添加 keystore-manager 元素"/>
+<str id="securitydomain.keystoremanager.algorithm" txt="Keystore-manager 算法"/>
+<str id="securitydomain.keystoremanager.provider" txt="Keystore-manager 供应商"/>
+<str id="securityDomainJsseAddTruststore" txt="添加 truststore 元素"/>
+<str id="securitydomain.jsse.add.truststore.text" txt="添加 truststore 元素"/>
+<str id="securitydomain.truststore.password" txt="信任库密码"/>
+<str id="securitydomain.truststore.provider" txt="信任库供应商"/>
+<str id="securitydomain.truststore.providerargument" txt="信任库参数"/>
+<str id="securitydomain.truststore.type" txt="信任库类型"/>
+<str id="securitydomain.truststore.url" txt="信任库 URL"/>
+<str id="securityDomainJsseAddTruststoreManager" txt="添加 truststore-manager 元素"/>
+<str id="securitydomain.truststoremanager.algorithm" txt="Truststore-manager 算法"/>
+<str id="securitydomain.truststoremanager.provider" txt="Truststore-manager 供应商"/>
+<str id="installInfinispan" txt="安装 Infinispan 缓存"/>
+<str id="infinispan.container" txt="Infinispan 名称"/>
+<str id="infinispan.jndiname" txt="Infinispan JNDI 名称"/>
+<str id="infinispan.localcache" txt="本地缓存名称"/>
+<str id="infinispan.transactionmode" txt="事务模式"/>
+<str id="infinispan.evictionstrat" txt="逐出策略"/>
+<str id="infinispan.evictionmax" txt="逐出的最大条目"/>
+<str id="infinispan.expirationmax" txt="过期前的最大空闲时间"/>
+<str id="jdbc.driver.install" txt="已选择的 JDBC 配置"/>
+<str id="security.title" txt="创建一个用户"/>
+<str id="security.text" txt="创建一个管理性用户。这个用户将添加到 ManagementRealm 里，因此也可用于访问管理控制台，已及任何使用 ManagementRealm 设置安全性的应用程序里。密码必须具有至少 8 个字符，以及一个数字和非字母字符。"/>
+<str id="username.text" txt="管理性用户名："/>
+<str id="username.nameerror" txt="请输入用户名"/>
+<str id="username.alphanumeric" txt="用户名必须使用字母和数字。"/>
+<str id="username.password.text" txt="输入 admin 密码："/>
+<str id="username.password.re.text" txt="确认 admin 密码："/>
+<str id="username.no.password" txt="请输入密码"/>
+<str id="username.no.match.password" txt="两个密码必须一致"/>
+<str id="password.no.match.user" txt="用户名不能和密码相同。"/>
+<str id="password.min.eight.chars" txt="密码必须至少有 8 个字符"/>
+<str id="password.at.least.one.digit" txt="密码必须至少有 1 个数字"/>
+<str id="password.at.least.one.non.alphanum" txt="密码必须至少有 1 个非字母和数字的字符。"/>
+<str id="postinstall.title" txt="Post-Install 配置"/>
+<str id="config.server.text" txt="在安装了 JBoss EAP 服务器以后，你还可以配置几个其他的选项。每个选项都可以单独地选择，并按照下面的顺序进行配置。你要继续吗？"/>
+<str id="config.choice.no" txt="请不要执行其他的 post-install 配置"/>
+<str id="config.choice.yes" txt="执行其他的 post-install 配置"/>
+<str id="postinstall.processpanel.startingServer" txt="启动应用服务器。"/>
+<str id="postinstall.processpanel.serverStarted" txt="应用服务器已成功启动。"/>
+<str id="postinstall.processpanel.checkingServer" txt="检查服务器是否已经就绪...(%s/%s)。"/>
+<str id="postinstall.processpanel.serverNotStarted" txt="%s 次尝试后仍无法启动服务器。"/>
+<str id="postinstall.processpanel.init.error" txt="初始化 CommandContext 失败。"/>
+<str id="postinstall.processpanel.connect.error" txt="连接 CommandContext 到服务器失败。"/>
+<str id="postinstall.processpanel.dircreation.error" txt="创建目录失败。"/>
+<str id="postinstall.processpanel.dircreation.success" txt="成功地创建了目录。"/>
+<str id="postinstall.processpanel.jarcopy.error" txt="复制 JAR 失败。"/>
+<str id="postinstall.processpanel.jarcopy.success" txt="成功地复制了 JAR。"/>
+<str id="postinstall.processpanel.xmlcreation.error" txt="创建 XML 失败。"/>
+<str id="postinstall.processpanel.xmlcreation.success" txt="成功地创建了 XML："/>
+<str id="postinstall.processpanel.batch.error" txt="Post-installation 配置已失败。请查看日志里关于所运行的命令的列表。你可以手动运行这些命令来到达和安装过程相同的效果。"/>
+<str id="postinstall.processpanel.batch.empty" txt="Post-installation 配置已结束：不需要进一步的配置。"/>
+<str id="postinstall.processpanel.unpacking.complete" txt="解包完成。"/>
+<str id="postinstall.processpanel.user.added" txt="成功地添加了管理性用户帐号。"/>
+<str id="postinstall.processpanel.batch.success" txt="成功完成了 Post-installation 配置。请查看日志里关于所运行的命令的列表。"/>
+<str id="postinstall.processpanel.log.error" txt="写入日志失败。更多信息请参考栈跟踪记录。"/>
+<str id="postinstall.processpanel.log.success" txt="日志成功地写入："/>
+<str id="postinstall.processpanel.management.connecting" txt="试图连接至管理接口...（%s/%s）。"/>
+<str id="postinstall.processpanel.management.connectSuccess" txt="连接至管理接口。"/>
+<str id="postinstall.processpanel.management.connectFail" txt="%s 次尝试后仍无法连接至管理接口。"/>
+<str id="postinstall.processpanel.management.postInstallFails" txt="服务器或管理接口没有上线：无法完成 post-installation。"/>
+<str id="postinstall.processpanel.shutdown.error" txt="Post-installation 配置优雅关闭服务器失败。"/>
+<str id="postinstall.processpanel.shutdown.success" txt="Post-installation 配置已完成。"/>
+<str id="ssl.title" txt="SSL 安全性"/>
+<str id="ssl.text" txt="通过指定密钥库的位置和密码来启用管理接口的 SSL 安全性。"/>
+<str id="ssl.path.text" txt="密钥库的位置："/>
+<str id="vault.path.text" txt="密钥库的位置："/>
+<str id="ssl.no.password" txt="请输入密码。"/>
+<str id="ssl.password.text" txt="密钥库密码："/>
+<str id="vault.password.text" txt="密钥库密码："/>
+<str id="securitydomain.jsse.keystore.password.text" txt="密钥库密码："/>
+<str id="ssl.password.re.text" txt="确认密钥库密码："/>
+<str id="ssl.choice.no" txt="不要启用 SSL 安全性"/>
+<str id="ssl.choice.yes" txt="启用 SSL 安全性"/>
+<str id="ssl.dropdown.text" txt="指定要添加密钥库的配置集："/>
+<str id="ssl.dropdown.1" txt="独立模式"/>
+<str id="jdbc.driver.install.type.standalone" txt="独立模式"/>
+<str id="server.launch.choice.standalone" txt="独立模式"/>
+<str id="ssl.dropdown.2" txt="域模式"/>
+<str id="jdbc.driver.install.type.domain" txt="域模式"/>
+<str id="server.launch.choice.domain" txt="域模式"/>
+<str id="ssl.password.tooltip" txt="输入所提供的密钥库的密码。"/>
+<str id="ssl.path.tooltip" txt="输入要使用的密钥库的完整路径。"/>
+<str id="ldap.text" txt="你可以配置 JBoss EAP 以将 LDAP 服务器用作应用程序和管理接口的验证和授权机构。这个过程有二个步骤。"/>
+<str id="ldap.title" txt="LDAP 配置"/>
+<str id="ldap.choice.no" txt="不要启用 LDAP 验证"/>
+<str id="ldap.choice.yes" txt="启用 LDAP 验证"/>
+<str id="ldap.name.text" txt="连接名称："/>
+<str id="ldap.url.text" txt="目录服务器："/>
+<str id="ldap.dn.text" txt="标识名（Distinguished Name，DN）："/>
+<str id="ldap.creds.text" txt="DN 密码："/>
+<str id="ldap.password.text" txt="DN 密码："/>
+<str id="ldap.factory.text" txt="上下文工厂："/>
+<str id="ldap.ic.error" txt="新的 LDAP 连接要求一个连接名、目录名、标识名和 DN 密码。这四个字段都必须填写。"/>
+<str id="ldap.password.re.text" txt="确认 DN 密码："/>
+<str id="ldap.name.tooltip" txt="这个启用了 LDAP 的连接的名称。"/>
+<str id="ldap.url.tooltip" txt="要连接的 LDAP 服务器的主机名。"/>
+<str id="ldap.dn.tooltip" txt="所提供的服务器上被授权执行搜索的标识名（DN）。"/>
+<str id="ldap.creds.tooltip" txt="所提供的用户的密码。"/>
+<str id="ldap2.text" txt="新的安全区将使用下列属性添加，它将使用之前步骤里定义的 LDAP 转出连接。这个新的安全区将和管理接口关联。过滤器的值将是 attribute=&quot;value&quot;（这里的 value 是保存用户名的属性的名称）或 filter=&quot;value&quot;（这里的 value 是标准 LDAP 语法的查询）。如果使用了 LDAP 查询，请用 &quot;&amp;amp;&quot; 替换 &quot;&amp;&quot; 。"/>
+<str id="ldap.realmname.text" txt="安全区的名称："/>
+<str id="ldap.basedn.text" txt="基础 DN："/>
+<str id="ldap.username.text" txt="LDAP 用户名："/>
+<str id="ldap.recursive.text" txt="递归的目录搜索："/>
+<str id="ldap.filter.text" txt="用户名过滤器："/>
+<str id="ldap2.ic.error" txt="新的 LDAP 安全区要求一个安全区名、LDAP 用户名、基础标识名。这三个字段都必须填写。"/>
+<str id="ldap.realmname.tooltip" txt="这个启用了 LDAP 的安全区的名称。"/>
+<str id="ldap.basedn.tooltip" txt="开始搜索用户的上下文的标识名。"/>
+<str id="ldap.filtertype.tooltip" txt="所选的过滤器的类型决定了如何翻译 Username 过滤器值。Username 属性表示所提供的值是包含用户名的 LDAP 属性。"/>
+<str id="ldap.filter.tooltip" txt="这包含一个 LDAP 语法查询或者包含搜索用户名的 LDAP 属性。"/>
+<str id="ldap.recursive.tooltip" txt="指定是否在 LDAP 目录树里进行递归搜索。"/>
+<str id="vault.title" txt="密码库配置"/>
+<str id="vault.text" txt="你可以在使用加密密钥库的描述符文件里配置红帽的 JBoss EAP 6 对密码进行遮掩（mask）。使用下面的值，安装程序将初始化这个库并遮掩在 post-installation 过程的其他部分使用的其他任何密码。"/>
+<str id="vault.alias.text" txt="库别名："/>
+<str id="vault.salt.text" txt="Salt (8-个字符)"/>
+<str id="vault.salt.not.eight.chars" txt="库 salt 必须刚好是 8 位数字长。"/>
+<str id="vault.password.re.text" txt="请重新输入密钥库密码："/>
+<str id="vault.no.password" txt="你还没有输入任何密码。"/>
+<str id="vault.encrdir.text" txt="加密的文件目录："/>
+<str id="vault.choice.yes" txt="安装密码库"/>
+<str id="vault.ic.error" txt="新的密码库要求一个库别名、Salt 值、迭代计数值、密钥库密码、密钥库位置和加密文件存放的目录。所有字段都是必需的。"/>
+<str id="vault.alias.tooltip" txt="赋予库里使用的密钥库的别名。"/>
+<str id="vault.salt.tooltip" txt="用于密码库的 salt 值。创建密码库的 hash 值将使用这个值将和迭代计数值。"/>
+<str id="vault.itercount.tooltip" txt="迭代计数。创建密码库的 hash 值将使用这个值将和 salt 值。"/>
+<str id="vault.password.tooltip" txt="所提供的密钥库的密码。"/>
+<str id="securitydomain.jsse.keystore.password.tooltip" txt="所提供的密钥库的密码。"/>
+<str id="vault.password.re.tooltip" txt="确认所提供的密钥库的密码。"/>
+<str id="vault.path.tooltip" txt="密码库将使用的密钥库的完整路径。"/>
+<str id="vault.encrdir.tooltip" txt="保存加密文件的目录。这个目录应该比较安全，但仍可以被 JBoss EAP 访问。"/>
+<str id="infinispan.title" txt="Infinispan 配置"/>
+<str id="infinispan.text" txt="为创建 Infinispan 缓存指定下面的信息。"/>
+<str id="infinispan.container.text" txt="Infinispan 名称："/>
+<str id="infinispan.localcache.text" txt="本地缓存名称："/>
+<str id="infinispan.transactionmode.text" txt="事务模式："/>
+<str id="infinispan.evictionstrat.text" txt="逐出策略："/>
+<str id="infinispan.evictionmax.text" txt="逐出的最大条目："/>
+<str id="infinispan.expirationmax.text" txt="过期前的最大空闲时间："/>
+<str id="infinispan.choice.yes" txt="安装 Infinispan 缓存"/>
+<str id="infinispan.container.tooltip" txt="这个 Infinispan 缓存的名称。"/>
+<str id="infinispan.jndiname.tooltip" txt="和这个缓存关联的 JNDI 名称。"/>
+<str id="infinispan.localcache.tooltip" txt="这个缓存的本地缓存名称。"/>
+<str id="infinispan.transactionmode.tooltip" txt="这个缓存的事务模式。"/>
+<str id="infinispan.evictionstrat.tooltip" txt="这个缓存的逐出策略。"/>
+<str id="infinispan.evictionmax.tooltip" txt="这个缓存的最大逐出条目。"/>
+<str id="infinispan.expirationmax.tooltip" txt="缓存过期前的最长空闲时间。"/>
+<str id="jmsqueue.title" txt="JMS 队列配置"/>
+<str id="jmsqueue.text" txt="通过添加下面要求的信息来添加 JMS 队列。"/>
+<str id="jmsqueue.name.text" txt="JMS 队列名称："/>
+<str id="jmsqueue.entries.text" txt="条目："/>
+<str id="jmsqueue.durable.text" txt="持久性队列："/>
+<str id="jmsqueue.choice.yes" txt="安装 JMS 队列"/>
+<str id="securitydomain.title" txt="安全域配置"/>
+<str id="securitydomain.text" txt="使用下面的字段来配置安全域。唯一必需的字段是安全域的名称。其他字段都是可选的。多数字段都有一个预定义的有效值列表。"/>
+<str id="securitydomain.name.text" txt="安全域名称："/>
+<str id="securitydomain.cachetype.text" txt="安全域的缓存类型："/>
+<str id="securitydomain.add.jsse.text" txt="添加 JSSE 元素"/>
+<str id="securitydomain.authencode.text" txt="验证代码："/>
+<str id="securitydomain.authorcode.text" txt="授权代码："/>
+<str id="securitydomain.mappingcode.text" txt="映射代码："/>
+<str id="securitydomain.authenflag.text" txt="验证标记："/>
+<str id="securitydomain.authorflag.text" txt="授权标记："/>
+<str id="securitydomain.mappingtype.text" txt="映射类型："/>
+<str id="securitydomain.authenopts.text" txt="验证选项："/>
+<str id="securitydomain.authoropts.text" txt="授权选项："/>
+<str id="securitydomain.mappingopts.text" txt="映射选项："/>
+<str id="securitydomain.choice.yes" txt="添加安全域"/>
+<str id="securitydomain.jsse.keystore.password.re.text" txt="确认密钥库密码："/>
+<str id="securitydomain.jsse.keystore.password.empty" txt="密钥库密码不能为空。"/>
+<str id="securitydomain.jsse.keystore.password.nomatch" txt="密钥库密码必须一致。"/>
+<str id="securitydomain.jsse.keystore.provider.text" txt="密钥库供应商："/>
+<str id="securitydomain.jsse.keystore.providerargument.text" txt="供应商参数："/>
+<str id="securitydomain.jsse.truststore.providerargument.text" txt="供应商参数："/>
+<str id="securitydomain.jsse.keystore.type.text" txt="密钥库类型："/>
+<str id="securitydomain.jsse.keystore.url.text" txt="密钥库 URL："/>
+<str id="securitydomain.jsse.no.keystore.url" txt="『密钥库 URL』字段不能为空。"/>
+<str id="securitydomain.jsse.add.keystoremanager.text" txt="添加 keystore manager 元素"/>
+<str id="securitydomain.jsse.keystoremanager.algorithm.text" txt="KeyManagerFactory 算法："/>
+<str id="securitydomain.jsse.keystoremanager.provider.text" txt="KeyManagerFactory 供应商："/>
+<str id="securitydomain.jsse.truststore.password.text" txt="信任库密码："/>
+<str id="securitydomain.jsse.truststore.password.re.text" txt="确认信任库密码："/>
+<str id="securitydomain.jsse.truststore.password.empty" txt="信任库密码不能为空。"/>
+<str id="securitydomain.jsse.truststore.password.nomatch" txt="信任库密码必须一致。"/>
+<str id="securitydomain.jsse.truststore.provider.text" txt="信任库供应商："/>
+<str id="securitydomain.jsse.truststore.type.text" txt="信任库类型："/>
+<str id="securitydomain.jsse.truststore.url.text" txt="信任库 URL："/>
+<str id="securitydomain.jsse.no.truststore.url" txt="『信任库 URL』字段不能为空。"/>
+<str id="securitydomain.jsse.add.truststoremanager.text" txt="添加 trust-manager 元素"/>
+<str id="securitydomain.jsse.truststoremanager.algorithm.text" txt="TrustManagerFactory 算法："/>
+<str id="securitydomain.jsse.truststoremanager.provider.text" txt="TrustManagerFactory 供应商："/>
+<str id="securitydomain.jsse.ciphersuites.text" txt="SSL 上下文使用的密码组（Cipher suite）："/>
+<str id="securitydomain.jsse.protocols.text" txt="SSL 上下文使用的协议："/>
+<str id="securitydomain.jsse.clientalias.text" txt="客户端密钥库的别名："/>
+<str id="securitydomain.jsse.serveralias.text" txt="服务器端密钥库的别名："/>
+<str id="securitydomain.jsse.authtoken.text" txt="第三方的检验令牌："/>
+<str id="securitydomain.ic.error" txt="请确保所有必需的字段都已填写。"/>
+<str id="securitydomain.jsse.text" txt="配置 JSSE 元素。JSSE 元素要求配置密钥库或是信任库。"/>
+<str id="securitydomain.jsse.requirements" txt="JSSE 元素要求密钥库或信任库。"/>
+<str id="securitydomain.jsse.keystore.reqs" txt="密钥库要求设置密码和 URL 字段。"/>
+<str id="securitydomain.jsse.truststore.reqs" txt="信任库要求设置密码和 URL 字段。"/>
+<str id="securitydomain.name.tooltip" txt="这个安全域的唯一名称。"/>
+<str id="securitydomain.cachetype.tooltip" txt="用于这个域的验证缓存的类型。默认使用简单的基于表（Map）的缓存。Infinispan 使用 infinispan 子系统。"/>
+<str id="securitydomain.authencode.tooltip" txt="选择 authentication 元素的实现类。"/>
+<str id="securitydomain.authenflag.tooltip" txt="选择用于 authentication 元素的 JAAS 标记。"/>
+<str id="securitydomain.authenopts.tooltip" txt="authentication 元素的模块选项。由用逗号隔开的 key=value 条目列表组成。"/>
+<str id="securitydomain.authorcode.tooltip" txt="选择 authorization 元素的实现类。"/>
+<str id="securitydomain.authorflag.tooltip" txt="选择用于 authorization 元素的 JAAS 标记。"/>
+<str id="securitydomain.authoropts.tooltip" txt="authorization 元素的模块选项。由用逗号隔开的 key=value 条目列表组成。"/>
+<str id="securitydomain.mappingcode.tooltip" txt="选择 mapping 元素的实现类。"/>
+<str id="securitydomain.mappingtype.tooltip" txt="这个属性反映了供应商映射的类型。"/>
+<str id="securitydomain.mappingopts.tooltip" txt="mapping 元素的模块选项。由用逗号隔开的 key=value 条目列表组成。"/>
+<str id="securitydomain.jsse.ciphersuites.tooltip" txt="SSL 上下文使用的用逗号隔开的密码组（Cipher suite）列表。"/>
+<str id="securitydomain.jsse.protocols.tooltip" txt="SSL 上下文使用的用逗号隔开的 SSL 协议列表。"/>
+<str id="securitydomain.jsse.clientalias.tooltip" txt="当创建客户端 SSL 套接字时使用密钥库的别名。"/>
+<str id="securitydomain.jsse.serveralias.tooltip" txt="当创建服务器端 SSL 套接字时使用密钥库的别名。"/>
+<str id="securitydomain.jsse.authtoken.tooltip" txt="表示服务器 SSL 套接字是否应该要求客户认证的标记。"/>
+<str id="securitydomain.jsse.keystore.provider.tooltip" txt="密钥库的供应商。如果这个属性为空，则使用密钥库的默认 JDK 供应商。"/>
+<str id="securitydomain.jsse.keystore.providerargument.tooltip" txt="可以作为密钥库供应商构造器的参数传递的字符串。"/>
+<str id="securitydomain.jsse.keystore.type.tooltip" txt="密钥库的类型。"/>
+<str id="securitydomain.jsse.keystore.url.tooltip" txt="密钥库的 URL。这可以是本地或远程位置。"/>
+<str id="securitydomain.jsse.keystoremanager.algorithm.tooltip" txt="KeyManagerFactory 的算法。如果这个属性为空，则使用 KeyManagerFactory 的默认 JDK 算法。"/>
+<str id="securitydomain.jsse.keystoremanager.provider.tooltip" txt="KeyManagerFactory 的供应商。如果这个属性为空，则使用 KeyManagerFactory 算法的默认 JDK 供应商。"/>
+<str id="securitydomain.jsse.truststore.password.tooltip" txt="提供的信任库的密码。"/>
+<str id="securitydomain.jsse.truststore.provider.tooltip" txt="信任库的供应商。如果这个属性为空，则使用信任库的默认 JDK 供应商。"/>
+<str id="securitydomain.jsse.truststore.providerargument.tooltip" txt="可以作为信任库供应商构造器的参数传递的字符串。"/>
+<str id="securitydomain.jsse.truststore.type.tooltip" txt="信任库的类型。"/>
+<str id="securitydomain.jsse.truststore.url.tooltip" txt="信任库的 URL。这可以是本地或远程位置。"/>
+<str id="securitydomain.jsse.truststoremanager.algorithm.tooltip" txt="KeyManagerFactory 的算法。如果这个属性为空，则使用 TrustManagerFactory 的默认 JDK 算法。"/>
+<str id="securitydomain.jsse.truststoremanager.provider.tooltip" txt="KeyManagerFactory 的供应商。如果这个属性为空，则使用 TrustManagerFactory 算法的默认 JDK 供应商。"/>
+<str id="jdbc.driver.install.info" txt="&lt;html&gt;JBoss EAP 6 支持大量的 JDBC 驱动，它们将应用程序代码转换为相关的数据库语言。你可以为这个驱动选择多个 JAR。&lt;/html&gt;"/>
+<str id="jdbc.driver.install.choice.text" txt="你要配置 JDBC 驱动吗？这个驱动将安装为 JBoss ${platform.name} 的核心模块。module.xml 文件将在 module 目录里生成，并在 standalone.xml/domain.xml 文件里创建合适的条目。"/>
+<str id="jdbc.driver.path.text" txt="指定驱动 JAR 的位置："/>
+<str id="jdbc.driver.name.text" txt="JDBC 驱动的名称："/>
+<str id="jdbc.driver.module.name.text" txt="JDBC 驱动的模块名称："/>
+<str id="jdbc.driver.xads.name.text" txt="XA 数据源类名："/>
+<str id="jdbc.driver.dir.struct.text" txt="文件将放入这个目录里："/>
+<str id="jdbc.driver.install.type.text" txt="包括独立模式、域模式或者两个模式下的 JDBC 模块："/>
+<str id="jdbc.driver.install.type.both" txt="两者皆有"/>
+<str id="jdbc.driver.oracle.warning" txt="为使 XA 恢复正常操作，访问 Oracle XA 数据源的用户必须应用下面的设置。"/>
+<str id="UserPathPanel.info" txt="请选择 quickstart 的安装路径。"/>
+<str id="quickstarts.install.text" txt="JBoss EAP 6 附带的一系列 Quickstart 例程的目的是帮助用户用 Java 来编写应用程序。你要安装 Quickstart 吗？"/>
+<str id="quickstarts.path.text" txt="选择 Quickstart 的安装路径："/>
+<str id="rtgov.title" txt="RT-Gov 服务器"/>
+<str id="rtgov.text" txt="请输入 RT-Gov 服务器的 URL。"/>
+<str id="rtgov.username.text" txt="RT-Gov 用户名："/>
+<str id="rtgov.password.text" txt="RT-Gov 密码："/>
+<str id="rtgov.password.re.text" txt="确认 RT-Gov 密码："/>
+<str id="rtgov.url.text" txt="RT-Gov 服务器的位置："/>
+<str id="rtgov.loc" txt="RT-Gov 服务器的位置："/>
+<str id="rtgov.url.error" txt="请输入 RT-Gov 服务器的位置："/>
+<str id="port.setup.title" txt="套接字绑定"/>
+<str id="port.setup.choice.text" txt="选择端口配置："/>
+<str id="port.setup.choice.default" txt="为独立和域模式选择默认的端口绑定。"/>
+<str id="port.setup.choice.assisted" txt="为所有默认端口绑定配置偏移量。"/>
+<str id="port.setup.choice.custom" txt="配置自定义端口绑定。"/>
+<str id="port.setup.config.standalone" txt="为独立模式配置端口"/>
+<str id="port.setup.config.domain" txt="为域模式配置端口"/>
+<str id="port.setup.desc" txt="为 JBoss EAP 6 配置套接字绑定。"/>
+<str id="port.setup.offset.specifyInput" txt="偏移量："/>
+<str id="port.setup.offset.choice.plus1" txt="+1 偏移量"/>
+<str id="port.setup.offset.choice.plus100" txt="+100 偏移量"/>
+<str id="port.setup.offset.choice.text" txt="选择偏移量类型"/>
+<str id="port.setup.offset.choice.specify" txt="指定偏移量"/>
+<str id="offset.posInt" txt="偏移量必须是一个正整数。"/>
+<str id="offset.valid" txt="偏移量的值太大。其最大值是 @@。"/>
+<str id="port.intro" txt="端口"/>
+<str id="property.header" txt="系统属性（可选）"/>
+<str id="port.header" txt="默认值"/>
+<str id="port.standalone.title" txt="套接字绑定（standalone）"/>
+<str id="port.standalone.h.title" txt="套接字绑定（ha-standalone）"/>
+<str id="port.standalone.f.title" txt="套接字绑定（full-standalone）"/>
+<str id="port.standalone.fa.title" txt="套接字绑定（full-ha-standalone）"/>
+<str id="port.domain.title" txt="套接字绑定（domain）"/>
+<str id="port.domain.h.title" txt="套接字绑定（ha-domain）"/>
+<str id="port.domain.f.title" txt="套接字绑定 (full-domain)"/>
+<str id="port.domain.fa.title" txt="套接字绑定 (full-ha-domain)"/>
+<str id="UserInputPanel.tooltip.adminUser" txt="用户名只能包含字母。"/>
+<str id="UserInputPanel.tooltip.adminPwd" txt="密码必须包含至少 8 个字符、一个数字和至少一个特殊字符。"/>
+<str id="UserInputPanel.tooltip.offset" txt="这个选项将修改给定的标准端口。"/>
+<str id="UserInputPanel.tooltip.offsetSpecify" txt="这个选项允许你指定自己的端口偏移量。"/>
+<str id="UserInputPanel.tooltip.installVault" txt="选择这个复选框来安装密码库。"/>
+<str id="UserInputPanel.tooltip.installSsl" txt="选择这个复选框来用 SSL 加密管理接口。"/>
+<str id="UserInputPanel.tooltip.installLdap" txt="选择这个复选框来启用管理接口上的 LDAP 验证。"/>
+<str id="UserInputPanel.tooltip.installInfinispan" txt="选择这个复选框来创建新的 Infinispan 缓存。"/>
+<str id="UserInputPanel.tooltip.installSecurityDomain" txt="选择这个复选框来创建新的安全域。"/>
+<str id="UserInputPanel.tooltip.installJdbcDriver" txt="选择这个复选框来安装 JDBC 驱动和使用这个驱动的数据源。"/>
+<str id="server.launch.title" txt="启动服务器"/>
+<str id="server.launch.choice.text" txt="选择服务器启动模式："/>
+<str id="server.launch.choice.no.start" txt="请不要启动服务器"/>
+<str id="server.launch.browser" txt="启动服务器后打开浏览器"/>
+<str id="log-level.title" txt="日志选项"/>
+<str id="configure-log-level.choice.text" txt="为 JBoss EAP 6 配置日志级别。"/>
+<str id="root-log-level.choice.text" txt="root-logger 的日志级别："/>
+<str id="console-log-level.choice.text" txt="控制台的日志级别："/>
+<str id="${platform.edition}-core" txt="${platform.edition}-core"/>
+<str id="${platform.edition}-core.description" txt="${platform.name} plaform core."/>
+<str id="application-platform.appclient" txt="AppClient"/>
+<str id="application-platform.appclient.description" txt="AppClient 文件夹。"/>
+<str id="application-platform.bin.unix" txt="Bin"/>
+<str id="application-platform.bin.windows" txt="Bin"/>
+<str id="application-platform.bin.unix.description" txt="JBoss ${platform.name} UNIX shell 脚本。"/>
+<str id="application-platform.bin.windows.description" txt="JBoss ${platform.name} Windows 批处理脚本。"/>
+<str id="application-platform.bundles" txt="束"/>
+<str id="application-platform.bundles.description" txt="OSGi 束。"/>
+<str id="application-platform.docs" txt="docs"/>
+<str id="application-platform.docs.description" txt="XML schema 定义文件。"/>
+<str id="application-platform.domain.description" txt="配置文件、部署内容和域模式进程使用的可写入区域。"/>
+<str id="jboss-shell.domain" txt="域的 Shell 脚本"/>
+<str id="jboss-shell.domain.description" txt="JBoss ${platform.name} 域模式 UNIX shell 脚本。"/>
+<str id="jboss-batch.domain" txt="域的批处理脚本"/>
+<str id="jboss-batch.domain.description" txt="JBoss ${platform.name} 域模式批处理脚本。"/>
+<str id="application-platform.modules" txt="模块"/>
+<str id="application-platform.modules.description" txt="服务器模块。"/>
+<str id="application-platform.standalone.description" txt="配置文件、部署内容和独立模式进程使用的可写入区域。"/>
+<str id="jboss-shell.standalone" txt="Standalone 模式的 Shell 脚本"/>
+<str id="jboss-shell.standalone.description" txt="用于 JBoss ${platform.name} 的独立 Unix shell 脚本。"/>
+<str id="jboss-batch.standalone" txt="Standalone 模式的批处理脚本"/>
+<str id="jboss-batch.standalone.description" txt="用于 JBoss ${platform.name} 的独立批处理脚本。"/>
+<str id="application-platform.welcome-content" txt="欢迎页的内容"/>
+<str id="application-platform.welcome-content.description" txt="默认的欢迎页面内容。"/>
+<str id="application-platform.quickstarts.description" txt="JBoss ${platform.name} 例程。"/>
+<str id="application-platform.maven" txt="Apache Maven 二进制文件"/>
+<str id="application-platform.maven.description" txt="Apache Maven ${maven.version}。"/>
+<str id="application-platform.icons" txt="图标"/>
+<str id="application-platform.icons.description" txt="快捷方式使用的图标。"/>
+<str id="${platform.edition}-native" txt="${platform.name} 原生库"/>
+<str id="application-platform.native.rhel5.i386" txt="用于 RHEL5 i386 的原生库"/>
+<str id="application-platform.native.rhel5.i386.description" txt="用于 RHEL5 i386 的原生二进制库"/>
+<str id="application-platform.native.rhel5.x86_64" txt="用于 RHEL5 x86_64 的原生库"/>
+<str id="application-platform.native.rhel5.x86_64.description" txt="用于 RHEL5 x86_64 的原生二进制库"/>
+<str id="application-platform.native.utils.rhel5.i386" txt="用于 RHEL5 i386 的原生 Utils 库"/>
+<str id="application-platform.native.utils.rhel5.i386.description" txt="用于 RHEL5 i386 的原生 Utils 二进制库"/>
+<str id="application-platform.native.utils.rhel5.x86_64" txt="用于 RHEL5 x86_64 的原生 Utils 库"/>
+<str id="application-platform.native.utils.rhel5.x86_64.description" txt="用于 RHEL5 x86_64 的原生 Utils 二进制库"/>
+<str id="application-platform.native.webserver.rhel5.i386" txt="用于 RHEL5 i386 的原生 Webserver "/>
+<str id="application-platform.native.webserver.rhel5.i386.description" txt="用于 RHEL5 i386 的原生 Webserver 连接器二进制库"/>
+<str id="application-platform.native.webserver.rhel5.x86_64" txt="用于 RHEL5 x86_64 的原生 Webserver"/>
+<str id="application-platform.native.webserver.rhel5.x86_64.description" txt="用于 RHEL5 x86_64 的原生 Webserver 连接器二进制库"/>
+<str id="application-platform.native.rhel6.i386" txt="原生 RHEL6 i386"/>
+<str id="application-platform.native.rhel6.i386.description" txt="用于 RHEL6 i386 的原生二进制库"/>
+<str id="application-platform.native.rhel6.x86_64" txt="原生的 RHEL6 x86_64"/>
+<str id="application-platform.native.rhel6.x86_64.description" txt="用于 RHEL6 x86_64 的原生二进制库"/>
+<str id="application-platform.native.utils.rhel6.i386" txt="用于 RHEL6 i386 的原生 Utils 库"/>
+<str id="application-platform.native.utils.rhel6.i386.description" txt="用于 RHEL6 i386 的原生 Utils 二进制库"/>
+<str id="application-platform.native.utils.rhel6.x86_64" txt="用于 RHEL6 x86_64 的原生 Utils 库"/>
+<str id="application-platform.native.utils.rhel6.x86_64.description" txt="用于 RHEL6 x86_64 的原生 Utils 二进制库"/>
+<str id="application-platform.native.webserver.rhel6.i386" txt="用于 RHEL6 i386 的原生 Webserver "/>
+<str id="application-platform.native.webserver.rhel6.i386.description" txt="用于 RHEL6 i386 的原生 Webserver 连接器二进制库"/>
+<str id="application-platform.native.webserver.rhel6.x86_64" txt="用于 RHEL6 x86_64 的原生 Webserver"/>
+<str id="application-platform.native.webserver.rhel6.x86_64.description" txt="用于 RHEL6 x86_64 的原生 Webserver 拦截器二进制库"/>
+<str id="application-platform.native.windows.i386" txt="用于 Windows i386 原生库"/>
+<str id="application-platform.native.windows.i386.description" txt="用于 Windows i386 的原生二进制库"/>
+<str id="application-platform.native.windows.x86_64" txt="用于 Windows x86_64 的原生库"/>
+<str id="application-platform.native.windows.x86_64.description" txt="用于 Windows x86_64 的原生二进制库"/>
+<str id="application-platform.native.utils.windows.i386" txt="用于 Windows i386 的原生 Utils 库"/>
+<str id="application-platform.native.utils.windows.i386.description" txt="用于 Windows i386 的原生 Utils 二进制库"/>
+<str id="application-platform.native.utils.windows.x86_64" txt="用于 Windows x86_64 的原生 Utils 库"/>
+<str id="application-platform.native.utils.windows.x86_64.description" txt="用于 Windows x86_64 的原生 Utils 二进制库"/>
+<str id="application-platform.native.webserver.windows.i386" txt="Native Webserver Windows i386"/>
+<str id="application-platform.native.webserver.windows.i386.description" txt="用于 Windows i386 的原生 Webserver 连接器二进制库"/>
+<str id="application-platform.native.webserver.windows.x86_64" txt="Native Webserver Windows x86_64"/>
+<str id="application-platform.native.webserver.windows.x86_64.description" txt="用于 Windows x86_64 的原生 Webserver 连接器二进制库"/>
+<str id="application-platform.native.sun.i386" txt="Native Solaris 10/11 i386"/>
+<str id="application-platform.native.sun.i386.description" txt="用于 Solaris 10/11 i386 的原生二进制库"/>
+<str id="application-platform.native.sun.x86_64" txt="Native Solaris 10/11 x86_64"/>
+<str id="application-platform.native.sun.x86_64.description" txt="用于 Solaris 10/11 x86_64 的原生二进制库"/>
+<str id="application-platform.native.sun.sparc64" txt="Native Solaris 10/11 sparc64"/>
+<str id="application-platform.native.sun.sparc64.description" txt="用于 Solaris 10/11 sparc64 的原生二进制库"/>
+<str id="application-platform.native.utils.sun.i386" txt="Native Utils Solaris 10/11 i386"/>
+<str id="application-platform.native.utils.sun.i386.description" txt="用于 Solaris 10/11 i386 的原生二进制库"/>
+<str id="application-platform.native.utils.sun.x86_64" txt="用于 Solaris 10/11 x86_64 的原生库"/>
+<str id="application-platform.native.utils.sun.x86_64.description" txt="用于 Solaris 10/11 x86_64 的原生 Utils 二进制库"/>
+<str id="application-platform.native.utils.sun.sparc64" txt="Native Utils Solaris 10/11 sparc64"/>
+<str id="application-platform.native.utils.sun.sparc64.description" txt="用于 Solaris 10/11 sparc64 的原生 Utils 二进制库"/>
+<str id="application-platform.native.webserver.sun.i386" txt="用于 Solaris 10/11 i386 的原生 Webserver"/>
+<str id="application-platform.native.webserver.sun.i386.description" txt="用于 Solaris 10/11 i386 的原生 Webserver 连接器二进制库 "/>
+<str id="application-platform.native.webserver.sun.x86_64" txt="Native Webserver Solaris 10/11 x86_64"/>
+<str id="application-platform.native.webserver.sun.x86_64.description" txt="用于 Solaris 10/11 x86_64 的原生 Webserver 连接器二进制库 "/>
+<str id="application-platform.native.webserver.sun.sparc64" txt="Native Webserver Solaris 10/11 sparc64"/>
+<str id="application-platform.native.webserver.sun.sparc64.description" txt="用于 Solaris 10/11 sparc64 的原生 Webserver 连接器二进制库 "/>
+<str id="console.ask" txt="按 1 继续、2 退出、3 重新显示"/>
+<str id="port.template" txt="@@ 端口号"/>
+<str id="multicast-port.template" txt="@@ 多点传送端口号"/>
+<str id="multicast-address.template" txt="@@ 多点传送地址"/>
+<str id="validator.template" txt="请输入用于 @@ 的端口号码"/>
+<str id="multicast-address-validator.template" txt="请输入用于 @@ 多点传送地址的端口号"/>
+<str id="multicast-port-validator.template" txt="请输入用于 @@ multicast-port 的端口号"/>
+<str id="verify-address-validator.template" txt="地址不兼容 IPv4 / IPv6。请检查用于 @@ 的地址。"/>
+<str id="range-validator.template" txt="@@ 的端口号码必须是 1-65535 范围里的整数"/>
+<str id="port.collision.check.template" txt="请指定独特的端口号码以避免冲突。"/>
+<str id="ConsoleInstaller.panel.fail" txt="面板的控制台安装失败"/>
+<str id="ConsoleInstaller.done" txt="控制台安装已完成"/>
+<str id="ConsoleInstaller.fail" txt="控制台安装失败！"/>
+<str id="WebRepositoryAccessor.download.fail" txt="当试图下载"/>
+<str id="WebRepositoryAccessor.write.fail" txt="当试图写入临时文件："/>
+<str id="WebRepositoryAccessor.warn.parse" txt="警告：无法解析"/>
+<str id="AutomatedInstaller.file.missing" txt="未找到文件。"/>
+<str id="AutomatedInstaller.xml.prompt" txt="请指定正确的 XML 文件。"/>
+<str id="AutomatedInstaller.uninstaller.write" txt="写入卸载程序数据..."/>
+<str id="AutomatedInstaller.installation.start" txt="启动自动安装"/>
+<str id="AutomatedInstaller.installation.done" txt="自动安装已完成"/>
+<str id="AutomatedInstaller.installation.fail" txt="自动安装失败！"/>
+<str id="AutomatedInstaller.user.skip" txt="提供的用户已存在于之前的安装配置文件里。跳过用户创建。"/>
+<str id="Unix_Shortcut.backup.fail" txt="无法创建备份文件"/>
+<str id="Unix_Shortcut.main.test" txt="测试 Main 程序"/>
+<str id="Unix_Shortcut.done" txt="完成。"/>
+<str id="UnixHelper.wrote" txt="写入"/>
+<str id="UnixHelper.write.fail" txt="无法写入"/>
+<str id="Log.record.messages" txt="下列调试频道记录了消息"/>
+<str id="Console.error" txt="至少出现下列一种出错"/>
+<str id="Console.exec.error" txt="执行时出错"/>
+<str id="Console.start.error" txt="执行时出错"/>
+<str id="FileSpanningInputStream.eof" txt="到达 EOF。"/>
+<str id="CompileWorker.parse.error" txt="解析编译的 XML 规格出错"/>
+<str id="Unpacker.file.unfound" txt="未找到文件"/>
+<str id="Unpacker.file.unfound2" txt="无法找到松捆绑的文件："/>
+<str id="Unpacker.install.cancel" txt="安装已经取消。"/>
+<str id="Unpacker.install.corrupt" txt="意外的流结尾（安装程序损坏？）"/>
+<str id="Installer.file.invalid" txt="无效文件。"/>
+<str id="Installer.xml.prompt" txt="请指定正确的 XML 文件。"/>
+<str id="ValidatorContainer.fail" txt="ValidatorContainer 构造器失败"/>
+<str id="PasswordKeystoreValidator.validate.skip" txt="SkipValidation"/>
+<str id="PasswordKeystoreValidator.validate.no" txt="没有检验密钥库"/>
+<str id="PasswordKeystoreValidator.keystore.null" txt="keystorePassword 参数为 null，将检验器密码用于密钥库。"/>
+<str id="PasswordKeystoreValidator.keystore.empty" txt="keystorePassword 参数为空，将检验器密码用于密钥库。"/>
+<str id="PasswordKeystoreValidatorar.alias.null" txt="aliasPassword 参数为 null，将检验器密码用于密钥库。"/>
+<str id="PasswordKeystoreValidatorar.alias.empty" txt="aliasPassword 参数为空，将检验器密码用于密钥库。"/>
+<str id="PasswordKeystoreValidator.keystore.nulld" txt="keystoreType 参数为 null，将使用 JKS 默认值。"/>
+<str id="PasswordKeystoreValidator.keystore.emptyd" txt="keystoreType 参数为空，将使用 JKS 默认值。"/>
+<str id="PasswordKeystoreValidator.open.attempt" txt="试图打开密钥库："/>
+<str id="PasswordKeystoreValidator.password.validated" txt="密钥库密码已检验"/>
+<str id="PasswordKeystoreValidator.keystore.alias" txt="密钥库别名"/>
+<str id="PasswordKeystoreValidator.retrive.try" txt="试图获取"/>
+<str id="PasswordKeystoreValidator.validated" txt="已检验"/>
+<str id="PasswordKeystoreValidator.validate.fail" txt="密钥库别名检验失败。"/>
+<str id="PasswordKeystoreValidator.not.found" txt="未找到"/>
+<str id="PasswordKeystoreValidator.keystore.unprovided" txt="未提供 KeystoreFile 参数"/>
+<str id="PasswordKeystoreValidator.params.unprovided" txt="未提供参数"/>
+<str id="PostInstallUser.user.add" txt="已添加 post-install 用户。"/>
+<str id="PostInstallUser.user.fail" txt="无法添加 post-install 用户。"/>
+<str id="RollBackInstaller.deleted" txt="已删除的"/>
+<str id="RollBackInstaller.deleted.reason" txt="因为没有可用的备份。"/>
+<str id="BackupCreator.backup" txt="备份"/>
+<str id="BackupCreator.to" txt="到"/>
+</langpack>

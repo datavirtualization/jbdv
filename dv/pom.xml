@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~ JBoss, Home of Professional Open Source.
+~ Copyright 2013, Red Hat, Inc., and individual contributors
+~ as indicated by the @author tags. See the copyright.txt file in the
+~ distribution for a full listing of individual contributors.
+~
+~ This is free software; you can redistribute it and/or modify it
+~ under the terms of the GNU Lesser General Public License as
+~ published by the Free Software Foundation; either version 2.1 of
+~ the License, or (at your option) any later version.
+~
+~ This software is distributed in the hope that it will be useful,
+~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+~ Lesser General Public License for more details.
+~
+~ You should have received a copy of the GNU Lesser General Public
+~ License along with this software; if not, write to the Free
+~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>DV Components</name>
+    <groupId>org.jboss.dv</groupId>
+    <artifactId>jboss-dv</artifactId>
+    <version>6.1.0</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.test.skip>true</maven.test.skip>
+
+        <bundle.staging.dir>${project.build.directory}/bundles</bundle.staging.dir>
+        <staging.dir>${project.build.directory}/work</staging.dir>
+        <eap.version>jboss-eap-6.3</eap.version>
+
+        <teiid.bundle.staging.dir>${bundle.staging.dir}/teiid</teiid.bundle.staging.dir>
+        <teiid.staging.dir>${staging.dir}/teiid</teiid.staging.dir>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.modeshape</groupId>
+            <artifactId>modeshape-distribution</artifactId>
+            <version>${version.org.modeshape}</version>
+            <classifier>jbosseap-dist</classifier>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.hal</groupId>
+            <artifactId>release-stream</artifactId>
+            <version>${version.org.jboss.hal}</version>
+            <classifier>overlay</classifier>
+            <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.teiid</groupId>
+            <artifactId>teiid</artifactId>
+            <type>zip</type>
+            <version>${version.org.jboss.teiid}</version>
+            <classifier>jboss-dist</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.teiid.quickstart</groupId>
+            <artifactId>teiid-quickstart-dist</artifactId>
+            <type>zip</type>
+            <version>${version.org.jboss.teiid.quickstart}</version>
+            <classifier>dist</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.teiid</groupId>
+            <artifactId>teiid</artifactId>
+            <type>jar</type>
+            <version>${version.org.jboss.teiid}</version>
+            <classifier>jdbc</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.teiid</groupId>
+            <artifactId>teiid-hibernate-dialect</artifactId>
+            <version>${version.org.jboss.teiid}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.teiid.extensions</groupId>
+            <artifactId>build</artifactId>
+            <type>zip</type>
+            <version>${version.org.jboss.teiid.extensions}</version>
+            <classifier>dist</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.modeshape</groupId>
+            <artifactId>modeshape-client</artifactId>
+            <type>jar</type>
+            <version>${version.org.modeshape}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.teiid</groupId>
+            <artifactId>teiid</artifactId>
+            <type>zip</type>
+            <version>${version.org.jboss.teiid}</version>
+            <classifier>adminshell-dist</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.teiid.teiid-dashboard</groupId>
+            <artifactId>teiid-dashboard-builder</artifactId>
+            <version>${version.org.jboss.teiid.dashboard}</version>
+            <classifier>jboss-as7</classifier>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.teiid.teiid-dashboard</groupId>
+            <artifactId>teiid-dashboard-builder</artifactId>
+            <version>${version.org.jboss.teiid.dashboard}</version>
+            <classifier>cli</classifier>
+            <type>zip</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>xml-maven-plugin</artifactId>
+                    <version>1.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>regex-property</id>
+                        <goals>
+                            <goal>regex-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>version.dv.unqualified</name>
+                            <value>${project.version}</value>
+                            <regex>^(\d+\.\d+\.\d+).*$</regex>
+                            <replacement>$1</replacement>
+                            <failIfNoMatch>true</failIfNoMatch>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-teiid-dodeploy</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <echo file="${bundle.staging.dir}/console/standalone/deployments/integration-platform-console.war.dodeploy"/>
+                                <echo file="${teiid.staging.dir}/standalone/deployments/teiid-dashboard-builder.war.dodeploy"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <configuration>
+                    <excludeTransitive>true</excludeTransitive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>get-hal</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>org.jboss.hal</includeGroupIds>
+                            <outputDirectory>${bundle.staging.dir}/hal</outputDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>get-modeshape</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>org.modeshape</includeGroupIds>
+                            <outputDirectory>${bundle.staging.dir}/modeshape</outputDirectory>
+                            <excludes>docs/**</excludes>
+                        </configuration>
+                    </execution>
+
+                    <!-- Get Teiid distribution -->
+                    <execution>
+                        <id>get-teiid</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>org.jboss.teiid</includeGroupIds>
+                            <includeClassifiers>jboss-dist</includeClassifiers>
+                            <outputDirectory>${teiid.bundle.staging.dir}</outputDirectory>
+                        </configuration>
+                    </execution>
+
+                    <!-- Copy teiid jdbc/hibernate jars -->
+                    <execution>
+                        <id>get-teiid-jdbc</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeClassifiers>jdbc</includeClassifiers>
+                            <outputDirectory>${teiid.staging.dir}/dataVirtualization/jdbc</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>get-teiid-hibernate</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeArtifactIds>teiid-hibernate-dialect</includeArtifactIds>
+                            <outputDirectory>${teiid.staging.dir}/dataVirtualization/jdbc</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <!-- Copy modeshape jdbc jar -->
+                    <execution>
+                        <id>get-teiid-modeshape-jdbc</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeArtifactIds>modeshape-client</includeArtifactIds>
+                            <outputDirectory>${teiid.staging.dir}/dataVirtualization/jdbc</outputDirectory>
+                        </configuration>
+                    </execution>
+
+                    <!-- Get Teiid Admin Shell -->
+                    <execution>
+                        <id>get-teiid-adminshell</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeClassifiers>adminshell-dist</includeClassifiers>
+                            <!-- Might have to be in the bundle -->
+                            <outputDirectory>${teiid.staging.dir}/dataVirtualization</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <!-- teiid-dashboard -->
+                    <execution>
+                        <id>get-teiid-dashboard</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeArtifactIds>teiid-dashboard-builder</includeArtifactIds>
+                            <excludeClassifiers>cli</excludeClassifiers>
+                            <outputDirectory>${teiid.staging.dir}/dataVirtualization/teiid-dashboard/teiid-dashboard-builder.war</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <!-- Teiid dashboard parent sources -->
+                    <execution>
+                        <id>get-teiid-dashboard-builder-cli</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeArtifactIds>teiid-dashboard-builder</includeArtifactIds>
+                            <includeClassifiers>cli</includeClassifiers>
+                            <outputDirectory>${teiid.bundle.staging.dir}/dashboard</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <!-- Teiid quickstarts -->
+                    <execution>
+                        <id>get-teiid-quickstarts</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>org.jboss.teiid.quickstart</includeGroupIds>
+                            <outputDirectory>${teiid.staging.dir}/quickstarts</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <!-- Teiid Extensions -->
+                    <execution>
+                        <id>get-teiid-extensions</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>org.jboss.teiid.extensions</includeGroupIds>
+                            <outputDirectory>${teiid.staging.dir}/extensions</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>dv-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <attach>true</attach>
+                            <descriptors>
+                                <descriptor>src/main/assembly/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,972 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- * JBoss, Home of Professional Open Source. * See the COPYRIGHT.txt file 
+	distributed with this work for information * regarding copyright ownership. 
+	Some portions may be licensed * to Red Hat, Inc. under one or more contributor 
+	license agreements. * * This library is free of the GNU Lesser General Public 
+	* License as published by the Free Software Foundation; either * version 
+	2.1 of the License, or (at your option) any later version. * * This library 
+	is distributed in the hope that it will be useful, * but WITHOUT ANY WARRANTY; 
+	without even the implied warranty of * MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+	PURPOSE. See the GNU * Lesser General Public License for more details. * 
+	* You should have received a copy of the GNU Lesser General Public * License 
+	along with this library; if not, write to the Free Software * Foundation, 
+	Inc., 51 Franklin Street, Fifth Floor, Boston, MA * 02110-1301 USA. */ -->
+	
+	<!DOCTYPE plugin [
+
+<!ENTITY managedObjectMetrics '
+    <metric property="runState" displayType="summary"
+            defaultOn="true" defaultInterval="30000" dataType="trait" category="performance"/>
+'>
+
+<!ENTITY translatorConfiguration '
+
+    <c:list-property name="translatorList" description="Properties for this translator"
+						readOnly="true">
+						<c:simple-property name="name" displayName="Name"
+							description="Name of the translator" />
+						<c:simple-property name="execution-factory-class" displayName="execution-factory-class"
+							description="Connector Class" />	
+						 <c:list-property name="translatorList" description="Properties for this translator" readOnly="true">
+						<c:map-property name="translator-properties" >
+							<c:simple-property name="name" displayName="Name"
+								description="Name of this property" readOnly="true" />
+							<c:simple-property name="value" displayName="Value"
+								description="Value of this property" />
+							<c:simple-property name="description" displayName="Description"
+								description="Description of this property" />
+						</c:map-property>						
+	</c:list-property>
+	
+'>			
+		
+<!ENTITY accessTranslatorConfiguration '
+	<resource-configuration>
+    <c:list-property name="translatorList" description="Properties for this translator"
+						readOnly="true">
+						<c:map-property name="translatorMap">
+							<c:simple-property name="name" displayName="Name"
+								description="Name of this property" readOnly="true" />
+							<c:simple-property name="value" displayName="Value"
+								description="Value of this property" readOnly="true" />
+							<c:simple-property name="description" displayName="Description"
+								description="Description of this property" readOnly="true" />
+						</c:map-property>
+	</c:list-property>
+	</resource-configuration>    
+    
+'>					
+
+
+]>
+
+<!-- ############################################# END OF XML ENTITIES ############################################### -->
+
+
+
+<plugin name="Teiid" displayName="Teiid Plugin" package="org.teiid.rhq.plugin"
+	version="3.1.0" description="Supports management and monitoring of JBoss Teiid"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:xmlns:rhq-plugin"
+	xmlns:c="urn:xmlns:rhq-configuration">
+
+	<depends plugin="JBossAS7" useClasses="true" />
+
+	<server name="Data Virtualization" description="Teiid Data Virtualization"
+		class="PlatformComponent" discovery="PlatformDiscoveryComponent"
+		singleton="true">
+
+		<runs-inside>
+			<parent-resource-type name="JBossAS7 Standalone Server"
+				plugin="JBossAS7" />
+		</runs-inside>
+
+		<operation name="list-long-running-requests" displayName="View current long running queries"
+			description="List current queries executing against the Teiid System that have surpassed the long running query threshhold">
+			<results>
+				<c:list-property name="list">
+					<c:map-property name="map">
+						<c:simple-property displayName="Request ID"
+							name="execution-id" type="string" description="The id for the request" />
+						<c:simple-property displayName="Session ID"
+							name="session-id" type="string" description="The session id the request is using" />
+						<c:simple-property displayName="SQL String"
+							name="command" type="string" description="The SQL string for this query" />
+						<c:simple-property displayName="Source Request"
+							name="source-request" type="string"
+							description="If false,this is the top level query. If true, this a physical source query." />
+						<c:simple-property displayName="Start Time"
+							name="start-time" type="string" description="The time this query began" />
+						<c:simple-property displayName="Transaction ID"
+							name="transaction-id" type="string"
+							description="The transaction XID if there is a transaction involved" />
+						<c:simple-property displayName="Node ID" name="node-id"
+							type="string" description="The node ID of this query" />
+					</c:map-property>
+				</c:list-property>
+			</results>
+		</operation>
+
+		<operation name="list-sessions" displayName="View current sessions"
+			description="Get current sessions connected to the Teiid instance">
+			<results>
+
+				<c:list-property name="list" displayName="Current Sessions"
+					description="Sessions currently connected to the Teiid system"
+					required="false">
+					<c:map-property name="map">
+						<c:simple-property displayName="Session ID"
+							name="session-id" type="string" description="The identifier for this session" />
+						<c:simple-property displayName="Application Name"
+							name="application-name" type="string"
+							description="The application associated with Session" />
+						<c:simple-property displayName="Created Time"
+							name="created-time" type="string" description="When the session was created" />
+						<c:simple-property displayName="Client Host"
+							name="client-host-address" type="string"
+							description="Host name from where the session created" />
+						<c:simple-property displayName="IP Address"
+							name="ip-address" type="string"
+							description="IP address from where this session was created" />
+						<c:simple-property displayName="Last ping time"
+							name="last-ping-time" type="string" description="Last ping time" />
+						<c:simple-property displayName="User Name" name="user-name"
+							type="string" description="User associated with this session" />
+						<c:simple-property displayName="VDB Name" name="vdb-name"
+							type="string" description="VDB associated with this session" />
+						<c:simple-property displayName="Security Domain"
+							name="security-domain" type="string"
+							description="Security Domain that session logged into" />
+					</c:map-property>
+				</c:list-property>
+			</results>
+		</operation>
+
+		<operation name="deployVdbByUrl" displayName="Deploy a VDB via URL"
+			description="Deploy a VDB using a URL">
+			<parameters>
+				<c:simple-property displayName="VDB URL" name="vdbUrl"
+					type="string" required="true"
+					description="The URL of the VDB's source file. Examples: http://{uri}/MyVDB-vdb.xml OR file:///{pathtovdb}/MyVDB-vdb.vdb" />
+				<c:simple-property displayName="VDB Name" name="vdb-name"
+					type="string" required="true" description="The deployment name of the VDB." />
+			</parameters>
+			<results>
+				<c:simple-property displayName="Result" name="operationResult"
+					type="string" description="Result of the VDB deployment." />
+			</results>
+		</operation>
+
+
+		<operation name="terminate-session" displayName="Terminate Session"
+			description="Terminate a specified session">
+			<parameters>
+				<c:simple-property displayName="Session ID" name="session-id"
+					type="string" required="true" description="The ID of the session to terminate" />
+			</parameters>
+		</operation>
+
+
+		<operation name="list-requests" displayName="View current Requests"
+			description="Get current requests executing against this Teiid instance">
+			<results>
+
+				<c:list-property name="list" displayName="Current Request"
+					description="Requests currently executing against the Teiid system"
+					required="false">
+					<c:map-property name="map">
+						<c:simple-property displayName="Request ID"
+							name="execution-id" type="string" description="The request identifier" />
+						<c:simple-property displayName="Session ID"
+							name="session-id" type="string" description="Session identifier" />
+						<c:simple-property displayName="Start Time"
+							name="start-time" type="string" description="Time when request submitted" />
+						<c:simple-property displayName="Command"
+							name="command" type="string" description="SQL Command" />
+						<c:simple-property displayName="Connector level request?"
+							name="source-request" type="string"
+							description="True if this is a connector level request" />
+						<c:simple-property displayName="Node ID" name="node-id"
+							type="string" description="The node identifier" />
+						<c:simple-property displayName="Transaction identifier"
+							name="transaction-id" type="string"
+							description="Transaction XID if a transaction is involved" />
+					</c:map-property>
+				</c:list-property>
+			</results>
+		</operation>
+
+		<operation name="cancel-request" displayName="Terminate Request"
+			description="Terminate the processing of a query and its source queries">
+			<parameters>
+				<c:simple-property displayName="Session ID" name="session-id"
+					type="string" required="true"
+					description="The ID of the session that the request to cancel is associated with" />
+				<c:simple-property displayName="Request ID" name="execution-id"
+					type="long" required="true" description="The ID of the request to cancel" />
+			</parameters>
+		</operation>
+
+		<operation name="list-transactions" displayName="View current transactions"
+			description="Get current transactions executing against this VDB">
+			<results>
+				<c:list-property name="list" displayName="Current Transactions"
+					description="Transactions currently executing against the Teiid system"
+					required="false">
+					<c:map-property name="map">
+						<c:simple-property displayName="Transaction ID"
+							name="transaction-id" type="string"
+							description="The Xid string for GLOBAL transactions or the Transaction id string LOCAL/REQUEST." />
+						<c:simple-property displayName="Session ID"
+							name="associated-session" type="string"
+							description="Get the session associated with the this transaction. May be null for an unassociated Global transaction." />
+						<c:simple-property displayName="Scope" name="scope"
+							type="string"
+							description="Get the scope for the transaction.  Will be one of GLOBAL, LOCAL, or REQUEST" />
+						<c:simple-property displayName="Created Time"
+							name="created-time" type="string" description="The local creation time." />
+					</c:map-property>
+				</c:list-property>
+			</results>
+		</operation>
+
+		<operation name="terminate-transaction" displayName="Terminate Transaction"
+			description="Terminate a specified transaction">
+			<parameters>
+				<c:simple-property displayName="Transaction ID"
+					name="transaction-id" type="string" required="true"
+					description="The ID of the transaction to terminate" />
+			</parameters>
+		</operation>
+
+		<metric displayName="Query Count" defaultOn="true" displayType="detail"
+			category="throughput" property="queryCount"
+			description="The number of queries currently active." />
+
+		<metric displayName="Long Running Queries" defaultOn="true"
+			displayType="detail" category="performance" property="longRunningQueries"
+			description="The number of queries that have been running longer than the limit set for queries." />
+
+		<metric displayName="Session Count" defaultOn="true"
+			displayType="detail" category="throughput" property="sessionCount"
+			description="The number of user connections currently active." />
+
+		<metric displayName="Prepared Plan Cache Hit Ratio %"
+			defaultOn="true" displayType="detail" category="performance"
+			property="PREPARED_PLAN_CACHE.hit-ratio" description="Percentage of positive cache hits" />
+
+		<metric displayName="Prepared Plan Cache Size" defaultOn="true"
+			displayType="detail" category="performance" property="PREPARED_PLAN_CACHE.total-entries"
+			description="Current number of entries in cache" />
+
+		<metric displayName="Prepared Plan Cache # of Requests"
+			defaultOn="true" displayType="detail" category="performance"
+			property="PREPARED_PLAN_CACHE.request-count" description="Total number of requests made against cache" />
+
+		<metric displayName="ResultSet Cache Hit Ratio %" defaultOn="true"
+			displayType="detail" category="performance"
+			property="QUERY_SERVICE_RESULT_SET_CACHE.hit-ratio" description="Percentage of positive cache hits" />
+
+		<metric displayName="ResultSet Cache Size" defaultOn="true"
+			displayType="detail" category="performance"
+			property="QUERY_SERVICE_RESULT_SET_CACHE.total-entries" description="Current number of entries in cache" />
+
+		<metric displayName="ResultSet Cache  # of Requests" defaultOn="true"
+			displayType="detail" category="performance"
+			property="QUERY_SERVICE_RESULT_SET_CACHE.request-count" description="Total number of requests made against cache" />
+
+		<metric displayName="Memory in Use (KB)" defaultOn="true"
+			displayType="detail" category="throughput"
+			property="ENGINE_STATISTIC.total-memory-inuse-kb" description="Current memory usage in kilobytes." />
+
+		<metric displayName="Active Plan Memory in Use (KB)" defaultOn="true"
+			displayType="detail" category="throughput"
+			property="ENGINE_STATISTIC.total-memory-inuse-kb" description="Active plan memory usage in kilobytes." />
+
+		<metric displayName="Buffer Manager Disk Write Count"
+			defaultOn="true" displayType="detail" category="throughput"
+			property="ENGINE_STATISTIC.buffermgr-disk-write-count" description="Disk write count for the buffer manager." />
+
+		<metric displayName="Buffer Manager Disk Read Count" defaultOn="true"
+			displayType="detail" category="throughput"
+			property="ENGINE_STATISTIC.buffermgr-disk-read-count" description="Disk read count for the buffer manager." />
+
+		<metric displayName="Buffer Manager Cache Write Count"
+			defaultOn="true" displayType="detail" category="throughput"
+			property="ENGINE_STATISTIC.buffermgr-cache-write-count" description="Cache write count for the buffer manager." />
+
+		<metric displayName="Buffer Manager Cache Read Count"
+			defaultOn="true" displayType="detail" category="throughput"
+			property="ENGINE_STATISTIC.buffermgr-cache-read-count" description="Cache read count for the buffer manager." />
+
+		<metric displayName="Used Buffer Space" defaultOn="true"
+			displayType="detail" category="throughput"
+			property="ENGINE_STATISTIC.buffermgr-diskspace-used-mb" description="The currently 
+			used file buffer space in MB." />
+
+		<metric displayName="Active Plan Count" defaultOn="true"
+			displayType="detail" category="throughput" property="ENGINE_STATISTIC.active-plans-count"
+			description="The current active plans count." />
+
+		<metric displayName="Waiting Plan Count" defaultOn="true"
+			displayType="detail" category="performance" property="ENGINE_STATISTIC.waiting-plans-count"
+			description="The current waiting plans count." />
+
+		<metric displayName="Waiting Plans Watermark" defaultOn="true"
+			displayType="detail" category="performance"
+			property="ENGINE_STATISTIC.max-waitplan-watermark" description="The high watermark for number of waiting plans." />
+
+
+		<resource-configuration>
+			<c:group name="SessionSettings"
+				displayName="Settings for the Data Virtualilzation plugin. Will be reset with a server restart."
+				hiddenByDefault="false">
+				<c:simple-property name="displayPreviewVDBS"
+					displayName="Display Preview VDBs"
+					description="If 'Yes', Preview VDBs (created by the Teiid Designer) 
+				will display in the Virtual Database resource grouping. The default is 'No'"
+					required="false" readOnly="false" type="boolean" default="true" />
+			</c:group>
+
+			<c:group name="RuntimeEngineDeployer"
+				displayName="Runtime Engine Properties (restart required before modifications take effect)"
+				hiddenByDefault="false">
+				<c:simple-property name="allow-env-function"
+					displayName="Allow ENV Function" description="Allow the execution of ENV function (default false)."
+					required="false" type="boolean" default="false" readOnly="false" />
+				<c:simple-property name="async-thread-pool"
+					displayName="Asynchronous Thread Pool"
+					description="Thread Pool to be used with Asynchronous operations in Teiid"
+					required="false" readOnly="false" />
+				<c:simple-property name="query-timeout"
+					displayName="Query Timeout"
+					description="Set the default query timeout for all queries in milliseconds. 0 indicates no timeout.  Lesser timeout values may be set per VDB or by clients (default 0)."
+					required="false" readOnly="false" />
+				<c:simple-property name="max-row-fetch-size"
+					displayName="Max Rows Fetch Size"
+					description="Maximum allowed fetch size, set via JDBC. User requested value ignored above this value (default 20480)."
+					required="false" readOnly="false" />
+				<c:simple-property name="max-threads" displayName="Max Threads"
+					description="Process pool maximum thread count. (default 64)"
+					required="false" readOnly="false" />
+				<c:simple-property name="max-active-plans"
+					displayName="Maximum Concurrent Active plans"
+					description="Increase this value on highly concurrent systems - but ensure that the underlying pools can handle the increased load without timeouts.(default 20)"
+					required="false" readOnly="false" />
+				<c:simple-property name="time-slice-in-millseconds"
+					displayName="Time Slice In Milliseconds"
+					description="Query processor time slice, in milliseconds. (default 2000)"
+					required="false" readOnly="false" />
+				<c:simple-property name="lob-chunk-size-in-kb"
+					displayName="Lob Chunk Size In KB"
+					description="The max lob chunk size in KB transferred to the client for xml, blobs, clobs (default 100KB)"
+					required="false" readOnly="false" />
+				<c:simple-property name="query-threshold-in-seconds"
+					displayName="Long Running Query Threshold"
+					description="Length of time in seconds before a query is considered long running"
+					required="false" readOnly="false" />
+				<c:simple-property name="detect-change-events"
+					displayName="Detect Change Events"
+					description="Set to true for the engine to detect local change events. Should be disabled if using external change data capture tools. (default true)"
+					required="false" type="boolean" default="true" readOnly="false" />
+			</c:group>
+
+			<c:group name="ResultSetCacheConfig" displayName="ResultSet Cache Properties"
+				hiddenByDefault="false">
+				<!-- the below property on RuntimeEngineDeployer -->
+				<c:simple-property name="resultset-cache-enable"
+					displayName="Enabled"
+					description="Denotes whether or not result set caching is enabled (default true)."
+					required="false" readOnly="false" type="boolean" default="true" />
+				<c:simple-property name="resultset-cache-infinispan-container"
+					displayName="Infinispan Container" description="Infinispan cache container name"
+					required="false" readOnly="false" />
+				<c:simple-property name="resultset-cache-name"
+					displayName="Infinispan Cache Name"
+					description="Infinispan cache name for resultset; if not specified default cache on infinispan container is used."
+					required="false" readOnly="false" />
+				<c:simple-property name="resultset-cache-max-staleness"
+					displayName="Max Entry Staleness"
+					description="Max staleness in seconds. Modifications are based upon data updates -1 indicates no max (default 60)."
+					required="false" type="integer" default="60" readOnly="false" />
+			</c:group>
+
+			<c:group name="PreparedPlanCacheConfig" displayName="Prepared Plan Cache Properties"
+				hiddenByDefault="false">
+				<c:simple-property name="preparedplan-cache-enable"
+					displayName="Prepared Plan Cache Enabled" description="Prepared Plan cache enabled (default true)"
+					required="false" readOnly="false" type="boolean" default="true" />
+				<c:simple-property name="preparedplan-cache-infinispan-container"
+					displayName="Infinispan Container" description="Infinispan cache container name."
+					required="false" readOnly="false" />
+				<c:simple-property name="preparedplan-cache-name"
+					displayName="Infinispan Cache Name" description="Infinispan cache name for prepared plans"
+					required="false" readOnly="false" />
+			</c:group>
+			<c:group name="BufferService" displayName="Buffer Service Properties"
+				hiddenByDefault="false">
+				<c:simple-property name="buffer-service-use-disk"
+					displayName="Use Disk" description="Use disk for buffer management"
+					required="false" type="boolean" default="true" readOnly="false" />
+				<c:simple-property name="buffer-service-max-buffer-space"
+					displayName="Max Buffer Space"
+					description="Max file storage space, in MB, to be used for buffer files (default 50G)."
+					required="false" default="50G" readOnly="false" />
+				<c:simple-property name="buffer-service-processor-batch-size"
+					displayName="Processor Batch Size"
+					description="The max row count of a batch sent internally within the query processor. Should be &lt;= the connectorBatchSize (default 512)."
+					required="false" default="512" readOnly="false" />
+				<c:simple-property name="buffer-service-connector-batch-size"
+					displayName="Connector Batch Size"
+					description="The max row count of a batch from a connector. Should be even multiple of processorBatchSize. (default 1024)"
+					required="false" readOnly="false" />
+				<c:simple-property name="buffer-service-max-processing-kb"
+					displayName="Max Processing Memory"
+					description="The approximate amount of buffer memory in kilobytes allowable for a single processing operation (sort, grouping, etc.) regardless of existing memory commitments. -1 means to automatically calculate a value (default -1)."
+					required="false" default="-1" readOnly="false" />
+				<c:simple-property name="buffer-service-max-file-size"
+					displayName="Max File Size" description="Max file size for buffer files (default 2GB)"
+					required="false" readOnly="false" />
+				<c:simple-property name="buffer-service-max-open-files"
+					displayName="Max Open Files" description="Max open buffer files (default 64)"
+					required="false" readOnly="false" />
+				<c:simple-property name="buffer-service-max-reserve-kb"
+					displayName="Max Reserve Memory"
+					description="The approximate amount of memory in kilobytes allowed to be held by the buffer manager. -1 means to automatically calculate a value (default -1)."
+					required="false" readOnly="false" />
+				<c:simple-property name="buffer-service-memory-buffer-space"
+					displayName="Memory Buffer Space"
+					description="Memory buffer space used by the buffer manager in MB.  -1 determines the setting automatically from the max-reserve-kb (default -1). This value cannot be smaller than max-storage-object-size."
+					required="false" readOnly="false" />
+				<c:simple-property name="buffer-service-memory-buffer-off-heap"
+					displayName="Memory Buffer Off Heap"
+					description="Set to true to hold the memory buffer off-heap. If true you must ensure that the VM can allocate that much direct memory (default false)."
+					required="false" type="boolean" default="true" readOnly="false" />
+				<c:simple-property name="buffer-service-max-storage-object-size"
+					displayName="Memory Buffer Off Heap"
+					description="The maximum size of a buffer managed object (typically a table page or a results batch) in bytes (default 8388608 or 8MB). Setting this value too high will reduce the effectiveness of the memory buffer."
+					required="false" readOnly="false" />
+				<c:simple-property name="buffer-service-inline-lobs"
+					displayName="Inline LOBs"
+					description="Set to true to allow inlining of memory based and small lobs into results. However inline lob values are not supported by pre-7.6 clients, so disable this property if using older clients utilizing lobs (default true)."
+					required="false" type="boolean" default="true" readOnly="false" />
+			</c:group>
+
+			<c:group name="JDBCTransportConfiguration" displayName="JDBC Transport Configuration Properties"
+				hiddenByDefault="false">
+				<c:simple-property name="JDBCTransportConfiguration.protocol"
+					default="teiid" displayName="Protocol"
+					description="Transport protocol (allowed=teiid, pg)" required="false"
+					readOnly="false">
+					<c:property-options>
+						<c:option value="teiid" name="Teiid" />
+						<c:option value="pg" name="PostgreSQL" />
+					</c:property-options>
+				</c:simple-property>
+				<c:simple-property
+					name="JDBCTransportConfiguration.pg-max-lob-size-in-bytes"
+					displayName="Postgres Max LOB Size in Bytes"
+					description="Max LOB size in Postgres protocol, as streaming is not supported"
+					required="false" readOnly="false" type="integer" />
+				<c:simple-property name="JDBCTransportConfiguration.socket-binding"
+					displayName="Socket Binding" description="Socket binding to be used for the transport"
+					required="false" readOnly="false" />
+				<c:simple-property name="JDBCTransportConfiguration.max-socket-threads"
+					displayName="Max Socket Threads"
+					description="Max number of threads dedicated to initial request processing. Zero indicates the system default of max available processors. (default 0)  Setting this value above the max available processors is not recommended."
+					required="false" readOnly="false" type="integer" />
+				<c:simple-property name="JDBCTransportConfiguration.input-buffer-size"
+					displayName="Input Buffer Size"
+					description="SO_RCVBUF size, 0 indicates that system default should be used (default 0)"
+					required="false" readOnly="false" />
+				<c:simple-property name="JDBCTransportConfiguration.output-buffer-size"
+					displayName="Output Buffer Size"
+					description="SO_SNDBUF size, 0 indicates that system default should be used (default 0)"
+					required="false" readOnly="false" />
+				<!-- SSL start -->
+				<c:simple-property name="JDBCTransportConfiguration.ssl-mode"
+					displayName="SSL Mode"
+					description="Can be one of disabled, login, or enabled. Disabled = no transport or message level security will be used; Enabled = traffic will be secured using this configuration, if the client supports SSL; Login = only the login traffic will be encrypted at a message level using 128 bit AES with an ephemerial DH key exchange. No other config values are needed in this mode and it only applies to the JDBC transport"
+					required="false" readOnly="false" default="disabled">
+					<c:property-options>
+						<c:option value="disabled" name="Disabled" />
+						<c:option value="enabled" name="Enabled" />
+						<c:option value="login" name="Login" />
+					</c:property-options>
+				</c:simple-property>
+				<c:simple-property
+					name="JDBCTransportConfiguration.ssl-authentication-mode"
+					displayName="SSL Authentication Mode" description="Authentication Mode (1-way, 2-way, anonymous)"
+					required="false" readOnly="false" default="1-way">
+					<c:property-options>
+						<c:option value="1-way" name="1-way" />
+						<c:option value="2-way" name="2-way" />
+						<c:option value="anonymous" name="Anonymous" />
+					</c:property-options>
+				</c:simple-property>
+				<c:simple-property name="JDBCTransportConfiguration.ssl-ssl-protocol"
+					displayName="SSL Protocol" description="SSL protocol for this transport."
+					required="false" readOnly="false" />
+				<!-- SSL end -->
+				<!-- Security start -->
+				<c:simple-property
+					name="JDBCTransportConfiguration.authentication-security-domain"
+					displayName="Security Domain" description="Security domain to be enforced with the transport"
+					required="false" readOnly="false" />
+				<c:simple-property
+					name="JDBCTransportConfiguration.authentication-max-sessions-allowed"
+					displayName="Max Sessions Allowed"
+					description="Maximum number of sessions allowed by the system (default 5000)."
+					required="false" readOnly="false" type="integer" default="5000" />
+				<c:simple-property
+					name="JDBCTransportConfiguration.authentication-sessions-expiration-timelimit"
+					displayName="Session Expiration Timelimit"
+					description="Max allowed time before the session is terminated by the system, 0 indicates unlimited (default 0)."
+					required="false" readOnly="false" type="integer" default="0" />
+				<c:simple-property name="JDBCTransportConfiguration.keystore-type"
+					displayName="Keystore Type" description="Keystore type." required="false"
+					readOnly="false" />
+				<!-- Security end -->
+			</c:group>
+			<c:group name="ODBCTransportConfiguration" displayName="ODBC Transport Configuration Properties"
+				hiddenByDefault="false">
+				<c:simple-property name="ODBCTransportConfiguration.protocol"
+					displayName="Protocol" description="Transport protocol (allowed=teiid, pg)"
+					required="false" readOnly="false" default="teiid">
+					<c:property-options>
+						<c:option value="teiid" name="Teiid" />
+						<c:option value="pg" name="Postgres" />
+					</c:property-options>
+				</c:simple-property>
+				<c:simple-property
+					name="ODBCTransportConfiguration.pg-max-lob-size-in-bytes"
+					displayName="Postgres Max LOB Size in Bytes"
+					description="Max LOB size in Postgres protocol, as streaming is not supported"
+					required="false" readOnly="false" type="integer" />
+				<c:simple-property name="ODBCTransportConfiguration.socket-binding"
+					displayName="Socket Binding" description="Socket binding to be used for the transport"
+					required="false" readOnly="false" />
+				<c:simple-property name="ODBCTransportConfiguration.max-socket-threads"
+					displayName="Max Socket Threads"
+					description="Max number of threads dedicated to initial request processing. Zero indicates the system default of max available processors. (default 0)  Setting this value above the max available processors is not recommended."
+					required="false" readOnly="false" type="integer" />
+				<c:simple-property name="ODBCTransportConfiguration.input-buffer-size"
+					displayName="Input Buffer Size"
+					description="SO_RCVBUF size, 0 indicates that system default should be used (default 0)"
+					required="false" readOnly="false" />
+				<c:simple-property name="ODBCTransportConfiguration.output-buffer-size"
+					displayName="Output Buffer Size"
+					description="SO_SNDBUF size, 0 indicates that system default should be used (default 0)"
+					required="false" readOnly="false" />
+				<!-- SSL start -->
+				<c:simple-property name="ODBCTransportConfiguration.ssl-mode"
+					displayName="SSL Mode" default="disabled"
+					description="Can be one of disabled, login, or enabled. Disabled = no transport or message level security will be used; Enabled = traffic will be secured using this configuration, if the client supports SSL; Login = only the login traffic will be encrypted at a message level using 128 bit AES with an ephemerial DH key exchange. No other config values are needed in this mode and it only applies to the JDBC transport"
+					required="false" readOnly="false">
+					<c:property-options>
+						<c:option value="disabled" name="Disabled" />
+						<c:option value="enabled" name="Enabled" />
+						<c:option value="login" name="Login" />
+					</c:property-options>
+				</c:simple-property>
+				<c:simple-property
+					name="ODBCTransportConfiguration.ssl-authentication-mode"
+					displayName="SSL Authentication Mode" default="1-way"
+					description="Authentication Mode (1-way, 2-way, anonymous)"
+					required="false" readOnly="false">
+					<c:property-options>
+						<c:option value="1-way" name="1-way" />
+						<c:option value="2-way" name="2-way" />
+						<c:option value="anonymous" name="Anonymous" />
+					</c:property-options>
+				</c:simple-property>
+				<c:simple-property name="ODBCTransportConfiguration.ssl-ssl-protocol"
+					displayName="SSL Protocol" description="SSL protocol for this transport."
+					required="false" readOnly="false" />
+				<!-- SSL end -->
+				<!-- Security start -->
+				<c:simple-property
+					name="ODBCTransportConfiguration.authentication-security-domain"
+					displayName="Security Domain" description="Security domain to be enforced with the transport"
+					required="false" readOnly="false" />
+				<c:simple-property
+					name="ODBCTransportConfiguration.authentication-max-sessions-allowed"
+					displayName="Max Sessions Allowed"
+					description="Maximum number of sessions allowed by the system (default 5000)."
+					required="false" readOnly="false" type="integer" default="5000" />
+				<c:simple-property
+					name="ODBCTransportConfiguration.authentication-sessions-expiration-timelimit"
+					displayName="Session Expiration Timelimit"
+					description="Max allowed time before the session is terminated by the system, 0 indicates unlimited (default 0)."
+					required="false" readOnly="false" type="integer" default="0" />
+				<c:simple-property name="ODBCTransportConfiguration.keystore-type"
+					displayName="Keystore Type" description="Keystore type." required="false"
+					readOnly="false" />
+				<!-- Security end -->
+			</c:group>
+		</resource-configuration>
+
+		<service name="Virtual Database (VDB)s" description="Teiid Data Virtualization Virtual Databases"
+			class="VDBComponent" discovery="VDBDiscoveryComponent">
+
+			<operation name="getSessions" displayName="View VDB Sessions"
+				description="Get current sessions currently connected to this VDB">
+				<results>
+
+					<c:list-property name="list" displayName="Current VDB Sessions"
+						description="Sessions currently connected to this VDB" required="false">
+						<c:map-property name="map">
+							<c:simple-property displayName="Session ID"
+								name="session-id" type="string" description="The identifier for this session" />
+							<c:simple-property displayName="Application Name"
+								name="application-name" type="string"
+								description="The application associated with Session" />
+							<c:simple-property displayName="Created Time"
+								name="created-time" type="string" description="When the session was created" />
+							<c:simple-property displayName="Client Host"
+								name="client-host-address" type="string"
+								description="Host name from where the session created" />
+							<c:simple-property displayName="IP Address"
+								name="ip-address" type="string"
+								description="IP address from where this session was created" />
+							<c:simple-property displayName="Last ping time"
+								name="last-ping-time" type="string" description="Last ping time" />
+							<c:simple-property displayName="User Name"
+								name="user-name" type="string" description="User associated with this session" />
+							<c:simple-property displayName="Security Domain"
+								name="security-domain" type="string"
+								description="Security Domain that session logged into" />
+						</c:map-property>
+					</c:list-property>
+				</results>
+			</operation>
+
+			<operation name="list-requests-per-vdb" displayName="View VDB requests"
+				description="Get current requests executing against this VDB">
+				<results>
+
+					<c:list-property name="list" displayName="Current Request"
+						description="Requests currently executing against the Teiid system"
+						required="false">
+						<c:map-property name="map">
+							<c:simple-property displayName="Request ID"
+								name="execution-id" type="string" description="The request identifier" />
+							<c:simple-property displayName="Session ID"
+								name="session-id" type="string" description="Session identifier" />
+							<c:simple-property displayName="Start Time"
+								name="start-time" type="string" description="Time when request submitted" />
+							<c:simple-property displayName="Command"
+								name="command" type="string" description="SQL Command" />
+							<c:simple-property displayName="Connector level request?"
+								name="source-request" type="string"
+								description="True if this is a connector level request" />
+							<c:simple-property displayName="Node ID" name="node-id"
+								type="string" description="The node identifier" />
+							<c:simple-property displayName="Transaction identifier"
+								name="transaction-id" type="string"
+								description="Transaction XID if a transaction is involved" />
+						</c:map-property>
+					</c:list-property>
+				</results>
+			</operation>
+
+			<operation name="getMaterializedViews" displayName="List Materialized View Info"
+				description="List any Materialized Views for this VDB">
+
+				<results>
+
+					<c:list-property name="list" displayName="Materialized Views"
+						description="List information related to Materialized Views, if any, for this VDB"
+						required="false">
+						<c:map-property name="map">
+							<c:simple-property displayName="Schema Name"
+								name="schemaName" type="string" description="Name of the schema that is materialized" />
+							<c:simple-property displayName="Name" name="name"
+								type="string" description="Name of the materialized table" />
+							<c:simple-property displayName="Target Schema Name"
+								name="targetSchemaName" type="string" description="Name of the materialized schema" />
+							<c:simple-property displayName="Target Name"
+								name="targetName" type="string" description="Name of target table" />
+							<c:simple-property displayName="Valid" name="valid"
+								type="string" description="Indicates if data in table is valid for use" />
+							<c:simple-property displayName="Current State"
+								name="loadState" type="string" description="Processing time for the request" />
+							<c:simple-property displayName="Last Updated"
+								name="updated" type="integer" description="Last time of data refresh" />
+							<c:simple-property displayName="Cardinality"
+								name="cardinality" type="integer" description="Row count" />
+						</c:map-property>
+					</c:list-property>
+				</results>
+			</operation>
+
+			<operation name="reloadMaterializedView" displayName="Refresh a Materialized View"
+				description="Refresh a given Materialized View for this VDB">
+				<parameters>
+					<c:simple-property displayName="Materialized View Schema"
+						name="schema" type="string" required="true"
+						description="The schema name of the Materialized View to refresh" />
+					<c:simple-property displayName="Materialized View Name"
+						name="table" type="string" required="true"
+						description="The name of the Materialized View to refresh" />
+					<c:simple-property displayName="Invalidate Current Materialized View Table"
+						name="invalidate" type="boolean" required="true" default="false"
+						description="If yes, will block all queries against the current Materialized View table until data is refreshed." />
+				</parameters>
+
+				<results>
+					<c:simple-property displayName="Result" name="operationResult"
+						type="string" description="Result of refresh" />
+				</results>
+			</operation>
+
+			<operation name="clearCache" displayName="Clear Cache"
+				description="Clears the cache for a given type for this VDB">
+				<parameters>
+					<c:simple-property displayName="Cache Type" name="cacheType"
+						type="string" required="true" description="The cache type to clear"
+						default="QUERY_SERVICE_RESULT_SET_CACHE">
+						<c:property-options>
+							<c:option value="QUERY_SERVICE_RESULT_SET_CACHE" name="Result Set" />
+							<c:option value="PREPARED_PLAN_CACHE" name="Prepared Plan" />
+						</c:property-options>
+					</c:simple-property>
+				</parameters>
+
+				<results>
+					<c:simple-property displayName="Result" name="operationResult"
+						type="string" description="Result of clear cache" />
+				</results>
+			</operation>
+
+			<metric displayName="Status" defaultOn="true" dataType="trait"
+				displayType="summary" category="availability" property="status"
+				description="The status of this VDB" />
+
+			<metric displayName="Errors" defaultOn="true" dataType="trait"
+				displayType="summary" category="availability" property="errorCount"
+				description="Whether or not errors exist for this VDB" />
+
+			<metric displayName="Query Count" defaultOn="true"
+				displayType="detail" category="throughput" property="queryCount"
+				description="The number of queries currently active." />
+
+			<metric displayName="Long Running Queries" defaultOn="true"
+				displayType="detail" category="performance" property="longRunningQueries"
+				description="The number of queries that have been running longer than the limit set for queries." />
+
+			<metric displayName="Session Count" defaultOn="true"
+				displayType="detail" category="throughput" property="sessionCount"
+				description="The number of user connections currently active." />
+
+			<resource-configuration>
+				<c:group name="general" displayName="General"
+					hiddenByDefault="false">
+					<c:simple-property name="name" type="string"
+						description="The Virtual Database Name" required="false" readOnly="true" />
+					<c:simple-property name="version" type="string"
+						description="The Virtual Database Version" required="false"
+						readOnly="true" />
+					<c:simple-property name="description" type="string"
+						description="The Virtual Database Description" required="false"
+						readOnly="true" />
+					<c:simple-property name="status" type="string"
+						description="The Virtual Database Status" required="false"
+						summary="true" readOnly="true" />
+					<c:simple-property name="dynamic" type="boolean"
+						description="True if this ia a dynamic Virtual Database" required="false"
+						summary="true" readOnly="true" default="INACTIVE">
+						<c:property-options>
+							<c:option value="ACTIVE" name="UP" />
+							<c:option value="INACTIVE" name="DOWN" />
+						</c:property-options>
+					</c:simple-property>
+					<c:simple-property name="connectionType" type="string"
+						description="Allowable Connections: 1) NONE - disallow new connections 2) BY VERSION - allow connections only if the version is specified or if this is the earliest 'BY VERSION' vdb and there are no vdbs marked as 'ANY' 
+3) ANY - allow connections with or without a version specified. If multiple versions of same VDB are deployed, connect to one specified with ANY, or if there are multiple VDBs with ANY then connect to the latest version with ANY "
+						required="false" default="BY_VERSION">
+						<c:property-options>
+							<c:option value="NONE" name="NONE" />
+							<c:option value="BY_VERSION" name="BY VERSION" />
+							<c:option value="ANY" name="ANY" />
+						</c:property-options>
+					</c:simple-property>
+				</c:group>
+				<c:group name="Translators" displayName="Translators"
+					hiddenByDefault="false">
+					<c:list-property name="translators" displayName="Overrides"
+						readOnly="true" description="The translator overrides for this VDB">
+						<c:map-property name="map"
+							description="Translator Overrides for this VDB">
+							<c:simple-property name="name" displayName="Name"
+								description="Name of this translator instance" required="false"
+								readOnly="true" />
+							<c:simple-property name="type" displayName="Translator type"
+								description="Translator type" required="false" readOnly="true" />
+							<c:simple-property name="moduleName"
+								displayName="Module Name" description="Module Name" required="false"
+								readOnly="true" />
+							<c:simple-property name="propertyName"
+								displayName="Property Name" description="Property Name"
+								required="false" readOnly="true" />
+							<c:simple-property name="propertyValue"
+								displayName="Property Value" description="Property Value"
+								required="false" readOnly="true" />
+						</c:map-property>
+					</c:list-property>
+				</c:group>
+				<c:group name="Models" displayName="Models" hiddenByDefault="false">
+					<c:list-property name="singleSourceModels"
+						readOnly="true" description="The source models for this VDB">
+						<c:map-property name="map" description="Properties for this model">
+							<c:simple-property name="name" displayName="Name"
+								description="Name of the model" required="true" readOnly="true" />
+							<c:simple-property name="sourceName"
+								displayName="Source Name" description="Source name for this model"
+								required="true" readOnly="false" />
+							<c:simple-property name="translatorName"
+								displayName="Translator Name" description="Name of the translator"
+								required="true" readOnly="false" />
+							<c:simple-property name="jndiName" displayName="Connection JNDI Name"
+								description="JNDI name for this connection" required="true"
+								readOnly="false" />
+							<c:simple-property name="visibility"
+								displayName="Visible" description="Visibility of the model"
+								required="true" type="boolean" readOnly="true">
+							</c:simple-property>
+							<c:simple-property name="supportsMultiSource"
+								displayName="Supports Multi-source?"
+								description="Determines if this model supports multi-source bindings"
+								required="true" default="true" type="boolean" readOnly="true" />
+						</c:map-property>
+					</c:list-property>
+
+					<c:list-property name="multiSourceModels" readOnly="true"
+						description="The multi-source model sources for this VDB">
+						<c:map-property name="map" readOnly="false">
+							<c:simple-property name="name" displayName="Name"
+								description="Name of the model" required="false" readOnly="true" />
+							<c:simple-property name="sourceName"
+								displayName="Source Name" description="Source name for this model"
+								readOnly="false" />
+							<c:simple-property name="translatorName"
+								displayName="Translator Name" description="Name of the translator"
+								readOnly="false" />
+							<c:simple-property name="jndiName" displayName="Connection JNDI Name"
+								description="JNDI name for this connection" required="false" />
+						</c:map-property>
+					</c:list-property>
+
+					<c:list-property name="logicalModels" readOnly="true"
+						description="The logical models for this VDB">
+						<c:map-property name="map">
+							<c:simple-property name="name" displayName="Name"
+								description="Name of the model" required="true" readOnly="true" />
+							<c:simple-property name="type" displayName="Type"
+								description="type of logical model" required="true" readOnly="true" />
+							<c:simple-property name="visibility"
+								displayName="Visible" description="Visbility of the model"
+								required="true" default="true" readOnly="true" />
+						</c:map-property>
+					</c:list-property>
+				</c:group>
+				<c:group name="errors" displayName="Errors" hiddenByDefault="false">
+					<c:list-property name="errorList" description="VDB Errors"
+						summary="true" readOnly="true">
+						<c:map-property name="errorMap" summary="true">
+							<c:simple-property name="severity" displayName="Severity"
+								description="Severity" readOnly="true" summary="true" />
+							<c:simple-property name="message" displayName="Message"
+								description="Error message" readOnly="true" summary="true" />
+						</c:map-property>
+					</c:list-property>
+				</c:group>
+			</resource-configuration>
+
+			<service name="Data Roles" description="Data Roles for this VDB"
+				class="DataRoleComponent" discovery="DataRoleDiscoveryComponent"
+				createDeletePolicy="neither" creationDataType="configuration">
+
+				<resource-configuration>
+					<c:group name="general" displayName="General"
+						hiddenByDefault="false">
+						<c:simple-property name="name" displayName="Name"
+							description="Name of the data role" readOnly="true" required="false" />
+						<c:simple-property name="description"
+							displayName="Description" type="string" description="Description of this data role"
+							readOnly="true" required="false" />
+						<c:simple-property name="anyAuthenticated"
+							displayName="Any Authenticated" type="boolean"
+							description="Indicates if the role is mapped to any authenticated user"
+							readOnly="false" required="false" />
+						<c:simple-property name="allowCreateTempTables"
+							displayName="Allow Temp Table Creation" type="boolean"
+							description="Indicates if the role allows the creation of temporary tables"
+							readOnly="true" required="false" />
+					</c:group>
+					<c:group name="dataPermissions" displayName="Data Permissions"
+						hiddenByDefault="false">
+						<c:list-property name="dataPermissionsList"
+							readOnly="true" required="false" displayName="Data Permissions"
+							description="Data permissions for this data role">
+							<c:map-property name="map" readOnly="false">
+								<c:simple-property name="resourceName"
+									displayName="Resource Name" description="Name of the resource"
+									readOnly="true" />
+								<c:simple-property name="allowCreate"
+									displayName="Allow Create" description="True if create is allowed"
+									type="boolean" readOnly="true" />
+								<c:simple-property name="allowUpdate"
+									displayName="Allow Update" description="True if update is allowed"
+									type="boolean" readOnly="true" />
+								<c:simple-property name="allowRead"
+									displayName="Allow Read" description="True if read is allowed"
+									type="boolean" readOnly="true" />
+							</c:map-property>
+						</c:list-property>
+					</c:group>
+					<c:group name="mappedRole" displayName="Mapped Roles"
+						hiddenByDefault="false">
+						<c:list-property name="mappedRoleNameList"
+							readOnly="false" required="false" displayName="Mapped Role Names"
+							description="Mapped role names for this data role">
+							<c:simple-property name="name" displayName="Name"
+								description="Name of this mapped role" readOnly="true" />
+						</c:list-property>
+					</c:group>
+				</resource-configuration>
+
+			</service>
+
+		</service>
+
+		<service name="Translators" description="Teiid Translators"
+			class="TranslatorComponent" discovery="TranslatorDiscoveryComponent"
+			createDeletePolicy="neither" creationDataType="configuration">
+
+			<resource-configuration>
+				<c:simple-property name="name" displayName="Name"
+					description="Name of the translator" readOnly="true" required="false" />
+				<c:simple-property name="moduleName" displayName="Module Name"
+					description="Name of the module used by the translator" readOnly="true"
+					required="false" />
+				<c:simple-property name="description" displayName="Description"
+					description="Description the translator" readOnly="true" required="false" />
+
+				<c:list-property name="translatorList" readOnly="true"
+					required="false" displayName="Properties" description="Translator properties">
+					<c:map-property name="properties" readOnly="true">
+						<c:simple-property name="name" displayName="Name"
+							description="Name of this property" readOnly="true" />
+						<c:simple-property name="value" displayName="Value"
+							description="Value of this property" readOnly="true" />
+					</c:map-property>
+				</c:list-property>
+
+			</resource-configuration>
+
+		</service>
+
+	</server>
+
+</plugin>

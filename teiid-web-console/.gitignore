@@ -1,0 +1,20 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.iml
+
+app/overlays
+gui/target
+.project
+.classpath
+.settings
+.idea
+dist/target
+app/target
+app/overlays
+app/war
+app/gwt-unitCache
+target

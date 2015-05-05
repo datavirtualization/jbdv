@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>org.modeshape</groupId>
+        <artifactId>modeshape-rhq-parent</artifactId>
+        <version>3.8.1.GA</version>
+        <relativePath>../modeshape-rhq-parent/pom.xml</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>modeshape-rhq-plugin</artifactId>
+    <name>ModeShape RHQ Plugin</name>
+    <description>This project is for the RHQ plugin that supports the ModeShape RHQ Plugin</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.rhq</groupId>
+            <artifactId>rhq-core-domain</artifactId>
+            <scope>provided</scope>
+            <!-- provided by the agent/plugin-container -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.rhq</groupId>
+            <artifactId>rhq-core-plugin-api</artifactId>
+            <scope>provided</scope>
+            <!-- provided by the agent/plugin-container -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.rhq</groupId>
+            <artifactId>rhq-core-native-system</artifactId>
+            <scope>provided</scope>
+            <!-- provided by the agent/plugin-container -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.rhq</groupId>
+            <artifactId>rhq-jmx-plugin</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.rhq</groupId>
+            <artifactId>rhq-core-util</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.rhq</groupId>
+            <artifactId>rhq-jboss-as-7-plugin</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jboss.jboss-embeddable-ejb3</groupId>
+            <artifactId>hibernate-all</artifactId>
+        </dependency>
+
+        <!--
+          Java Content Repository
+        -->
+        <dependency>
+            <groupId>javax.jcr</groupId>
+            <artifactId>jcr</artifactId>
+        </dependency>
+
+        <!--
+          ModeShape
+        -->
+        <dependency>
+            <groupId>org.modeshape</groupId>
+            <artifactId>modeshape-jcr-api</artifactId>
+        </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <outputDirectory>target/classes</outputDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <pluginManagement>
+            <plugins>
+                <!-- Removes invalid problem marker in Eclipse -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>${eclipse.m2e.version}</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-dependency-plugin</artifactId>
+                                        <versionRange>[1.0.0,)</versionRange>
+                                        <goals>
+                                            <goal>get</goal>
+                                            <goal>copy</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore/>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <!-- Download the ModeShape jar from repo -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven.dependency.version}</version>
+                <executions>
+                    <execution>
+                        <id>get-jcr</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>get</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>javax.jcr</groupId>
+                            <artifactId>jcr</artifactId>
+                            <version>${jcr.version}</version>
+                            <destination>${project.build.directory}/classes/lib/jcr-${jcr.version}.jar</destination>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>get-modeshape-jcr-api</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>get</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>org.modeshape</groupId>
+                            <artifactId>modeshape-jcr-api</artifactId>
+                            <version>${modeshape.version}</version>
+                            <destination>${project.build.directory}/classes/lib/modeshape-jcr-api.jar</destination>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--
+                        <plugin>
+                            <groupId>org.rhq</groupId>
+                            <artifactId>rhq-core-plugin-validator</artifactId>
+                        </plugin> -->
+        </plugins>
+
+    </build>
+
+</project>
